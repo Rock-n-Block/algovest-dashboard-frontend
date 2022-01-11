@@ -63,6 +63,11 @@
     }
   }
 
+  &.green {
+    background: $btn-bg-green;
+    color: $btn-color-green;
+  }
+
   &.disabled {
   }
   &:focus {

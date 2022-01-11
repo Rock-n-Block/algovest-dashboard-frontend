@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { App } from './App';
 
+import 'rc-tooltip/assets/bootstrap.css';
 import 'styles/index.scss';
 
 const root = document.getElementById('root');

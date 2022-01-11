@@ -1,0 +1,47 @@
+@import 'styles/mixins';
+
+.stats {
+  &__overview {
+    margin-bottom: 30px;
+    @include flex(row, flex-end, space-between);
+    &__title {
+      margin-bottom: 4px;
+    }
+  }
+  &__info {
+    max-width: 55%;
+    &__title {
+      margin-bottom: 30px;
+    }
+    &__item {
+      @include flex(row, center, space-between, nowrap);
+      & + & {
+        margin-top: 20px;
+      }
+      &__name {
+        @include flex(row, center, center, nowrap);
+        img {
+          margin-left: 8px;
+        }
+      }
+      &__value {
+        @include flex(row, center, center, nowrap);
+        span {
+          @include flex(row, cetner);
+        }
+        img {
+          max-width: 18px;
+        }
+        div {
+          margin: 0 5px;
+        }
+        img + span {
+          margin-left: 8px;
+        }
+        span + img {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}

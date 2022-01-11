@@ -7,7 +7,6 @@ import { Button } from 'components';
 
 import { Logo, Dots, Arrow } from 'assets/img';
 
-import 'rc-tooltip/assets/bootstrap.css';
 import s from './Header.module.scss';
 
 const links = [
@@ -26,7 +25,7 @@ const links = [
 ];
 
 const Header: React.VFC = () => {
-  const [isTooltipVisible, setTooltipVisible] = React.useState(true);
+  const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
   const handleChangeTooltipVisible = React.useCallback((visible) => {
     setTooltipVisible(visible);
@@ -72,6 +71,7 @@ const Header: React.VFC = () => {
         <Tooltip
           visible={isTooltipVisible}
           animation="zoom"
+          overlayClassName="header-tooltip"
           onVisibleChange={handleChangeTooltipVisible}
           trigger="click"
           overlay={links.map((item) => (

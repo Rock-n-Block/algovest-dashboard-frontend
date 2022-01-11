@@ -1,0 +1,29 @@
+$breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+);
+
+// Mobile first
+$mediaWidthLaptop: 1440px;
+$mediaWidthDesktop: 1024px;
+$mediaWidthTablet: 768px;
+$mediaWidthMobile: 550px;
+
+// colors
+$gray: #fafafa;
+$green: #06aa65;
+$border-gray-light: #eaeaea;
+$border-gray: #c4c4c4;
+$black: #222222;
+
+// button
+$btn-bg-gray: #eaeaea;
+$btn-bg-gray-light: #f3f3f3;
+$btn-bg-black: #222222;
+$btn-hover-gray: #f1f1f1;
+$btn-border-gray: #d0d0d0;
+$btn-color-gray: #222222;
+$btn-color-black: #fff;
+$btn-bg-green: $green;

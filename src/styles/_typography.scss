@@ -1,0 +1,67 @@
+h1,
+.h1 {
+  font-size: 32px;
+  line-height: 38px;
+}
+
+h2,
+.h2 {
+  font-size: 28px;
+  line-height: 34px;
+}
+
+h3,
+.h3 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.text {
+  &-sm {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  &-md {
+    font-size: 16px;
+    line-height: 19px;
+  }
+  &-lmd {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  &-lg {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  &-bold {
+    font-weight: 700;
+  }
+  &-600 {
+    font-weight: 600;
+  }
+  &-400 {
+    font-weight: 400;
+  }
+  &-500 {
+    font-weight: 500;
+  }
+  &-upper {
+    text-transform: uppercase;
+  }
+  &-capitalize {
+    text-transform: capitalize;
+  }
+  &-white {
+    color: #fff;
+  }
+  &-ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &-italic {
+    font-style: italic;
+  }
+}

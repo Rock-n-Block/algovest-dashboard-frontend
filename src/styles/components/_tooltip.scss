@@ -1,0 +1,12 @@
+.rc-tooltip {
+  opacity: 1;
+  &-inner {
+    background: #ffffff;
+    box-shadow: 0px 4px 20px rgba(34, 34, 34, 0.08);
+    border-radius: 8px;
+    padding: 25px 15px 33px 25px;
+  }
+  &-arrow {
+    display: none;
+  }
+}

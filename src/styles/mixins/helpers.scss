@@ -1,0 +1,98 @@
+@import 'media';
+
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $format: 'woff') {
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+    @if $format == 'woff' {
+      src: url('#{$file-path}.#{$format}') format($format);
+    } @else {
+      src: url('#{$file-path}.#{$format}') format('truetype');
+    }
+  }
+}
+
+@mixin flex($direction: row, $alignment: normal, $justification: normal, $wrap: wrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justification;
+  align-items: $alignment;
+  flex-wrap: $wrap;
+}
+
+@mixin grid($columns: repeat(2, 1fr), $rows: 1fr, $gap: 10px) {
+  display: grid;
+  grid-template-columns: $columns;
+  grid-auto-rows: $rows;
+  gap: $gap;
+}
+
+@mixin text-control(
+  $size: 14px,
+  $height: 21px,
+  $weight: normal,
+  $color-dark: #ffffff,
+  $color-light: #244b57
+) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $height;
+  @include dark {
+    color: $color-dark;
+  }
+  @include light {
+    color: $color-light;
+  }
+}
+@mixin text-common($point, $weight: normal) {
+  @if $point==ssm {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  @if $point==sm {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  @if $point==smd {
+    font-size: 14px;
+    line-height: 21px;
+  }
+  @if $point==md {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  @if $point==lmd {
+    font-size: 18px;
+    line-height: 27px;
+  }
+  @if $point==slg {
+    font-size: 24px;
+    line-height: 36px;
+    @include b('tablet') {
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+  @if $point==xl {
+    font-size: 28px;
+    line-height: 42px;
+  }
+  @if $point==xxl {
+    font-size: 36px;
+    line-height: 54px;
+    @include b('mobile') {
+      font-size: 24px;
+      line-height: 29px;
+    }
+  }
+  font-weight: $weight;
+}
+
+@mixin ellipsis {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

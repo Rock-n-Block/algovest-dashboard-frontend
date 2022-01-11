@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  background: $gray;
+
+  span,
+  div {
+    font-feature-settings: 'liga' off;
+  }
+
+  .light {
+    color: #244b57;
+  }
+
+  .dark {
+    color: #ffffff;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 850px;
+  padding: 0 20px;
+  @include b(tablet) {
+    padding: 10px 0 0;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden {
+  &__tablet {
+    @include b('tablet') {
+      display: none;
+    }
+  }
+  &__mobile {
+    @include b('mobile') {
+      display: none;
+    }
+  }
+}

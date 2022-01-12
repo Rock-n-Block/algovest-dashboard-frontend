@@ -1,0 +1,56 @@
+@import '../../styles/mixins';
+
+:global(.rc-dialog) {
+  z-index: 100;
+  max-width: 480px;
+
+  &-body {
+    padding: 30px 60px 50px;
+  }
+
+  &-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    height: 100%;
+
+    background-color: #00000073;
+  }
+  &-content {
+    border-radius: 8px;
+  }
+
+  &-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    @include flex(row, center, center);
+    width: 100%;
+    padding: 50px 0;
+
+    overflow: auto;
+
+    outline: 0;
+  }
+  &-close {
+    top: unset;
+    bottom: calc(100% + 18px);
+    left: calc(100% + 52px);
+  }
+}
+.modal {
+  &__wrapper {
+    position: relative;
+    border-radius: 16px;
+    background: #2222;
+  }
+
+  &__subtitle {
+    margin: 4px 0 30px;
+  }
+}

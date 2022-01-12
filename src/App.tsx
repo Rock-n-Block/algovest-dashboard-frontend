@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { StakingPage, PoolPage } from 'pages/index';
-import { Header } from 'containers';
+import { Header, SelectWalletModal } from 'containers';
 
 export const App: FC = () => {
   return (
@@ -14,6 +14,7 @@ export const App: FC = () => {
           <Route path="/pool" element={<PoolPage />} />
         </Routes>
       </div>
+      <SelectWalletModal />
     </div>
   );
 };

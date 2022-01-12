@@ -2,8 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 import Tooltip from 'rc-tooltip';
+import { observer } from 'mobx-react-lite';
 
 import { Button } from 'components';
+import { useMst } from 'store';
 
 import { Logo, Dots, Arrow } from 'assets/img';
 
@@ -25,6 +27,10 @@ const links = [
 ];
 
 const Header: React.VFC = () => {
+  const {
+    modals: { walletConnect },
+  } = useMst();
+
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
   const handleChangeTooltipVisible = React.useCallback((visible) => {
@@ -65,7 +71,7 @@ const Header: React.VFC = () => {
         </div>
       </div>
       <div className={s.header__wrapper}>
-        <Button color="black" className={s.header__btn}>
+        <Button color="black" className={s.header__btn} onClick={walletConnect.open}>
           Connect Wallet
         </Button>
         <Tooltip
@@ -97,4 +103,4 @@ const Header: React.VFC = () => {
   );
 };
 
-export default Header;
+export default observer(Header);

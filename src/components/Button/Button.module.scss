@@ -66,6 +66,12 @@
   &.green {
     background: $btn-bg-green;
     color: $btn-color-green;
+    border-color: $btn-bg-green;
+    &:hover,
+    &:active {
+      color: $black;
+      background: $btn-hover-green;
+    }
   }
 
   &.disabled {

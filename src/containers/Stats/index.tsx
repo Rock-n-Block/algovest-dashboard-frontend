@@ -165,7 +165,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={cn(s.stats__info__item__name, 'text-gray')}>Yield Source:</div>
           <div className={s.stats__info__item__value}>
             <img src={Avg} alt="" />
-            <span className="text-500">AlgoVest</span>
+            <span className="text-500 text-gray">AlgoVest</span>
           </div>
         </div>
         <div className={s.stats__info__item}>

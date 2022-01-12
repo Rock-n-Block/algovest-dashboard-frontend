@@ -1,0 +1,36 @@
+@import 'styles/mixins';
+
+.s_wallet {
+  &__item {
+    @include flex(row, center);
+    border-radius: 100px;
+    padding: 16px 23px;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 1.8px solid transparent;
+    &:hover {
+      background: $btn-hover-green;
+      border-color: $btn-bg-green;
+    }
+    & + & {
+      margin-top: 10px;
+    }
+    &__img {
+      min-width: 47px;
+      min-height: 38px;
+      @include flex(row, center, center);
+      margin-right: 16px;
+    }
+  }
+  &__quest {
+    margin-top: 100px;
+  }
+  &__link {
+    margin-top: 8px;
+    width: fit-content;
+    @include flex(row, center);
+    img {
+      margin-left: 10px;
+    }
+  }
+}

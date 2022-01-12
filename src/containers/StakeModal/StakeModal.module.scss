@@ -1,0 +1,23 @@
+@import 'styles/mixins';
+
+.stake {
+  &__postfix {
+    @include flex(row, center, center, nowrap);
+    img {
+      max-width: 24px;
+      margin-right: 4px;
+    }
+  }
+  &__error {
+    @include flex(row, center, center, nowrap);
+    img {
+      margin-right: 8px;
+    }
+  }
+  &__input {
+    margin-bottom: 70px;
+  }
+  &__btn {
+    margin: 0 auto 35px;
+  }
+}

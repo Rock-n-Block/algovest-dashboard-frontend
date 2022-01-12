@@ -1,0 +1,13 @@
+@import 'styles/mixins';
+
+.e_reward {
+  border-radius: 10px;
+  padding: 12px 30px;
+  @include flex(row, center);
+  &__wrapper {
+    margin-left: 30px;
+  }
+  &__title {
+    margin-top: 4px;
+  }
+}

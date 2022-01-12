@@ -47,45 +47,25 @@
   }
 }
 @mixin text-common($point, $weight: normal) {
-  @if $point==ssm {
-    font-size: 11px;
-    line-height: 16px;
-  }
   @if $point==sm {
     font-size: 12px;
-    line-height: 18px;
+    line-height: 15px;
   }
   @if $point==smd {
     font-size: 14px;
-    line-height: 21px;
+    line-height: 17px;
   }
   @if $point==md {
     font-size: 16px;
-    line-height: 24px;
+    line-height: 19px;
   }
   @if $point==lmd {
     font-size: 18px;
-    line-height: 27px;
+    line-height: 22px;
   }
-  @if $point==slg {
+  @if $point==lg {
     font-size: 24px;
-    line-height: 36px;
-    @include b('tablet') {
-      font-size: 18px;
-      line-height: 27px;
-    }
-  }
-  @if $point==xl {
-    font-size: 28px;
-    line-height: 42px;
-  }
-  @if $point==xxl {
-    font-size: 36px;
-    line-height: 54px;
-    @include b('mobile') {
-      font-size: 24px;
-      line-height: 29px;
-    }
+    line-height: 29px;
   }
   font-weight: $weight;
 }

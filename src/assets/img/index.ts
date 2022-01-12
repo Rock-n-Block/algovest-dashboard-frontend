@@ -5,9 +5,11 @@ export { default as ArrowGreen } from './icons/arrow-green.svg';
 export { default as Info } from './icons/info.svg';
 export { default as Copy } from './icons/copy.svg';
 export { default as Close } from './icons/close.svg';
+export { default as Error } from './icons/error.svg';
+export { default as Magnet } from './icons/magnet.svg';
 
 // currencies
-export { default as Avg } from './icons/currency/avs.png';
+export { default as Avs } from './icons/currency/avs.png';
 export { default as Eth } from './icons/currency/eth.png';
 export { default as Usdc } from './icons/currency/usdc.png';
 

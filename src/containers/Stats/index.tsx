@@ -5,16 +5,26 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Button } from 'components';
 import { addressWithDots } from 'utils';
+import { StakeModal } from 'containers';
+import { useModal } from 'hooks';
 
 import s from './Stats.module.scss';
 
-import { ArrowGreen, Avg, Info, Eth, Copy, Usdc } from 'assets/img';
+import { ArrowGreen, Avs, Info, Eth, Copy, Usdc } from 'assets/img';
 
 interface IStats {
   type: 'staking' | 'pool';
 }
 
 const Stats: React.VFC<IStats> = ({ type }) => {
+  const [isStakeVisible, handleOpenStake, handleCloseStake] = useModal();
+
+  const handleOpenModal = React.useCallback(() => {
+    if (type === 'staking') {
+      handleOpenStake();
+    }
+  }, [type, handleOpenStake]);
+
   const content = React.useMemo(() => {
     if (type === 'staking') {
       return {
@@ -55,7 +65,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={s.stats__info__item}>
             <div className={cn(s.stats__info__item__name, 'text-gray')}>Total Staked AVS:</div>
             <div className={s.stats__info__item__value}>
-              <img src={Avg} alt="" />
+              <img src={Avs} alt="" />
               <span className="text-500">630,069</span>
             </div>
           </div>
@@ -164,7 +174,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         <div className={s.stats__info__item}>
           <div className={cn(s.stats__info__item__name, 'text-gray')}>Yield Source:</div>
           <div className={s.stats__info__item__value}>
-            <img src={Avg} alt="" />
+            <img src={Avs} alt="" />
             <span className="text-500 text-gray">AlgoVest</span>
           </div>
         </div>
@@ -196,7 +206,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={cn(s.stats__overview__title, 'text-lg text-500')}>{content.title}</div>
           <div className={cn(s.stats__overview__title, 'text-sm text-300')}>{content.subtitle}</div>
         </div>
-        <Button size="small" color="green">
+        <Button size="small" color="green" onClick={handleOpenModal}>
           {content.btnText}
         </Button>
       </div>
@@ -206,6 +216,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           {info}
         </div>
       </div>
+      <StakeModal visible={isStakeVisible} onClose={handleCloseStake} />
     </div>
   );
 };

@@ -9,18 +9,32 @@
   width: fit-content;
   white-space: nowrap;
   @include flex(row, center, center, nowrap);
-  border-radius: 100px;
+  border-radius: $border-radius;
   font-size: 18px;
   line-height: 22px;
+  @include b('mobile') {
+    font-size: 14px;
+    line-height: 20px;
+  }
 
   &.rounded {
     border-radius: 50%;
     width: 51px;
     height: 51px;
+    @include b('mobile') {
+      height: 42px;
+      width: 42px;
+      img {
+        transform: scale(0.7);
+      }
+    }
   }
 
   &.default {
     padding: 16px;
+    @include b('mobile') {
+      padding: 10px 16px;
+    }
   }
   &.big {
     padding: 18px 39px;

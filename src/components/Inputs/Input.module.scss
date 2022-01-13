@@ -13,7 +13,7 @@
 .content {
   @include flex(row, center, space-between, nowrap);
   width: 100%;
-  border-radius: 100px;
+  border-radius: $border-radius;
   border: 1px solid $border-gray;
 }
 

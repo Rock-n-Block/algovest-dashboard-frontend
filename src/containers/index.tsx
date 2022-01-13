@@ -4,3 +4,4 @@ export { default as SelectWalletModal } from './SelectWalletModal';
 export { default as StakeModal } from './StakeModal';
 export { default as Transactions } from './Transactions';
 export { default as DepositModal } from './DepositModal';
+export { default as MobileNav } from './MobileNav';

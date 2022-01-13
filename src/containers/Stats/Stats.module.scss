@@ -2,16 +2,32 @@
 
 .stats {
   margin-bottom: 35px;
+  @include b('mobile') {
+    margin-bottom: 30px;
+    margin-top: 40px;
+  }
   &__overview {
     margin-bottom: 30px;
     @include flex(row, flex-end, space-between);
     &__title {
       margin-bottom: 4px;
+      @include b('mobile') {
+        margin-bottom: 8px;
+      }
+    }
+  }
+  &__btn {
+    @include b('mobile') {
+      margin-top: 15px;
+      width: 100%;
     }
   }
   &__box {
     @include flex(row, flex-start, flex-start, nowrap);
     width: 100%;
+    @include b('mobile') {
+      display: block;
+    }
   }
   &__total {
     &__img {
@@ -27,14 +43,27 @@
     &__amount {
       font-size: 42px;
       line-height: 51px;
+      @include b('mobile') {
+        margin: 10px 0 5px;
+      }
     }
   }
   &__info {
     width: 55%;
     margin-right: 32px;
+    @include b('mobile') {
+      width: 100%;
+    }
     &__box {
       border-right: 1.5px solid $border-gray-light;
       padding-right: 32px;
+      @include b('mobile') {
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 1.5px solid $border-gray-light;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+      }
     }
     &__title {
       margin-bottom: 30px;

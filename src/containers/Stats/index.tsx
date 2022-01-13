@@ -222,7 +222,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={cn(s.stats__overview__title, 'text-lg text-500')}>{content.title}</div>
           <div className={cn(s.stats__overview__title, 'text-sm text-300')}>{content.subtitle}</div>
         </div>
-        <Button size="small" color="green" onClick={handleOpenModal}>
+        <Button size="small" color="green" onClick={handleOpenModal} className={s.stats__btn}>
           {content.btnText}
         </Button>
       </div>

@@ -7,10 +7,16 @@
   background: #fff;
   @include flex(row, center, space-between);
   border-bottom: 1px solid $border-gray;
+  @include b('mobile') {
+    padding: 15px;
+  }
   &__logo {
     max-width: 170px;
     img {
       max-width: 100%;
+    }
+    @include b('mobile') {
+      max-width: 110px;
     }
   }
   &__wrapper {
@@ -21,10 +27,13 @@
     padding-left: 34px;
     border-left: 1px solid $border-gray-light;
     @include flex(row, center);
+    @include b('mobile') {
+      display: none;
+    }
     &__item {
       display: block;
       padding: 16px 37px;
-      border-radius: 100px;
+      border-radius: $border-radius;
       border: 1px solid transparent;
       color: $btn-color-gray;
       &_active {
@@ -35,6 +44,9 @@
   &__btn {
     & + & {
       margin-left: 25px;
+      @include b('mobile') {
+        margin-left: 16px;
+      }
     }
   }
   &__link {
@@ -45,6 +57,9 @@
     opacity: 0.6;
     & + & {
       margin-top: 20px;
+      @include b('mobile') {
+        margin-top: 15px;
+      }
     }
     &:hover {
       opacity: 1;

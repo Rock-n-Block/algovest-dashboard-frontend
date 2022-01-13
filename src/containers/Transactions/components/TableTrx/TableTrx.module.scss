@@ -35,7 +35,7 @@
   }
   &__status {
     padding: 4px 8px;
-    border-radius: 100px;
+    border-radius: $border-radius;
     @include text-common(sm);
     width: fit-content;
     margin: 0 auto;

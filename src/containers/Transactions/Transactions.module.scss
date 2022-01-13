@@ -1,6 +1,9 @@
 @import 'styles/mixins';
 
 .trx {
+  @include b('mobile') {
+    display: none;
+  }
   &__box {
     margin: 30px 0;
     @include flex(row, center, flex-start, nowrap);

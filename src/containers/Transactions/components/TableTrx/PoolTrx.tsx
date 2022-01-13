@@ -7,7 +7,6 @@ import { ArrowSort, ArrowNav } from 'assets/img';
 import s from './TableTrx.module.scss';
 
 const PoolTrx: React.VFC = () => {
-  // const [activeSort]
   const buttonItemRender = (_: number, type: string, element: React.ReactNode) => {
     if (type === 'prev') {
       return (
@@ -27,6 +26,7 @@ const PoolTrx: React.VFC = () => {
     }
     return element;
   };
+
   return (
     <div className={s.t_table}>
       <div className={cn(s.t_table__head, s.t_table__pool__row, s.t_table__row)}>

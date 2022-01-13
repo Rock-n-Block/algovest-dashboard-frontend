@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 
+import { useWindowSize } from 'hooks';
+
 import s from './MobileNav.module.scss';
 
 const nav = [
@@ -15,6 +17,10 @@ const nav = [
   },
 ];
 const MobileNav: React.VFC = () => {
+  const { width } = useWindowSize();
+  if (width > 1000) {
+    return null;
+  }
   return (
     <div className={s.mob_nav}>
       {nav.map((item) => (

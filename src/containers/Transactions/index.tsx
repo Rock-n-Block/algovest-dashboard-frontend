@@ -3,8 +3,9 @@ import cn from 'classnames';
 
 import { Input, Button } from 'components';
 import { PoolTrxTrable, StakingTrxTrable } from './components';
+import { useWindowSize } from 'hooks';
 
-import { Search, Export } from 'assets/img';
+import { Search, Export, ExportW } from 'assets/img';
 
 import s from './Transactions.module.scss';
 
@@ -14,6 +15,7 @@ interface ITransactions {
 
 const Transactions: React.VFC<ITransactions> = ({ type }) => {
   const [searchValue, setSearchValue] = React.useState('');
+  const { width } = useWindowSize();
 
   const title = React.useMemo(() => {
     if (type === 'staking') {
@@ -35,8 +37,14 @@ const Transactions: React.VFC<ITransactions> = ({ type }) => {
           value={searchValue}
           prefix={<img src={Search} alt="" />}
         />
-        <Button size="big" className={s.trx__export} icon={Export}>
-          Export
+        <Button
+          size="big"
+          className={s.trx__export}
+          icon={width < 1000 ? ExportW : Export}
+          color={width < 1000 ? 'black' : 'gray'}
+          rounded={width < 1000}
+        >
+          {width < 1000 ? '' : 'Export'}
         </Button>
       </div>
       <div className={s.trx__table}>

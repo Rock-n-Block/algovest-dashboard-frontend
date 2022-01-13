@@ -34,10 +34,9 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         title: 'Staking Overview',
         subtitle: (
           <>
-            Stake your AVS tokens to gain access to USDC Yield Pool while earning staking rewards{' '}
-            <br />
-            on your locked AVS. The more AVS you lockup, the more USDC you can deposit to earn
-            passive income.
+            Stake your AVS tokens to gain access to USDC Yield Pool while earning staking rewards on
+            your locked AVS.
+            <br /> The more AVS you lockup, the more USDC you can deposit to earn passive income.
           </>
         ),
         btnText: 'Stake AVS',

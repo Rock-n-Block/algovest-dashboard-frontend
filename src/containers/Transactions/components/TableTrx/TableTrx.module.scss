@@ -6,6 +6,9 @@
     align-items: center;
     padding-bottom: 12px;
     border-bottom: 1.5px solid $border-gray-light;
+    @include b('mobile') {
+      display: block;
+    }
     & + & {
       margin-top: 12px;
     }
@@ -15,6 +18,9 @@
   }
   &__head {
     border-bottom: 2px solid $btn-border-gray;
+    @include b('mobile') {
+      display: none;
+    }
     &__item {
       @include text-common(smd, 400);
       color: $gray-text;

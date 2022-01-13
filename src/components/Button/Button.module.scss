@@ -17,19 +17,6 @@
     line-height: 20px;
   }
 
-  &.rounded {
-    border-radius: 50%;
-    width: 51px;
-    height: 51px;
-    @include b('mobile') {
-      height: 42px;
-      width: 42px;
-      img {
-        transform: scale(0.7);
-      }
-    }
-  }
-
   &.default {
     padding: 16px;
     @include b('mobile') {
@@ -45,10 +32,21 @@
   &.small {
     padding: 16px 24px;
   }
-  &:hover {
-    // background: $bg-button-hover-outline-dark;
-  }
 
+  &.rounded {
+    border-radius: 50%;
+    width: 51px;
+    height: 51px;
+    min-width: 51px;
+    min-height: 51px;
+    @include b('mobile') {
+      height: 42px;
+      width: 42px;
+      min-height: 42px;
+      min-width: 42px;
+      padding: 0;
+    }
+  }
   &.gray {
     background: $btn-bg-gray;
     color: $btn-color-gray;
@@ -101,4 +99,7 @@
 .icon {
   height: unset;
   margin-right: 12px;
+  &:only-child {
+    margin-right: 0;
+  }
 }

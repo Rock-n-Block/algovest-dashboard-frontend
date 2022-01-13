@@ -37,5 +37,10 @@
     transform: rotate(45deg);
     background: #fff;
     border-width: 1.5px !important;
+    @include b('mobile') {
+      border: none;
+      border-left: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+    }
   }
 }

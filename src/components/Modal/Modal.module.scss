@@ -6,6 +6,9 @@
 
   &-body {
     padding: 20px 60px 50px;
+    @include b('mobile') {
+      padding: 20px 15px;
+    }
   }
 
   &-mask {
@@ -41,6 +44,10 @@
     top: unset;
     bottom: calc(100% + 18px);
     left: calc(100% + 52px);
+    @include b('mobile') {
+      left: unset;
+      right: 0;
+    }
   }
 }
 .modal {

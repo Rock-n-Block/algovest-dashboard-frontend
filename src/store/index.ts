@@ -1,15 +1,15 @@
 import { createContext, useContext } from 'react';
-
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
+import makeInspectable from 'mobx-devtools-mst';
 
 import { Modals, UserModel } from './Models';
 
-const RootModel = types.model({
+const RootModel = types.model('RootModel', {
   user: UserModel,
   modals: Modals,
 });
 
-export const Store = RootModel.create({
+export const rootStore = RootModel.create({
   user: {
     address: null,
   },
@@ -18,7 +18,7 @@ export const Store = RootModel.create({
   },
 });
 
-const rootStore = Store;
+makeInspectable(rootStore);
 
 export type RootInstance = Instance<typeof RootModel>;
 

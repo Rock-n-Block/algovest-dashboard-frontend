@@ -5,6 +5,8 @@ import cn from 'classnames';
 import { IInput } from '../Input';
 import { Input } from '..';
 
+import { Error } from 'assets/img';
+
 import style from '../Input.module.scss';
 
 interface IInputColor {
@@ -16,7 +18,7 @@ interface IInputWrapper extends IInputColor, IInput {
   prefix?: React.ReactElement;
   postfix?: React.ReactElement;
   component?: 'input';
-  error?: React.ReactElement;
+  error?: string;
   subtitle?: React.ReactElement;
   className?: string;
 }
@@ -68,7 +70,12 @@ const InputWrapper: React.FC<IInputWrapper> = ({
           </div>
         ) : null}
       </div>
-      {error ? <div className={style.error}>{error}</div> : null}
+      {error ? (
+        <div className={style.error}>
+          <img src={Error} alt="" />
+          <span className="text-red text-smd">{error}</span>
+        </div>
+      ) : null}
       {subtitle ? <div className={style.subtitle}>{subtitle}</div> : null}
     </div>
   );

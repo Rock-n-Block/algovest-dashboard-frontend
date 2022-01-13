@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree';
 
 const WalletConnect = types
-  .model({
+  .model('WalletConnectModel', {
     isOpen: types.optional(types.boolean, false),
   })
   .actions((self) => {
@@ -15,7 +15,7 @@ const WalletConnect = types
     };
   });
 
-const Modals = types.model({
+const Modals = types.model('ModalsModel', {
   walletConnect: WalletConnect,
 });
 export default Modals;

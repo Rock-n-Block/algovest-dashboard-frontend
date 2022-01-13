@@ -36,6 +36,7 @@
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-simple-import-sort": "^5.0.2",
     "mobx": "^6.3.12",
+    "mobx-devtools-mst": "^0.9.30",
     "mobx-react-lite": "^3.2.3",
     "mobx-state-tree": "^5.1.0",
     "node-sass": "^5.0.0",

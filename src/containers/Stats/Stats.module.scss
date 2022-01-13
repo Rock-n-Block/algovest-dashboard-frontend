@@ -1,6 +1,7 @@
 @import 'styles/mixins';
 
 .stats {
+  margin-bottom: 35px;
   &__overview {
     margin-bottom: 30px;
     @include flex(row, flex-end, space-between);
@@ -8,8 +9,33 @@
       margin-bottom: 4px;
     }
   }
+  &__box {
+    @include flex(row, flex-start, flex-start, nowrap);
+    width: 100%;
+  }
+  &__total {
+    &__img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: $green-light;
+      @include flex(row, center, center);
+      img {
+        max-width: 26px;
+      }
+    }
+    &__amount {
+      font-size: 42px;
+      line-height: 51px;
+    }
+  }
   &__info {
-    max-width: 55%;
+    width: 55%;
+    margin-right: 32px;
+    &__box {
+      border-right: 1.5px solid $border-gray-light;
+      padding-right: 32px;
+    }
     &__title {
       margin-bottom: 30px;
     }

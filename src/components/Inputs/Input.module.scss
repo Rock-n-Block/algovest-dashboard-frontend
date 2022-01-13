@@ -45,6 +45,12 @@ input[type='number'] {
   position: absolute;
   left: 10px;
   top: calc(100% + 10px);
+  color: $red;
+  @include flex(row, center, center, nowrap);
+  img {
+    max-width: 24px;
+    margin-right: 4px;
+  }
 }
 
 .subtitle {

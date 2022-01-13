@@ -5,7 +5,7 @@ import { Modal, Input, Button, EstimatedReward } from 'components';
 import { IModalProps } from 'typings';
 import { useMst } from 'store';
 
-import { Avs, Error } from 'assets/img';
+import { Avs } from 'assets/img';
 
 import s from './StakeModal.module.scss';
 
@@ -40,12 +40,7 @@ const StakeModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({ visib
             <span className="text-gray text-md">AVS</span>
           </div>
         }
-        error={
-          <div className={s.stake__error}>
-            <img src={Error} alt="" />
-            <span className="text-gray text-smd">You don&apos;t have enough balance</span>
-          </div>
-        }
+        error="You don't have enough balance"
       />
       {!address ? (
         <Button color="green" className={s.stake__btn} onClick={walletConnect.open}>

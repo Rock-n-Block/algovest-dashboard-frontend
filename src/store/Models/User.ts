@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree';
 
 const UserModel = types
-  .model({
+  .model('UserModel', {
     address: types.maybeNull(types.string),
   })
   .actions((self) => ({

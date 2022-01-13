@@ -16,6 +16,7 @@ const Modal: FC<PropsWithChildren<IModalProps>> = ({
   children,
   title,
   subtitle,
+  steps,
 }) => {
   return (
     <Dialog
@@ -28,8 +29,10 @@ const Modal: FC<PropsWithChildren<IModalProps>> = ({
       closeIcon={<img alt="" src={Close} />}
       visible={visible}
       maskClosable
+      forceRender
       onClose={onClose}
     >
+      {steps || null}
       {title ? <div className={cn(s.modal__title, 'text-lg text-500')}>{title}</div> : null}
       {subtitle ? (
         <div className={cn(s.modal__subtitle, 'text-smd text-gray')}>{subtitle}</div>

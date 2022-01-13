@@ -1,12 +1,13 @@
 import { VFC } from 'react';
 
-import { Stats } from 'containers';
+import { Stats, Transactions } from 'containers';
 
 const Staking: VFC = () => {
   return (
     <div className="Staking">
       <div className="container">
         <Stats type="staking" />
+        <Transactions />
       </div>
     </div>
   );

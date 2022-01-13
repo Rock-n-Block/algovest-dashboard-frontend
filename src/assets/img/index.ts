@@ -7,6 +7,9 @@ export { default as Copy } from './icons/copy.svg';
 export { default as Close } from './icons/close.svg';
 export { default as Error } from './icons/error.svg';
 export { default as Magnet } from './icons/magnet.svg';
+export { default as Lock } from './icons/lock.svg';
+export { default as Back } from './icons/back.svg';
+export { default as LockupPeriod } from './icons/lockup-period.svg';
 
 // currencies
 export { default as Avs } from './icons/currency/avs.png';

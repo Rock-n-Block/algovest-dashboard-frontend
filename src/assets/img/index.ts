@@ -9,7 +9,11 @@ export { default as Error } from './icons/error.svg';
 export { default as Magnet } from './icons/magnet.svg';
 export { default as Lock } from './icons/lock.svg';
 export { default as Back } from './icons/back.svg';
+export { default as Search } from './icons/search.svg';
+export { default as Export } from './icons/export.svg';
 export { default as LockupPeriod } from './icons/lockup-period.svg';
+export { default as ArrowSort } from './icons/arrow-sort.svg';
+export { default as ArrowNav } from './icons/arrow-nav.svg';
 
 // currencies
 export { default as Avs } from './icons/currency/avs.png';

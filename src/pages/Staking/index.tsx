@@ -7,7 +7,7 @@ const Staking: VFC = () => {
     <div className="Staking">
       <div className="container">
         <Stats type="staking" />
-        <Transactions />
+        <Transactions type="staking" />
       </div>
     </div>
   );

@@ -8,18 +8,11 @@ body {
   font-weight: normal;
   font-size: 14px;
   background: $gray;
+  color: $black;
 
   span,
   div {
     font-feature-settings: 'liga' off;
-  }
-
-  .light {
-    color: #244b57;
-  }
-
-  .dark {
-    color: #ffffff;
   }
 }
 

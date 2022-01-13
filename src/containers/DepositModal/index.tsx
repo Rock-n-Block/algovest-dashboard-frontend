@@ -56,7 +56,6 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
   const [amount, setAmount] = React.useState('');
   const [currentStep, handleChangeStep] = useSteps(1);
   const [selectedPool, setPool] = React.useState<IPool>(pools[0]);
-  console.log(selectedPool);
 
   const handleChangeAmount = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value);

@@ -1,0 +1,77 @@
+@import 'styles/mixins';
+
+.t_table {
+  &__row {
+    display: grid;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid $border-gray-light;
+    & + & {
+      margin-top: 12px;
+    }
+    & > div:last-child {
+      margin-left: auto;
+    }
+  }
+  &__head {
+    border-bottom: 2px solid $btn-border-gray;
+    &__item {
+      @include text-common(smd, 400);
+      color: $gray-text;
+      &:hover img {
+        opacity: 1;
+      }
+      img {
+        opacity: 0.4;
+        transition: 0.3s;
+        margin-left: 12px;
+      }
+      &__controll {
+        cursor: pointer;
+        width: fit-content;
+        @include flex(row, center);
+      }
+    }
+  }
+  &__status {
+    padding: 4px 8px;
+    border-radius: 100px;
+    @include text-common(sm);
+    width: fit-content;
+    margin: 0 auto;
+    &_active {
+      color: $orange;
+      background: $orange-light;
+    }
+    &_done {
+      color: $green;
+      background: $green-light;
+    }
+  }
+  &__staking {
+    &__row {
+      grid-template-columns: 150px 150px 180px 140px 1fr;
+    }
+  }
+  &__pool {
+    &__row {
+      grid-template-columns: 110px 75px 110px 85px 120px 130px 52px 1fr;
+    }
+  }
+  &__nav {
+    @include flex(row, center);
+    span {
+      margin: 0 5px;
+    }
+    &_prev {
+      img {
+        transform: rotate(90deg);
+      }
+    }
+    &_next {
+      img {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}

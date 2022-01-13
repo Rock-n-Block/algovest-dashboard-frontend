@@ -1,0 +1,11 @@
+@import 'styles/mixins';
+
+.trx {
+  &__box {
+    margin: 30px 0;
+    @include flex(row, center, flex-start, nowrap);
+  }
+  &__export {
+    margin-left: 25px;
+  }
+}

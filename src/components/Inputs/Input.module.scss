@@ -60,3 +60,9 @@ input[type='number'] {
 .postfix {
   padding-right: 24px;
 }
+.prefix {
+  padding: 15.5px 0 15.5px 24px;
+  & + input {
+    padding-left: 8px;
+  }
+}

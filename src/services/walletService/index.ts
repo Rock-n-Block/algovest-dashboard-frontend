@@ -102,7 +102,7 @@ export class WalletService {
   }: {
     method: string;
     data: Array<any>;
-    contract: 'STAKING' | 'VOTING';
+    contract: 'BOND';
     tx?: any;
     to?: string;
     walletAddress?: string;
@@ -148,13 +148,11 @@ export class WalletService {
 
   async checkTokenAllowance({
     contractName,
-    tokenDecimals,
     approvedAddress,
     walletAddress,
     amount,
   }: {
     contractName: string;
-    tokenDecimals: number;
     approvedAddress?: string;
     walletAddress?: string;
     amount?: string | number;
@@ -172,6 +170,10 @@ export class WalletService {
           approvedAddress || contracts.params[contractName][contracts.type].address,
         )
         .call();
+
+      const tokenDecimals = await this.getTokenDecimals(
+        contracts.params[contractName][contracts.type].address,
+      );
 
       result =
         result === '0'
@@ -216,8 +218,12 @@ export class WalletService {
     }
   }
 
-  static calcTransactionAmount(amount: number | string, tokenDecimal: number): string {
-    return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimal)).toString(10);
+  public async calcTransactionAmount(
+    tokenContract: string,
+    amount: number | string,
+  ): Promise<string> {
+    const tokenDecimals = await this.getTokenDecimals(tokenContract);
+    return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimals)).toString(10);
   }
 
   static weiToEth(amount: number | string, decimals = 18): string {

@@ -36,6 +36,7 @@ const WalletConnector: React.FC = ({ children }) => {
     async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
       if (window.ethereum) {
         try {
+          debugger;
           const isConnected = await provider.current.initWalletConnect(
             chainName,
             providerName as any,
@@ -81,12 +82,12 @@ const WalletConnector: React.FC = ({ children }) => {
   );
 
   React.useEffect(() => {
+    debugger;
+    provider.current.connectWallet.initWeb3(
+      'https://rinkeby.infura.io/v3/fc1488a3d7ef48ca9aae608015951fd2',
+    );
     if (window.ethereum && localStorage.algovest_logged && localStorage.alogovest_providerName) {
       connect(chainsEnum.Ethereum, localStorage.alogovest_providerName);
-    } else {
-      provider.current.connectWallet.initWeb3(
-        'https://rinkeby.infura.io/v3/fc1488a3d7ef48ca9aae608015951fd2',
-      );
     }
   }, [connect]);
 

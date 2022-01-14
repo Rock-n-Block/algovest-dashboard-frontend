@@ -2,11 +2,12 @@ import { createContext, useContext } from 'react';
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
 import makeInspectable from 'mobx-devtools-mst';
 
-import { Modals, UserModel } from './Models';
+import { Modals, UserModel, Staking } from './Models';
 
 const RootModel = types.model('RootModel', {
   user: UserModel,
   modals: Modals,
+  staking: Staking,
 });
 
 export const rootStore = RootModel.create({
@@ -15,6 +16,10 @@ export const rootStore = RootModel.create({
   },
   modals: {
     walletConnect: { isOpen: false },
+  },
+  staking: {
+    totalStaked: '0',
+    totalSupply: '0',
   },
 });
 

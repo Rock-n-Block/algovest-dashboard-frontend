@@ -48,7 +48,6 @@ const useApprove = ({
           amount,
         })
         .then((res) => {
-          console.log(res, 'allowance');
           setApproved(res);
         })
         .catch((err) => {

@@ -202,7 +202,7 @@ export class WalletService {
         contracts.params[contractName][contracts.type].abi,
         'approve',
       );
-      debugger;
+
       const approveSignature = this.encodeFunctionCall(approveMethod, [
         approvedAddress || walletAddress || this.walletAddress,
         '115792089237316195423570985008687907853269984665640564039457584007913129639935',
@@ -222,12 +222,19 @@ export class WalletService {
     tokenContract: string,
     amount: number | string,
   ): Promise<string> {
+    if (amount === '0') {
+      return amount;
+    }
     const tokenDecimals = await this.getTokenDecimals(tokenContract);
     return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimals)).toString(10);
   }
 
-  static weiToEth(amount: number | string, decimals = 18): string {
-    return new BigNumber(amount).dividedBy(new BigNumber(10).pow(decimals)).toString(10);
+  public async weiToEth(tokenContract: string, amount: number | string): Promise<string> {
+    if (amount === '0') {
+      return amount;
+    }
+    const tokenDecimals = await this.getTokenDecimals(tokenContract);
+    return new BigNumber(amount).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
   }
 
   static ethToWei(amount: number | string, decimals = 18): string {
@@ -251,13 +258,13 @@ export class WalletService {
   async callContractMethod({
     contractName,
     methodName,
-    data,
+    data = [],
     contractAddress,
     contractAbi,
   }: {
     contractName: string;
     methodName: string;
-    data: any[];
+    data?: any[];
     contractAddress: string;
     contractAbi: Array<any>;
   }) {

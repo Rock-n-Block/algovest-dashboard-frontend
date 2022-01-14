@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useWalletConnectorContext, WalletService } from 'services';
+import { useWalletConnectorContext } from 'services';
 import { TNullable } from 'typings';
 
 export default (
@@ -13,10 +13,10 @@ export default (
   const { walletService } = useWalletConnectorContext();
 
   const getUserTokenBalance = useCallback(async () => {
-    const decimals = await walletService.getTokenDecimals(tokenAddress);
     const tokenBalance = await walletService.getTokenBalance(tokenAddress);
+    const amount = await walletService.weiToEth(tokenAddress, tokenBalance);
 
-    setBalance(WalletService.weiToEth(tokenBalance.toString(), decimals));
+    setBalance(amount);
   }, [tokenAddress, walletService]);
 
   useEffect(() => {

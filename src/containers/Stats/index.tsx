@@ -2,12 +2,14 @@ import React from 'react';
 import cn from 'classnames';
 import Tooltip from 'rc-tooltip';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { observer } from 'mobx-react-lite';
 
 import { Button } from 'components';
 import { addressWithDots } from 'utils';
 import { StakeModal, DepositModal } from 'containers';
 import { useModal } from 'hooks';
 import { contracts } from 'config';
+import { useMst } from 'store';
 
 import s from './Stats.module.scss';
 
@@ -18,6 +20,7 @@ interface IStats {
 }
 
 const Stats: React.VFC<IStats> = ({ type }) => {
+  const { staking } = useMst();
   const [isStakeVisible, handleOpenStake, handleCloseStake] = useModal();
   const [isDepositVisible, handleOpenDeposit, handleCloseDeposit] = useModal();
 
@@ -71,7 +74,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               animation="zoom"
               overlay={
                 <span className="text-sm">
-                  10,000,000 is the total AVS available in the market.
+                  {staking.totalSupply} is the total AVS available in the market.
                 </span>
               }
             >
@@ -81,7 +84,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               </div>
             </Tooltip>
             <div className={s.stats__info__item__value}>
-              <span className="text-500">10,000,000</span>
+              <span className="text-500">{staking.totalSupply}</span>
             </div>
           </div>
           <div className={s.stats__info__item}>
@@ -186,7 +189,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
       </div>
     );
-  }, [type]);
+  }, [type, staking.totalSupply]);
 
   const total = React.useMemo(() => {
     if (type === 'staking') {
@@ -196,7 +199,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             <div className={s.stats__total__img}>
               <img src={Avs} alt="" />
             </div>
-            <div className={cn(s.stats__total__amount, 'text-bold')}>200.504</div>
+            <div className={cn(s.stats__total__amount, 'text-bold')}>{staking.totalStaked}</div>
             <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Staked AVS</div>
           </div>
         </>
@@ -213,7 +216,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
       </>
     );
-  }, [type]);
+  }, [type, staking.totalStaked]);
 
   return (
     <div className={s.stats}>
@@ -239,4 +242,4 @@ const Stats: React.VFC<IStats> = ({ type }) => {
   );
 };
 
-export default Stats;
+export default observer(Stats);

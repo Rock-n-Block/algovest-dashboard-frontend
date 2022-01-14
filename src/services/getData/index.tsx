@@ -33,7 +33,6 @@ const GetData: React.FC = ({ children }) => {
 
   const getStakingInfo = React.useCallback(async () => {
     try {
-      debugger;
       const totalSupply = await walletService.callContractMethod({
         contractName: 'AVS',
         methodName: 'totalSupply',
@@ -43,7 +42,7 @@ const GetData: React.FC = ({ children }) => {
 
       const amount = await walletService.weiToEth(
         contracts.params.AVS[contracts.type].address,
-        totalSupply.amount,
+        totalSupply,
       );
       staking.setTotalSupply(amount);
     } catch (err) {
@@ -52,12 +51,9 @@ const GetData: React.FC = ({ children }) => {
   }, [staking, walletService]);
 
   React.useEffect(() => {
-    debugger;
-    if (walletService.Web3()) {
-      getTotalStaked();
-      getStakingInfo();
-    }
-  }, [getTotalStaked, getStakingInfo, walletService]);
+    getTotalStaked();
+    getStakingInfo();
+  }, [getTotalStaked, getStakingInfo]);
 
   return <>{children}</>;
 };

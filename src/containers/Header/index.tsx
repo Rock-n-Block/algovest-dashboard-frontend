@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 import { Button } from 'components';
 import { useMst } from 'store';
+import { addressWithDots } from 'utils';
 
 import { Logo, Dots, Arrow } from 'assets/img';
 
@@ -40,6 +41,7 @@ const nav = [
 const Header: React.VFC = () => {
   const {
     modals: { walletConnect },
+    user,
   } = useMst();
 
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
@@ -73,9 +75,13 @@ const Header: React.VFC = () => {
         </div>
       </div>
       <div className={s.header__wrapper}>
-        <Button color="black" className={s.header__btn} onClick={walletConnect.open}>
-          Connect Wallet
-        </Button>
+        {user.address ? (
+          addressWithDots(user.address)
+        ) : (
+          <Button color="black" className={s.header__btn} onClick={walletConnect.open}>
+            Connect Wallet
+          </Button>
+        )}
         <Tooltip
           visible={isTooltipVisible}
           animation="zoom"

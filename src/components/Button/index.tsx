@@ -113,7 +113,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
       onMouseEnter={onMouseOver}
     >
       {icon && <img src={icon} className={s.icon} alt="" />}
-      {loading ? 'In progress...' : children}
+      {loading ? 'In progress...' : <span>{children}</span>}
     </button>
   );
 };

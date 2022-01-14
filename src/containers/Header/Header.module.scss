@@ -42,7 +42,7 @@
     }
   }
   &__btn {
-    & + & {
+    &:last-of-type {
       margin-left: 25px;
       @include b('mobile') {
         margin-left: 16px;

@@ -7,6 +7,7 @@ import { Button } from 'components';
 import { addressWithDots } from 'utils';
 import { StakeModal, DepositModal } from 'containers';
 import { useModal } from 'hooks';
+import { contracts } from 'config';
 
 import s from './Stats.module.scss';
 
@@ -88,10 +89,10 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             <div className={s.stats__info__item__value}>
               <img src={Eth} alt="" />
               <div className="text-gray">Ethereum</div>
-              <CopyToClipboard text="0x68e0c1dbf926cda7a65ef2722e046746eb0f816f">
+              <CopyToClipboard text={contracts.params.BOND[contracts.type].address}>
                 <span className="cursor-pointer">
                   <span className="text-500">
-                    {addressWithDots('0x68e0c1dbf926cda7a65ef2722e046746eb0f816f')}
+                    {addressWithDots(contracts.params.BOND[contracts.type].address)}
                   </span>
                   <img src={Copy} alt="" />
                 </span>

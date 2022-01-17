@@ -39,6 +39,9 @@
     height: 51px;
     min-width: 51px;
     min-height: 51px;
+    span {
+      @include flex(row, center, center);
+    }
     @include b('mobile') {
       height: 42px;
       width: 42px;

@@ -4,7 +4,7 @@
   background: #e5e7eb;
   border-radius: $border-radius;
   margin-bottom: 40px;
-  padding: 4px;
+  padding: 5px;
   @include flex(row, center, center, nowrap);
   &__item {
     padding: 14px;

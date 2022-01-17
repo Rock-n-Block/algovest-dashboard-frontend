@@ -2,9 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 
-import { useWindowSize } from 'hooks';
-
-import s from './MobileNav.module.scss';
+import s from './Navbar.module.scss';
 
 const nav = [
   {
@@ -16,20 +14,16 @@ const nav = [
     link: '/pool',
   },
 ];
-const MobileNav: React.VFC = () => {
-  const { width } = useWindowSize();
-  if (width > 1000) {
-    return null;
-  }
+const Navbar: React.VFC = () => {
   return (
-    <div className={s.mob_nav}>
+    <div className={s.navbar}>
       {nav.map((item) => (
         <NavLink
           end
           key={item.link}
           className={({ isActive }) =>
-            cn(s.mob_nav__item, 'text-smd', 'text-400', {
-              [s.mob_nav__item_active]: isActive,
+            cn(s.navbar__item, 'text-smd', 'text-400', {
+              [s.navbar__item_active]: isActive,
               'text-500': isActive,
             })
           }
@@ -42,4 +36,4 @@ const MobileNav: React.VFC = () => {
   );
 };
 
-export default MobileNav;
+export default Navbar;

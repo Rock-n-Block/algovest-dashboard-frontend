@@ -1,6 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import cn from 'classnames';
 import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
 
@@ -24,17 +22,6 @@ const links = [
   {
     name: 'Telegram',
     link: '/',
-  },
-];
-
-const nav = [
-  {
-    name: 'Staking',
-    link: '/',
-  },
-  {
-    name: 'Yield Pool',
-    link: '/pool',
   },
 ];
 
@@ -71,23 +58,6 @@ const Header: React.VFC = () => {
       <div className={s.header__wrapper}>
         <div className={s.header__logo}>
           <img src={Logo} alt="" />
-        </div>
-        <div className={s.header__navbar}>
-          {nav.map((item) => (
-            <NavLink
-              end
-              key={item.link}
-              className={({ isActive }) =>
-                cn(s.header__navbar__item, 'text-lmd', 'text-400', {
-                  [s.header__navbar__item_active]: isActive,
-                  'text-500': isActive,
-                })
-              }
-              to={item.link}
-            >
-              {item.name}
-            </NavLink>
-          ))}
         </div>
       </div>
       <div className={s.header__wrapper}>

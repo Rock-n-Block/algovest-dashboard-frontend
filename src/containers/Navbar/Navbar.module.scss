@@ -1,12 +1,13 @@
 @import 'styles/mixins';
 
-.mob_nav {
+.navbar {
   background: #e5e7eb;
   border-radius: $border-radius;
+  margin-bottom: 40px;
   padding: 4px;
   @include flex(row, center, center, nowrap);
   &__item {
-    padding: 7px;
+    padding: 14px;
     width: 100%;
     display: block;
     text-align: center;

@@ -23,7 +23,6 @@
   border: none;
   padding: 16px 24px;
   color: $black;
-  @include text-common(md);
   resize: none;
   @include b('mobile') {
     padding: 11.5px 16px;
@@ -74,5 +73,6 @@ input[type='number'] {
   }
   & + input {
     padding-left: 8px;
+    text-align: right;
   }
 }

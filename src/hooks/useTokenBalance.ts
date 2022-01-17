@@ -7,8 +7,9 @@ export default (
   userAddress: TNullable<string>,
   tokenAddress: string,
   isIntervalUpdate = false,
-): string => {
+): [string, string] => {
   const [balance, setBalance] = useState<string>('');
+  const [decimals, setDecimals] = useState<string>('');
 
   const { walletService } = useWalletConnectorContext();
 
@@ -18,6 +19,15 @@ export default (
 
     setBalance(amount);
   }, [tokenAddress, walletService]);
+
+  const getTokenDecimals = useCallback(async () => {
+    const tokenDecimals = await walletService.getTokenDecimals(tokenAddress);
+    setDecimals(tokenDecimals);
+  }, [tokenAddress, walletService]);
+
+  useEffect(() => {
+    getTokenDecimals();
+  }, [getTokenDecimals]);
 
   useEffect(() => {
     let interval: any = null;
@@ -35,5 +45,5 @@ export default (
     };
   }, [getUserTokenBalance, userAddress, isIntervalUpdate]);
 
-  return balance;
+  return [balance, decimals];
 };

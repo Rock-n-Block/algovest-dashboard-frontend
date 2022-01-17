@@ -1,4 +1,5 @@
 import React from 'react';
+import BigNumber from 'bignumber.js/bignumber';
 
 import { useWalletConnectorContext } from 'services';
 import { contracts } from 'config';
@@ -50,10 +51,35 @@ const GetData: React.FC = ({ children }) => {
     }
   }, [staking, walletService]);
 
-  React.useEffect(() => {
+  const getApr = React.useCallback(async () => {
+    try {
+      const apr = await walletService.callContractMethod({
+        contractName: 'BOND',
+        methodName: 'rewardAPY',
+        contractAddress: contracts.params.BOND[contracts.type].address,
+        contractAbi: contracts.params.BOND[contracts.type].abi,
+      });
+      staking.setApr(new BigNumber(apr).dividedBy(100).toString(10));
+    } catch (err) {
+      console.log('err getApr', err);
+    }
+  }, [staking, walletService]);
+
+  const getStakingData = React.useCallback(() => {
     getTotalStaked();
     getStakingInfo();
-  }, [getTotalStaked, getStakingInfo]);
+    getApr();
+  }, [getTotalStaked, getStakingInfo, getApr]);
+
+  React.useEffect(() => {
+    getStakingData();
+  }, [getStakingData]);
+
+  React.useEffect(() => {
+    if (staking.isRefresh) {
+      getStakingData();
+    }
+  }, [getStakingData, staking.isRefresh]);
 
   return <>{children}</>;
 };

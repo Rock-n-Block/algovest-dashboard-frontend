@@ -2,26 +2,31 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import BigNumber from 'bignumber.js/bignumber';
 
-import { Modal, Input, Button, EstimatedReward } from 'components';
+import { Input, Button, EstimatedReward } from 'components';
 import { useWalletConnectorContext } from 'services';
-import { IModalProps } from 'typings';
 import { useMst } from 'store';
 import { useTokenBalance, useApprove } from 'hooks';
 import { contracts } from 'config';
+import { checkValueDecimals } from 'utils';
 
 import { Avs } from 'assets/img';
 
-import s from './StakeModal.module.scss';
+import s from './Stake.module.scss';
 
-const StakeModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({ visible, onClose }) => {
+const Stake: React.VFC = () => {
   const { walletService } = useWalletConnectorContext();
   const {
     user: { address },
     modals: { walletConnect },
+    staking,
   } = useMst();
   const [amount, setAmount] = React.useState('');
   const [isLoading, setLoading] = React.useState(false);
-  const avsBalance = useTokenBalance(address, contracts.params.AVS[contracts.type].address, true);
+  const [avsBalance, avsDecimals] = useTokenBalance(
+    address,
+    contracts.params.AVS[contracts.type].address,
+    true,
+  );
   const [isApproved, isApproving, handleApprove] = useApprove({
     tokenName: 'AVS',
     approvedContractName: 'BOND',
@@ -29,9 +34,13 @@ const StakeModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({ visib
     walletAddress: address,
   });
 
-  const handleChangeAmount = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(e.target.value);
-  }, []);
+  const handleChangeAmount = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = checkValueDecimals(e.target.value, avsDecimals);
+      setAmount(value);
+    },
+    [avsDecimals],
+  );
 
   const handleStake = React.useCallback(async () => {
     try {
@@ -46,18 +55,14 @@ const StakeModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({ visib
         contract: 'BOND',
       });
       setLoading(false);
+      staking.refreshData();
     } catch (err) {
       setLoading(false);
     }
-  }, [walletService, amount]);
+  }, [walletService, amount, staking]);
 
   return (
-    <Modal
-      visible={visible}
-      onClose={onClose}
-      title="Stake AVS"
-      subtitle="Enter AVS amount and earn high rewards"
-    >
+    <div className={s.stake}>
       <Input
         onChange={handleChangeAmount}
         value={amount}
@@ -65,16 +70,20 @@ const StakeModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({ visib
         isNumber
         className={s.stake__input}
         placeholder="10,000.00"
-        postfix={
+        textSize="lg"
+        prefix={
           <div className={s.stake__postfix}>
             <img src={Avs} alt="" />
-            <span className="text-gray text-md">AVS</span>
+            <span className="text-lmd">AVS</span>
           </div>
         }
         error={
-          new BigNumber(amount).isGreaterThan(avsBalance) ? "You don't have enough balance" : ''
+          new BigNumber(amount).isGreaterThan(avsBalance || 0)
+            ? "You don't have enough balance"
+            : ''
         }
       />
+      <EstimatedReward percent={6.78} amount="10,560.00" color="gray" size="mini" />
       {!address ? (
         <Button color="green" className={s.stake__btn} onClick={walletConnect.open}>
           Connect Wallet
@@ -95,15 +104,14 @@ const StakeModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({ visib
           color="green"
           className={s.stake__btn}
           onClick={handleStake}
-          disabled={new BigNumber(amount).isGreaterThan(avsBalance)}
+          disabled={new BigNumber(amount || 0).isGreaterThanOrEqualTo(avsBalance || 0)}
           loading={isLoading}
         >
           Stake
         </Button>
       ) : null}
-      <EstimatedReward percent={6.78} amount="10,560.00" />
-    </Modal>
+    </div>
   );
 };
 
-export default observer(StakeModal);
+export default observer(Stake);

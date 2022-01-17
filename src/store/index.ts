@@ -20,6 +20,8 @@ export const rootStore = RootModel.create({
   staking: {
     totalStaked: '0',
     totalSupply: '0',
+    apr: '0',
+    isRefresh: false,
   },
 });
 

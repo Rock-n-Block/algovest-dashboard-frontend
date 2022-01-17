@@ -50,6 +50,22 @@ const Header: React.VFC = () => {
     setTooltipVisible(visible);
   }, []);
 
+  const handleCloseTooltipOnScroll = React.useCallback(() => {
+    handleChangeTooltipVisible(false);
+  }, [handleChangeTooltipVisible]);
+
+  React.useEffect(() => {
+    if (isTooltipVisible) {
+      window.addEventListener('scroll', handleCloseTooltipOnScroll);
+    } else {
+      window.removeEventListener('scroll', handleCloseTooltipOnScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleCloseTooltipOnScroll);
+    };
+  }, [handleCloseTooltipOnScroll, isTooltipVisible]);
+
   return (
     <header className={s.header}>
       <div className={s.header__wrapper}>

@@ -10,6 +10,9 @@
     background: $green-light;
     border: 1.5px solid $green;
   }
+  &-gray {
+    background: rgba(242, 242, 242, 0.8);
+  }
   &-sm {
     padding: 12px 26px 16px;
   }

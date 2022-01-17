@@ -1,13 +1,24 @@
 @import 'styles/mixins';
+$self: '.e_reward';
 
 .e_reward {
   border-radius: 10px;
   padding: 12px 30px;
-  @include flex(row, center);
+  @include flex(row, center, flex-start, nowrap);
   &__wrapper {
+    width: 100%;
     margin-left: 30px;
+    @include flex(row, center, space-between);
   }
-  &__title {
-    margin-top: 4px;
+  &.mini {
+    padding: 6px 16px;
+    #{$self} {
+      &__wrapper {
+        margin-left: 11px;
+      }
+    }
+    img {
+      max-width: 24px;
+    }
   }
 }

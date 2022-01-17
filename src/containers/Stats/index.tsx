@@ -6,14 +6,14 @@ import { observer } from 'mobx-react-lite';
 
 import { Button } from 'components';
 import { addressWithDots } from 'utils';
-import { StakeModal, DepositModal } from 'containers';
+import { DepositModal } from 'containers';
 import { useModal } from 'hooks';
 import { contracts } from 'config';
 import { useMst } from 'store';
 
 import s from './Stats.module.scss';
 
-import { ArrowGreen, Avs, Info, Eth, Copy, Usdc, Lock } from 'assets/img';
+import { ArrowGreen, Avs, Info, Eth, Copy, Usdc, Lock, Coins } from 'assets/img';
 
 interface IStats {
   type: 'staking' | 'pool';
@@ -21,16 +21,7 @@ interface IStats {
 
 const Stats: React.VFC<IStats> = ({ type }) => {
   const { staking } = useMst();
-  const [isStakeVisible, handleOpenStake, handleCloseStake] = useModal();
   const [isDepositVisible, handleOpenDeposit, handleCloseDeposit] = useModal();
-
-  const handleOpenModal = React.useCallback(() => {
-    if (type === 'staking') {
-      handleOpenStake();
-    } else {
-      handleOpenDeposit();
-    }
-  }, [type, handleOpenStake, handleOpenDeposit]);
 
   const content = React.useMemo(() => {
     if (type === 'staking') {
@@ -43,7 +34,6 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             <br /> The more AVS you lockup, the more USDC you can deposit to earn passive income.
           </>
         ),
-        btnText: 'Stake AVS',
         statsTitle: 'Stake’s Stats',
       };
     }
@@ -51,7 +41,6 @@ const Stats: React.VFC<IStats> = ({ type }) => {
       title: 'High-Yield Pool Overview',
       subtitle:
         'Deposit USDC to start earning while enjoying built-in deposit protection. Pool More, Earn More!',
-      btnText: 'Deposit USDC',
       statsTitle: 'Pool’s Stats',
     };
   }, [type]);
@@ -74,7 +63,8 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               animation="zoom"
               overlay={
                 <span className="text-sm">
-                  {staking.totalSupply} is the total AVS available in the market.
+                  {(+staking.totalSupply).toLocaleString()} is the total AVS available in the
+                  market.
                 </span>
               }
             >
@@ -84,7 +74,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               </div>
             </Tooltip>
             <div className={s.stats__info__item__value}>
-              <span className="text-500">{staking.totalSupply}</span>
+              <span className="text-500">{(+staking.totalSupply).toLocaleString()}</span>
             </div>
           </div>
           <div className={s.stats__info__item}>
@@ -118,7 +108,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               </div>
             </Tooltip>
             <div className={s.stats__info__item__value}>
-              <span className="text-500">8%</span>
+              <span className="text-500">{staking.apr}%</span>
             </div>
           </div>
         </div>
@@ -189,7 +179,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
       </div>
     );
-  }, [type, staking.totalSupply]);
+  }, [type, staking.totalSupply, staking.apr]);
 
   const total = React.useMemo(() => {
     if (type === 'staking') {
@@ -197,7 +187,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         <>
           <div className={s.stats__total}>
             <div className={s.stats__total__img}>
-              <img src={Avs} alt="" />
+              <img src={Coins} alt="" />
             </div>
             <div className={cn(s.stats__total__amount, 'text-bold')}>{staking.totalStaked}</div>
             <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Staked AVS</div>
@@ -225,18 +215,19 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={cn(s.stats__overview__title, 'text-lg text-500')}>{content.title}</div>
           <div className={cn(s.stats__overview__title, 'text-sm text-300')}>{content.subtitle}</div>
         </div>
-        <Button size="small" color="green" onClick={handleOpenModal} className={s.stats__btn}>
-          {content.btnText}
-        </Button>
+        {type === 'pool' ? (
+          <Button size="small" color="green" onClick={handleOpenDeposit} className={s.stats__btn}>
+            Deposit USDC
+          </Button>
+        ) : null}
       </div>
-      <div className="box">
-        <div className={cn(s.stats__info__title, 'text-lmd text-500')}>{content.statsTitle}</div>
-        <div className={s.stats__box}>
+      <div className={s.stats__box}>
+        <div className="box">
+          <div className={cn(s.stats__info__title, 'text-lmd text-500')}>{content.statsTitle}</div>
           <div className={s.stats__info}>{info}</div>
-          <div className={s.stats__total}>{total}</div>
         </div>
+        <div className={cn(s.stats__total, 'box')}>{total}</div>
       </div>
-      <StakeModal visible={isStakeVisible} onClose={handleCloseStake} />
       <DepositModal visible={isDepositVisible} onClose={handleCloseDeposit} />
     </div>
   );

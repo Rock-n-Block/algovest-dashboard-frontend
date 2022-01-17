@@ -19,6 +19,7 @@ export interface IInput {
   name?: string;
   className?: string;
   field?: any;
+  textSize?: 'md' | 'lg';
 }
 
 const Input: React.FC<IInput> = React.forwardRef<HTMLInputElement, IInput>(
@@ -37,6 +38,7 @@ const Input: React.FC<IInput> = React.forwardRef<HTMLInputElement, IInput>(
       name,
       className,
       field,
+      textSize = 'md',
     },
     ref,
   ) => {
@@ -113,7 +115,7 @@ const Input: React.FC<IInput> = React.forwardRef<HTMLInputElement, IInput>(
         name={name}
         autoComplete="off"
         ref={ref}
-        className={cn(style.input, className)}
+        className={cn(style.input, className, `text-${textSize}`)}
         type="text"
         readOnly={readonly}
         placeholder={placeholder}

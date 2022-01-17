@@ -23,7 +23,7 @@
     }
   }
   &__box {
-    @include flex(row, flex-start, flex-start, nowrap);
+    @include grid(1fr 228px, 1fr, 14px);
     width: 100%;
     @include b('mobile') {
       display: block;
@@ -49,21 +49,8 @@
     }
   }
   &__info {
-    width: 55%;
-    margin-right: 32px;
     @include b('mobile') {
       width: 100%;
-    }
-    &__box {
-      border-right: 1.5px solid $border-gray-light;
-      padding-right: 32px;
-      @include b('mobile') {
-        padding-right: 0;
-        border-right: none;
-        border-bottom: 1.5px solid $border-gray-light;
-        padding-bottom: 30px;
-        margin-bottom: 30px;
-      }
     }
     &__title {
       margin-bottom: 30px;

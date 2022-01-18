@@ -17,11 +17,8 @@ const Staking = types
     setApr: (value: string) => {
       self.apr = value;
     },
-    refreshData: () => {
-      self.isRefresh = true;
-      setTimeout(() => {
-        self.isRefresh = false;
-      }, 0);
+    refreshData: (value: boolean) => {
+      self.isRefresh = value;
     },
   }));
 

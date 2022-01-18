@@ -55,7 +55,8 @@ const Stake: React.VFC = () => {
         contract: 'BOND',
       });
       setLoading(false);
-      staking.refreshData();
+      setAmount('');
+      staking.refreshData(true);
     } catch (err) {
       setLoading(false);
     }

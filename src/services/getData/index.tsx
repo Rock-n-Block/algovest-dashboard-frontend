@@ -1,5 +1,6 @@
 import React from 'react';
 import BigNumber from 'bignumber.js/bignumber';
+import { observer } from 'mobx-react-lite';
 
 import { useWalletConnectorContext } from 'services';
 import { contracts } from 'config';
@@ -8,6 +9,8 @@ import { useMst } from 'store';
 const GetData: React.FC = ({ children }) => {
   const { walletService } = useWalletConnectorContext();
   const { user, staking } = useMst();
+
+  // start staking
 
   const getTotalStaked = React.useCallback(async () => {
     if (user.address) {
@@ -78,10 +81,39 @@ const GetData: React.FC = ({ children }) => {
   React.useEffect(() => {
     if (staking.isRefresh) {
       getStakingData();
+      staking.refreshData(false);
     }
-  }, [getStakingData, staking.isRefresh]);
+  }, [getStakingData, staking.isRefresh, staking]);
+
+  // end staking
+
+  // start pool
+
+  const getPools = React.useCallback(async () => {
+    try {
+      const poolsCount = await walletService.callContractMethod({
+        contractName: 'BOND',
+        methodName: 'poolLength',
+        contractAddress: contracts.params.BOND[contracts.type].address,
+        contractAbi: contracts.params.BOND[contracts.type].abi,
+      });
+      console.log(poolsCount);
+    } catch (err) {
+      console.log('err get pools', err);
+    }
+  }, [walletService]);
+
+  const getPoolData = React.useCallback(() => {
+    getPools();
+  }, [getPools]);
+
+  React.useEffect(() => {
+    getPoolData();
+  }, [getPoolData]);
+
+  // end pool
 
   return <>{children}</>;
 };
 
-export default GetData;
+export default observer(GetData);

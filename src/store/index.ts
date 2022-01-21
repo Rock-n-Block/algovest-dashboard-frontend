@@ -2,13 +2,13 @@ import { createContext, useContext } from 'react';
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
 import makeInspectable from 'mobx-devtools-mst';
 
-import { Modals, UserModel, Staking, Pool } from './Models';
+import { Modals, UserModel, Staking, Pools } from './Models';
 
 const RootModel = types.model('RootModel', {
   user: UserModel,
   modals: Modals,
   staking: Staking,
-  pool: Pool,
+  pools: Pools,
 });
 
 export const rootStore = RootModel.create({
@@ -24,7 +24,7 @@ export const rootStore = RootModel.create({
     apr: '0',
     isRefresh: false,
   },
-  pool: {
+  pools: {
     activeDeposits: '0',
     isRefresh: false,
   },

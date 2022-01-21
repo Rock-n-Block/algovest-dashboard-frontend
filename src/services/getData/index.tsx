@@ -8,7 +8,7 @@ import { useMst } from 'store';
 
 const GetData: React.FC = ({ children }) => {
   const { walletService } = useWalletConnectorContext();
-  const { user, staking, pool } = useMst();
+  const { user, staking, pools } = useMst();
 
   // start staking
 
@@ -103,11 +103,11 @@ const GetData: React.FC = ({ children }) => {
         activeDeposits,
       );
 
-      pool.setActiveDeposits(amount);
+      pools.setActiveDeposits(amount);
     } catch (err) {
       console.log('err get total staked', err);
     }
-  }, [walletService, pool]);
+  }, [walletService, pools]);
 
   const getPools = React.useCallback(async () => {
     try {
@@ -130,6 +130,11 @@ const GetData: React.FC = ({ children }) => {
 
   React.useEffect(() => {
     getPoolData();
+    const iterval = setInterval(getPoolData, 60000);
+
+    return () => {
+      clearInterval(iterval);
+    };
   }, [getPoolData]);
 
   // end pool

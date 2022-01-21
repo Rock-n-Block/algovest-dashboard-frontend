@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree';
 
-const Pool = types
-  .model('PoolModel', {
+const Pools = types
+  .model('PoolsModel', {
     activeDeposits: types.string,
     isRefresh: types.boolean,
   })
@@ -14,4 +14,4 @@ const Pool = types
     },
   }));
 
-export default Pool;
+export default Pools;

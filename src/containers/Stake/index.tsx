@@ -62,6 +62,15 @@ const Stake: React.VFC = () => {
     }
   }, [walletService, amount, staking]);
 
+  const estimatedReward = React.useMemo(() => {
+    if (new BigNumber(amount).isGreaterThan(0) && staking.apr) {
+      return new BigNumber(amount)
+        .plus(new BigNumber(amount).multipliedBy(new BigNumber(staking.apr).dividedBy(100)))
+        .toFixed(3, 1);
+    }
+    return '0';
+  }, [amount, staking.apr]);
+
   return (
     <div className={s.stake}>
       <Input
@@ -84,7 +93,13 @@ const Stake: React.VFC = () => {
             : ''
         }
       />
-      <EstimatedReward percent={6.78} amount="10,560.00" color="gray" size="mini" />
+      <EstimatedReward
+        percent={6.78}
+        amount={estimatedReward}
+        color="gray"
+        size="mini"
+        orientation="horizontal"
+      />
       {!address ? (
         <Button color="green" className={s.stake__btn} onClick={walletConnect.open}>
           Connect Wallet

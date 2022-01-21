@@ -5,10 +5,16 @@ $self: '.e_reward';
   border-radius: 10px;
   padding: 12px 30px;
   @include flex(row, center, flex-start, nowrap);
+  .vertical {
+    @include flex(column, flex-start, space-between);
+  }
   &__wrapper {
     width: 100%;
     margin-left: 30px;
     @include flex(row, center, space-between);
+  }
+  &__title {
+    max-width: 240px;
   }
   &.mini {
     padding: 6px 16px;

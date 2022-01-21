@@ -92,6 +92,19 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
     [handleChangeStep, currentStep],
   );
 
+  const estimatedReward = React.useMemo(() => {
+    if (new BigNumber(amount).isGreaterThan(0) && selectedPool.periodInterestRate) {
+      return new BigNumber(amount)
+        .plus(
+          new BigNumber(amount).multipliedBy(
+            new BigNumber(selectedPool.periodInterestRate).dividedBy(100),
+          ),
+        )
+        .toFixed(3, 1);
+    }
+    return '0';
+  }, [amount, selectedPool]);
+
   return (
     <Modal
       visible={visible}
@@ -189,7 +202,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
               Stake
             </Button>
           ) : null}
-          <EstimatedReward percent={selectedPool.periodInterestRate} amount="10,560.00" />
+          <EstimatedReward percent={selectedPool.periodInterestRate} amount={estimatedReward} />
         </div>
       ) : null}
     </Modal>

@@ -10,6 +10,7 @@ interface IEstimatedReward {
   amount: string | number;
   color?: 'green' | 'gray';
   size?: 'default' | 'mini';
+  orientation?: 'horizontal' | 'vertical';
 }
 
 const EstimatedReward: React.VFC<IEstimatedReward> = ({
@@ -17,6 +18,7 @@ const EstimatedReward: React.VFC<IEstimatedReward> = ({
   amount,
   color = 'green',
   size = 'default',
+  orientation = 'vertical',
 }) => {
   return (
     <div
@@ -26,12 +28,12 @@ const EstimatedReward: React.VFC<IEstimatedReward> = ({
       })}
     >
       <img src={Magnet} alt="" />
-      <div className={s.e_reward__wrapper}>
+      <div className={cn(s.e_reward__wrapper, s[orientation])}>
         <div className={cn(s.e_reward__subtitle, 'text-gray text-sm')}>
           {percent}% (APY) Estimated Reward:
         </div>
         <div
-          className={cn(s.e_reward__title, 'text-600', {
+          className={cn(s.e_reward__title, 'text-600 text-ellipsis', {
             'text-lg': size === 'default',
             'text-smd': size === 'mini',
           })}

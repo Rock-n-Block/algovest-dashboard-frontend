@@ -20,7 +20,7 @@ interface IStats {
 }
 
 const Stats: React.VFC<IStats> = ({ type }) => {
-  const { staking } = useMst();
+  const { staking, pool } = useMst();
   const [isDepositVisible, handleOpenDeposit, handleCloseDeposit] = useModal();
 
   const content = React.useMemo(() => {
@@ -120,7 +120,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={cn(s.stats__info__item__name, 'text-gray')}>Active Deposits:</div>
           <div className={s.stats__info__item__value}>
             <img src={Usdc} alt="" />
-            <span className="text-500">37,194.09</span>
+            <span className="text-500">{(+pool.activeDeposits).toLocaleString()}</span>
           </div>
         </div>
         <div className={s.stats__info__item}>
@@ -179,7 +179,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
       </div>
     );
-  }, [type, staking.totalSupply, staking.apr]);
+  }, [type, staking.totalSupply, staking.apr, pool.activeDeposits]);
 
   const total = React.useMemo(() => {
     if (type === 'staking') {

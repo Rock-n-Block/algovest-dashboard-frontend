@@ -8,7 +8,7 @@ import { useMst } from 'store';
 
 const GetData: React.FC = ({ children }) => {
   const { walletService } = useWalletConnectorContext();
-  const { user, staking } = useMst();
+  const { user, staking, pool } = useMst();
 
   // start staking
 
@@ -89,6 +89,26 @@ const GetData: React.FC = ({ children }) => {
 
   // start pool
 
+  const getActiveDeposits = React.useCallback(async () => {
+    try {
+      const activeDeposits = await walletService.callContractMethod({
+        contractName: 'BOUND',
+        methodName: 'inTrading',
+        contractAddress: contracts.params.BOND[contracts.type].address,
+        contractAbi: contracts.params.BOND[contracts.type].abi,
+      });
+
+      const amount = await walletService.weiToEth(
+        contracts.params.USDC[contracts.type].address,
+        activeDeposits,
+      );
+
+      pool.setActiveDeposits(amount);
+    } catch (err) {
+      console.log('err get total staked', err);
+    }
+  }, [walletService, pool]);
+
   const getPools = React.useCallback(async () => {
     try {
       const poolsCount = await walletService.callContractMethod({
@@ -104,8 +124,9 @@ const GetData: React.FC = ({ children }) => {
   }, [walletService]);
 
   const getPoolData = React.useCallback(() => {
+    getActiveDeposits();
     getPools();
-  }, [getPools]);
+  }, [getPools, getActiveDeposits]);
 
   React.useEffect(() => {
     getPoolData();

@@ -179,7 +179,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
       </div>
     );
-  }, [type, staking.totalSupply, staking.apr, pools.activeDeposits, pools.items]);
+  }, [type, staking.totalSupply, staking.apr, pools.activeDeposits, pools.items.length]);
 
   const total = React.useMemo(() => {
     if (type === 'staking') {

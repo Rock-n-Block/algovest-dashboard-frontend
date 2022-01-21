@@ -117,7 +117,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
         <div className={s.deposit__pools}>
           {pools.items.map((pool, index) => (
             <div
-              key={pool.noncesToUnlock}
+              key={`${pool.noncesToUnlock}-${pool.periodInterestRate}-${pool.minDeposit}`}
               className={cn(s.deposit__pools__item, 'box box-sm', {
                 ' box-green': index === 0,
               })}
@@ -199,7 +199,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
               disabled={new BigNumber(amount || 0).isGreaterThanOrEqualTo(usdcBalance || 0)}
               loading={isLoading}
             >
-              Stake
+              Deposit
             </Button>
           ) : null}
           <EstimatedReward percent={selectedPool.periodInterestRate} amount={estimatedReward} />

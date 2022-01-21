@@ -237,6 +237,10 @@ export class WalletService {
     return new BigNumber(amount).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
   }
 
+  static weiToEthWithDecimals(amount: number | string, decimals = 18): string {
+    return new BigNumber(amount).dividedBy(new BigNumber(10).pow(decimals)).toString(10);
+  }
+
   static ethToWei(amount: number | string, decimals = 18): string {
     return new BigNumber(amount).multipliedBy(new BigNumber(10).pow(decimals)).toString(10);
   }

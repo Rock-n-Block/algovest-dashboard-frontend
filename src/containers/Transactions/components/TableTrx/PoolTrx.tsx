@@ -1,12 +1,19 @@
 import React from 'react';
 import cn from 'classnames';
 import Pagination from 'rc-pagination';
+import { observer } from 'mobx-react-lite';
+import { format } from 'date-fns';
+
+import { useMst } from 'store';
+import { WalletService } from 'services';
 
 import { ArrowSort, ArrowNav } from 'assets/img';
 
 import s from './TableTrx.module.scss';
 
 const PoolTrx: React.VFC = () => {
+  const { pools } = useMst();
+
   const buttonItemRender = (_: number, type: string, element: React.ReactNode) => {
     if (type === 'prev') {
       return (
@@ -59,20 +66,27 @@ const PoolTrx: React.VFC = () => {
         </div>
         <div className="" />
       </div>
-      <div className={cn(s.t_table__pool__row, s.t_table__row, 'text-md')}>
-        <div>21. 09. 2021</div>
-        <div>USDC</div>
-        <div>102.50435</div>
-        <div className="">40%</div>
-        <div className="">8 Weeks</div>
-        <div>
-          <div className="text-green">0.51942</div>
-          <div className="text-sm text-gray">Accrue days: 5 days </div>
+      {pools.deposits.map((deposit) => (
+        <div
+          key={deposit.depositTimestamp}
+          className={cn(s.t_table__pool__row, s.t_table__row, 'text-md')}
+        >
+          <div>{format(new Date(+deposit.depositTimestamp * 1000), 'dd.MM.yyyy')}</div>
+          <div>USDC</div>
+          <div>{WalletService.weiToEthWithDecimals(deposit.amount)}</div>
+          <div className="">{deposit.pool.periodInterestRate}%</div>
+          <div className="">{deposit.pool.noncesToUnlock} Weeks</div>
+          <div>
+            <div className="text-green">
+              {WalletService.weiToEthWithDecimals(deposit.pendingInterest)}
+            </div>
+            <div className="text-sm text-gray">Accrue days: 5 days </div>
+          </div>
+          <div className={cn(s.t_table__status, s.t_table__status_active)}>Active</div>
+          <div className="text-red text-smd cursor-pointer">Unstake</div>
         </div>
-        <div className={cn(s.t_table__status, s.t_table__status_active)}>Active</div>
-        <div className="text-red text-smd cursor-pointer">Unstake</div>
-      </div>
-      <div className={cn(s.t_table__pool__row, s.t_table__row, 'text-md')}>
+      ))}
+      {/* <div className={cn(s.t_table__pool__row, s.t_table__row, 'text-md')}>
         <div>21. 09. 2021</div>
         <div>USDC</div>
         <div>102.50435</div>
@@ -84,10 +98,10 @@ const PoolTrx: React.VFC = () => {
         </div>
         <div className={cn(s.t_table__status, s.t_table__status_done)}>Done</div>
         <div className="text-red text-smd cursor-pointer">Unstake</div>
-      </div>
+      </div> */}
       <Pagination simple defaultCurrent={1} total={50} itemRender={buttonItemRender} />
     </div>
   );
 };
 
-export default PoolTrx;
+export default observer(PoolTrx);

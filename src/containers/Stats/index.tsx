@@ -201,12 +201,12 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={s.stats__total__img}>
             <img src={Lock} alt="" />
           </div>
-          <div className={cn(s.stats__total__amount, 'text-bold')}>200.504</div>
+          <div className={cn(s.stats__total__amount, 'text-bold')}>{pools.totalLocked}</div>
           <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Value Locked</div>
         </div>
       </>
     );
-  }, [type, staking.totalStaked]);
+  }, [type, staking.totalStaked, pools.totalLocked]);
 
   return (
     <div className={s.stats}>

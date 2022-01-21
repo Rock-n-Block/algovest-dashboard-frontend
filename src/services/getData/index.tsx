@@ -1,11 +1,11 @@
 import React from 'react';
-import BigNumber from 'bignumber.js/bignumber';
+import BigNumber from 'bignumber.js';
 import { observer } from 'mobx-react-lite';
 
 import { useWalletConnectorContext } from 'services';
 import { contracts } from 'config';
 import { useMst } from 'store';
-import { IPoolItem } from 'store/Models/Pools';
+import { IPoolItem, IBondItem } from 'store/Models/Pools';
 
 const GetData: React.FC = ({ children }) => {
   const { walletService } = useWalletConnectorContext();
@@ -110,6 +110,85 @@ const GetData: React.FC = ({ children }) => {
     }
   }, [walletService, pools]);
 
+  const getDeposits = React.useCallback(async () => {
+    if (user.address) {
+      try {
+        const bondsCount = await walletService.callContractMethod({
+          contractName: 'BOND',
+          methodName: 'balanceOf',
+          contractAddress: contracts.params.BOND[contracts.type].address,
+          contractAbi: contracts.params.BOND[contracts.type].abi,
+          data: [user.address],
+        });
+
+        const nftIdsPromises: Array<Promise<string>> = new Array(+bondsCount)
+          .fill(0)
+          .map((_, index) =>
+            walletService.callContractMethod({
+              contractName: 'BOND',
+              methodName: 'tokenOfOwnerByIndex',
+              contractAddress: contracts.params.BOND[contracts.type].address,
+              contractAbi: contracts.params.BOND[contracts.type].abi,
+              data: [user.address, index],
+            }),
+          );
+
+        const nftIds = await Promise.all(nftIdsPromises);
+
+        const bondPoolsIdsPromises: Array<Promise<string>> = nftIds.map((nftId) =>
+          walletService.callContractMethod({
+            contractName: 'BOND',
+            methodName: 'bondPool',
+            contractAddress: contracts.params.BOND[contracts.type].address,
+            contractAbi: contracts.params.BOND[contracts.type].abi,
+            data: [nftId],
+          }),
+        );
+
+        const bondPoolsIds = await Promise.all(bondPoolsIdsPromises);
+
+        const boundsInfoPromises: Array<Promise<IBondItem>> = bondPoolsIds.map(
+          (boundPoolId, index) =>
+            walletService.callContractMethod({
+              contractName: 'BOND',
+              methodName: 'bondInfo',
+              contractAddress: contracts.params.BOND[contracts.type].address,
+              contractAbi: contracts.params.BOND[contracts.type].abi,
+              data: [boundPoolId, nftIds[index]],
+            }),
+        );
+
+        const boundsInfo = await Promise.all(boundsInfoPromises);
+
+        const amount = boundsInfo.reduce((prevAmount, bond) => {
+          if (!bond.withdrawn) {
+            return +new BigNumber(prevAmount).plus(bond.amount);
+          }
+          return prevAmount;
+        }, 0);
+
+        const totalLocked = await walletService.weiToEth(
+          contracts.params.USDC[contracts.type].address,
+          amount,
+        );
+
+        pools.setTotalLocked(totalLocked);
+
+        const bondsForStore = boundsInfo.map((bond, index) => ({
+          pool: bondPoolsIds[index],
+          amount: bond.amount,
+          currentNonce: bond.currentNonce,
+          depositTimestamp: bond.depositTimestamp,
+          pendingInterest: bond.pendingInterest,
+          withdrawn: bond.withdrawn,
+        }));
+        pools.setDeposits(bondsForStore);
+      } catch (err) {
+        console.log('err get deposits', err);
+      }
+    }
+  }, [walletService, user.address, pools]);
+
   const getPools = React.useCallback(async () => {
     try {
       const poolsCount = await walletService.callContractMethod({
@@ -118,9 +197,8 @@ const GetData: React.FC = ({ children }) => {
         contractAddress: contracts.params.BOND[contracts.type].address,
         contractAbi: contracts.params.BOND[contracts.type].abi,
       });
-      console.log(poolsCount);
 
-      const promises: Array<Promise<IPoolItem>> = new Array(poolsCount).fill(0).map((_, index) =>
+      const promises: Array<Promise<IPoolItem>> = new Array(+poolsCount).fill(0).map((_, index) =>
         walletService.callContractMethod({
           contractName: 'BOND',
           methodName: 'poolInfo',
@@ -148,7 +226,8 @@ const GetData: React.FC = ({ children }) => {
   const getPoolData = React.useCallback(() => {
     getActiveDeposits();
     getPools();
-  }, [getPools, getActiveDeposits]);
+    getDeposits();
+  }, [getPools, getActiveDeposits, getDeposits]);
 
   React.useEffect(() => {
     getPoolData();
@@ -158,6 +237,13 @@ const GetData: React.FC = ({ children }) => {
       clearInterval(iterval);
     };
   }, [getPoolData]);
+
+  React.useEffect(() => {
+    if (pools.isRefresh) {
+      getPoolData();
+      pools.refreshData(false);
+    }
+  }, [getPoolData, pools.isRefresh, pools]);
 
   // end pool
 

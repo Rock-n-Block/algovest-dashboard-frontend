@@ -1,11 +1,16 @@
 import React from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
+import BigNumber from 'bignumber.js';
 
 import { Modal, Steps, EstimatedReward, Input, Button } from 'components';
 import { IModalProps } from 'typings';
-import { useSteps } from 'hooks';
+import { useSteps, useTokenBalance, useApprove } from 'hooks';
 import { useMst } from 'store';
+import { IPoolItem } from 'store/Models/Pools';
+import { contracts } from 'config';
+import { checkValueDecimals } from 'utils';
+import { useWalletConnectorContext } from 'services';
 
 import { LockupPeriod, Usdc } from 'assets/img';
 
@@ -22,29 +27,6 @@ const stepsData = [
   },
 ];
 
-interface IPool {
-  apr: number;
-  lockupPeriod: number;
-  isRecommended?: boolean;
-}
-
-// mock
-const pools: IPool[] = [
-  {
-    apr: 20,
-    lockupPeriod: 8,
-  },
-  {
-    apr: 40,
-    lockupPeriod: 16,
-    isRecommended: true,
-  },
-  {
-    apr: 60,
-    lockupPeriod: 24,
-  },
-];
-
 const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
   visible,
   onClose,
@@ -52,17 +34,58 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
   const {
     user: { address },
     modals: { walletConnect },
+    pools,
   } = useMst();
+  const { walletService } = useWalletConnectorContext();
+
+  const [isLoading, setLoading] = React.useState(false);
   const [amount, setAmount] = React.useState('');
   const [currentStep, handleChangeStep] = useSteps(1);
-  const [selectedPool, setPool] = React.useState<IPool>(pools[0]);
+  const [selectedPool, setPool] = React.useState<IPoolItem>(pools.items[0]);
 
-  const handleChangeAmount = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(e.target.value);
-  }, []);
+  const [usdcBalance, usdcDecimals] = useTokenBalance(
+    address,
+    contracts.params.USDC[contracts.type].address,
+    true,
+  );
+
+  const [isApproved, isApproving, handleApprove] = useApprove({
+    tokenName: 'USDC',
+    approvedContractName: 'BOND',
+    amount,
+    walletAddress: address,
+  });
+
+  const handleDeposit = React.useCallback(async () => {
+    try {
+      setLoading(true);
+      const trxAmount = await walletService.calcTransactionAmount(
+        contracts.params.USDC[contracts.type].address,
+        amount,
+      );
+      await walletService.createTransaction({
+        method: 'depositToPool',
+        data: [selectedPool.id, trxAmount],
+        contract: 'BOND',
+      });
+      setLoading(false);
+      setAmount('');
+      pools.refreshData(true);
+    } catch (err) {
+      setLoading(false);
+    }
+  }, [walletService, amount, pools, selectedPool]);
+
+  const handleChangeAmount = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = checkValueDecimals(e.target.value, usdcDecimals);
+      setAmount(value);
+    },
+    [usdcDecimals],
+  );
 
   const handleSelectPool = React.useCallback(
-    (pool: IPool) => {
+    (pool: IPoolItem) => {
       setPool(pool);
       handleChangeStep(currentStep + 1);
     },
@@ -79,11 +102,11 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
     >
       {currentStep === 1 ? (
         <div className={s.deposit__pools}>
-          {pools.map((pool) => (
+          {pools.items.map((pool, index) => (
             <div
-              key={pool.apr}
+              key={pool.noncesToUnlock}
               className={cn(s.deposit__pools__item, 'box box-sm', {
-                ' box-green': pool.isRecommended,
+                ' box-green': index === 0,
               })}
               onClick={() => handleSelectPool(pool)}
               onKeyDown={() => {}}
@@ -91,8 +114,8 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
               tabIndex={0}
             >
               <div className={cn(s.deposit__pools__item__title, 'text-green text-600')}>
-                <span>{pool.apr}% APR</span>
-                {pool.isRecommended ? (
+                <span>{pool.periodInterestRate}% APR</span>
+                {index === 0 ? (
                   <div className={cn(s.deposit__pools__item__recom, 'text-sm text-400')}>
                     Recommended
                   </div>
@@ -101,7 +124,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
               <div className={s.deposit__pools__item__box}>
                 <div className={cn(s.deposit__pools__item__period, 'text-gray text-smd')}>
                   <img src={LockupPeriod} alt="" />
-                  {pool.lockupPeriod} weeks lockup period
+                  {pool.noncesToUnlock} weeks lockup period
                 </div>
                 <div className={cn(s.deposit__pools__item__currency, 'text-gray text-smd')}>
                   <img src={Usdc} alt="" />
@@ -127,21 +150,46 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
                 <span className="text-gray text-md">USDC</span>
               </div>
             }
-            error="You don't have enough balance"
+            error={
+              new BigNumber(amount).isGreaterThan(usdcBalance || 0)
+                ? "You don't have enough balance"
+                : ''
+            }
           />
           <div className={cn(s.deposit__lockup, 'text-smd text-gray')}>
             <div className={s.deposit__lockup__box}>
               <img src={LockupPeriod} alt="" />
-              {selectedPool.lockupPeriod} weeks lockup period
+              {selectedPool.noncesToUnlock} weeks lockup period
             </div>
-            <div className="text-500">@ {selectedPool.apr}% APR</div>
+            <div className="text-500">@ {selectedPool.periodInterestRate}% APR</div>
           </div>
           {!address ? (
             <Button color="green" className={s.deposit__btn} onClick={walletConnect.open}>
               Connect Wallet
             </Button>
           ) : null}
-          <EstimatedReward percent={selectedPool.apr} amount="10,560.00" />
+          {!isApproved && address ? (
+            <Button
+              color="green"
+              className={s.deposit__btn}
+              onClick={handleApprove}
+              loading={isApproving}
+            >
+              Approve Token
+            </Button>
+          ) : null}
+          {isApproved && address ? (
+            <Button
+              color="green"
+              className={s.deposit__btn}
+              onClick={handleDeposit}
+              disabled={new BigNumber(amount || 0).isGreaterThanOrEqualTo(usdcBalance || 0)}
+              loading={isLoading}
+            >
+              Stake
+            </Button>
+          ) : null}
+          <EstimatedReward percent={selectedPool.periodInterestRate} amount="10,560.00" />
         </div>
       ) : null}
     </Modal>

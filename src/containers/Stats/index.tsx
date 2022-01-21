@@ -133,7 +133,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         <div className={s.stats__info__item}>
           <div className={cn(s.stats__info__item__name, 'text-gray')}>Yield Pool Available:</div>
           <div className={s.stats__info__item__value}>
-            <span className="text-500">3 Pools</span>
+            <span className="text-500">{pools.items.length} Pools</span>
           </div>
         </div>
         <div className={s.stats__info__item}>
@@ -179,7 +179,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
       </div>
     );
-  }, [type, staking.totalSupply, staking.apr, pools.activeDeposits]);
+  }, [type, staking.totalSupply, staking.apr, pools.activeDeposits, pools.items]);
 
   const total = React.useMemo(() => {
     if (type === 'staking') {

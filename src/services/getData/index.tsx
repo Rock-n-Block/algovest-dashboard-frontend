@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useWalletConnectorContext } from 'services';
 import { contracts } from 'config';
 import { useMst } from 'store';
+import { IPoolItem } from 'store/Models/Pools';
 
 const GetData: React.FC = ({ children }) => {
   const { walletService } = useWalletConnectorContext();
@@ -118,10 +119,31 @@ const GetData: React.FC = ({ children }) => {
         contractAbi: contracts.params.BOND[contracts.type].abi,
       });
       console.log(poolsCount);
+
+      const promises: Array<Promise<IPoolItem>> = new Array(poolsCount).fill(0).map((_, index) =>
+        walletService.callContractMethod({
+          contractName: 'BOND',
+          methodName: 'poolInfo',
+          contractAddress: contracts.params.BOND[contracts.type].address,
+          contractAbi: contracts.params.BOND[contracts.type].abi,
+          data: [index],
+        }),
+      );
+
+      Promise.all(promises).then((res) => {
+        const poolWithoutNumbers = res.map((item: IPoolItem, index) => ({
+          id: index,
+          locked: item.locked,
+          minDeposit: item.minDeposit,
+          noncesToUnlock: item.noncesToUnlock,
+          periodInterestRate: item.periodInterestRate,
+        }));
+        pools.setPools(poolWithoutNumbers);
+      });
     } catch (err) {
       console.log('err get pools', err);
     }
-  }, [walletService]);
+  }, [walletService, pools]);
 
   const getPoolData = React.useCallback(() => {
     getActiveDeposits();

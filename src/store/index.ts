@@ -26,6 +26,7 @@ export const rootStore = RootModel.create({
   },
   pools: {
     activeDeposits: '0',
+    items: [],
     isRefresh: false,
   },
 });

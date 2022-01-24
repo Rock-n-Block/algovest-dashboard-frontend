@@ -29,6 +29,41 @@ const Pools = types
     totalLocked: types.string,
     isRefresh: types.boolean,
   })
+  .views((self) => ({
+    get getMaxMinPeriod() {
+      if (self.items.length) {
+        const sortedPools = self.items.slice().sort((prev, next) => {
+          return +prev.noncesToUnlock - +next.noncesToUnlock;
+        });
+        if (
+          +sortedPools[0].noncesToUnlock === +sortedPools[sortedPools.length - 1].noncesToUnlock
+        ) {
+          return sortedPools[0].noncesToUnlock;
+        }
+        return `${sortedPools[0].noncesToUnlock} - ${
+          sortedPools[sortedPools.length - 1].noncesToUnlock
+        }`;
+      }
+      return '0 - 0';
+    },
+    get getMaxMinApr() {
+      if (self.items.length) {
+        const sortedPools = self.items.slice().sort((prev, next) => {
+          return +prev.periodInterestRate - +next.periodInterestRate;
+        });
+        if (
+          +sortedPools[0].periodInterestRate ===
+          +sortedPools[sortedPools.length - 1].periodInterestRate
+        ) {
+          return sortedPools[0].periodInterestRate;
+        }
+        return `${sortedPools[0].periodInterestRate}% - ${
+          sortedPools[sortedPools.length - 1].periodInterestRate
+        }%`;
+      }
+      return '0 - 0';
+    },
+  }))
   .actions((self) => ({
     setActiveDeposits: (value: string) => {
       self.activeDeposits = value;

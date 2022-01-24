@@ -150,7 +150,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             </div>
           </Tooltip>
           <div className={s.stats__info__item__value}>
-            <span className="text-500">8 - 24 weeks</span>
+            <span className="text-500">{pools.getMaxMinPeriod} weeks</span>
           </div>
         </div>
         <div className={s.stats__info__item}>
@@ -174,12 +174,20 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             </div>
           </Tooltip>
           <div className={s.stats__info__item__value}>
-            <span className="text-500">20% - 60% APR</span>
+            <span className="text-500">{pools.getMaxMinApr} APR</span>
           </div>
         </div>
       </div>
     );
-  }, [type, staking.totalSupply, staking.apr, pools.activeDeposits, pools.items.length]);
+  }, [
+    type,
+    staking.totalSupply,
+    staking.apr,
+    pools.activeDeposits,
+    pools.items.length,
+    pools.getMaxMinPeriod,
+    pools.getMaxMinApr,
+  ]);
 
   const total = React.useMemo(() => {
     if (type === 'staking') {

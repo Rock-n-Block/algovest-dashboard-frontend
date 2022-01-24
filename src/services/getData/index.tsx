@@ -63,7 +63,7 @@ const GetData: React.FC = ({ children }) => {
         contractAddress: contracts.params.BOND[contracts.type].address,
         contractAbi: contracts.params.BOND[contracts.type].abi,
       });
-      staking.setApr(new BigNumber(apr).dividedBy(100).toString(10));
+      staking.setApr(new BigNumber(apr).dividedBy(10000).toString(10));
     } catch (err) {
       console.log('err getApr', err);
     }
@@ -120,6 +120,8 @@ const GetData: React.FC = ({ children }) => {
           contractAbi: contracts.params.BOND[contracts.type].abi,
           data: [user.address],
         });
+
+        pools.setActiveBonds(+bondsCount);
 
         const nftIdsPromises: Array<Promise<string>> = new Array(+bondsCount)
           .fill(0)

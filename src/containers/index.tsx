@@ -6,3 +6,4 @@ export { default as Transactions } from './Transactions';
 export { default as DepositModal } from './DepositModal';
 export { default as Navbar } from './Navbar';
 export { default as Deposit } from './Deposit';
+export { default as UnstakeModal } from './UnstakeModal';

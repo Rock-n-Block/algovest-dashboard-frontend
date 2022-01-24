@@ -1,0 +1,52 @@
+@import 'styles/mixins';
+
+.us_modal {
+  &__content {
+    padding-top: 30px;
+    border-top: 1px solid $btn-border-gray;
+  }
+  &__img {
+    position: absolute;
+    top: 21px;
+    right: 24px;
+    width: 48px;
+  }
+  &__box {
+    @include grid(1fr 160px, auto, 16px);
+  }
+  &__item {
+    border-radius: 8px;
+    padding: 19px 16px;
+    @include flex(row, center, flex-start, nowrap);
+    &__gray {
+      background: #f3f4f6;
+    }
+    &__green {
+      background: $green-light;
+    }
+    &__el {
+      & + & {
+        margin-left: 22px;
+        padding-left: 22px;
+        border-left: 1px solid $btn-border-gray;
+      }
+      &__value {
+        margin-top: 8px;
+      }
+    }
+  }
+  &__btn {
+    margin-top: 35px;
+    margin-bottom: 13px;
+    width: 100%;
+  }
+  &__info {
+    @include flex(row, center);
+    & + & {
+      margin-top: 15px;
+    }
+    img {
+      margin-right: 8px;
+    }
+  }
+}

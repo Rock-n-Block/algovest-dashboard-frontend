@@ -55,6 +55,13 @@
     }
   }
   &__staking {
+    &__item {
+      @include flex(row, center, flex-start, nowrap);
+      img {
+        max-width: 24px;
+        margin-right: 8px;
+      }
+    }
     &__row {
       grid-template-columns: 195px 170px 185px 1fr;
     }

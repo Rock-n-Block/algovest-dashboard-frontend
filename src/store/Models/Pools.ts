@@ -28,6 +28,7 @@ const Pools = types
     deposits: types.array(BondItem),
     totalLocked: types.string,
     isRefresh: types.boolean,
+    activeBonds: types.number,
   })
   .views((self) => ({
     get getMaxMinPeriod() {
@@ -67,6 +68,9 @@ const Pools = types
   .actions((self) => ({
     setActiveDeposits: (value: string) => {
       self.activeDeposits = value;
+    },
+    setActiveBonds: (value: number) => {
+      self.activeBonds = value;
     },
     setTotalLocked: (value: string) => {
       self.totalLocked = value;

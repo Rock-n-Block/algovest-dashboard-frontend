@@ -7,17 +7,23 @@ import { observer } from 'mobx-react-lite';
 import { addressWithDots } from 'utils';
 import { contracts } from 'config';
 import { useMst } from 'store';
+import { useTokenBalance } from 'hooks';
 
 import s from './Stats.module.scss';
 
-import { ArrowGreen, Avs, Info, Eth, Copy, Usdc, Lock, Coins } from 'assets/img';
+import { Avs, Info, Eth, Copy, Usdc, Lock, Coins } from 'assets/img';
 
 interface IStats {
   type: 'staking' | 'pool';
 }
 
 const Stats: React.VFC<IStats> = ({ type }) => {
-  const { staking, pools } = useMst();
+  const { staking, pools, user } = useMst();
+  const [avsBalance] = useTokenBalance(
+    user.address,
+    contracts.params.AVS[contracts.type].address,
+    true,
+  );
 
   const content = React.useMemo(() => {
     if (type === 'staking') {
@@ -46,11 +52,9 @@ const Stats: React.VFC<IStats> = ({ type }) => {
       return (
         <div className={s.stats__info__box}>
           <div className={s.stats__info__item}>
-            <div className={cn(s.stats__info__item__name, 'text-gray')}>No. of AVS Stakers:</div>
+            <div className={cn(s.stats__info__item__name, 'text-gray')}>Your AVS Balance:</div>
             <div className={s.stats__info__item__value}>
-              <img src={ArrowGreen} alt="" />
-              <div className="text-green">4.43%</div>
-              <span className="text-500">14,302</span>
+              <span className="text-500">{(+avsBalance).toLocaleString()}</span>
             </div>
           </div>
           <div className={s.stats__info__item}>
@@ -183,6 +187,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
     pools.items.length,
     pools.getMaxMinPeriod,
     pools.getMaxMinApr,
+    avsBalance,
   ]);
 
   const total = React.useMemo(() => {

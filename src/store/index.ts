@@ -19,7 +19,7 @@ export const rootStore = RootModel.create({
     walletConnect: { isOpen: false },
   },
   staking: {
-    totalStaked: '0',
+    item: { amount: '0', date: '0' },
     totalSupply: '0',
     apr: '0',
     isRefresh: false,

@@ -16,7 +16,7 @@ const GetData: React.FC = ({ children }) => {
   const getTotalStaked = React.useCallback(async () => {
     if (user.address) {
       try {
-        const totalStaked = await walletService.callContractMethod({
+        const stakeInfo = await walletService.callContractMethod({
           contractName: 'BOUND',
           methodName: 'stakesInfo',
           contractAddress: contracts.params.BOND[contracts.type].address,
@@ -26,10 +26,10 @@ const GetData: React.FC = ({ children }) => {
 
         const amount = await walletService.weiToEth(
           contracts.params.AVS[contracts.type].address,
-          totalStaked.amount,
+          stakeInfo.amount,
         );
 
-        staking.setTotalStaked(amount);
+        staking.setStakeInfo({ amount, date: stakeInfo.stakedAt });
       } catch (err) {
         console.log('err get total staked', err);
       }

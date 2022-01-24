@@ -1,6 +1,9 @@
 @import 'styles/mixins';
 
 .stake {
+  &__subtitle {
+    margin: 4px 0 20px;
+  }
   &__postfix {
     @include flex(row, center, center, nowrap);
     img {

@@ -4,10 +4,7 @@ import Tooltip from 'rc-tooltip';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { observer } from 'mobx-react-lite';
 
-import { Button } from 'components';
 import { addressWithDots } from 'utils';
-import { DepositModal } from 'containers';
-import { useModal } from 'hooks';
 import { contracts } from 'config';
 import { useMst } from 'store';
 
@@ -21,7 +18,6 @@ interface IStats {
 
 const Stats: React.VFC<IStats> = ({ type }) => {
   const { staking, pools } = useMst();
-  const [isDepositVisible, handleOpenDeposit, handleCloseDeposit] = useModal();
 
   const content = React.useMemo(() => {
     if (type === 'staking') {
@@ -197,7 +193,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             <div className={s.stats__total__img}>
               <img src={Coins} alt="" />
             </div>
-            <div className={cn(s.stats__total__amount, 'text-bold')}>{staking.totalStaked}</div>
+            <div className={cn(s.stats__total__amount, 'text-bold')}>{staking.item.amount}</div>
             <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Staked AVS</div>
           </div>
         </>
@@ -214,7 +210,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
       </>
     );
-  }, [type, staking.totalStaked, pools.totalLocked]);
+  }, [type, staking.item.amount, pools.totalLocked]);
 
   return (
     <div className={s.stats}>
@@ -223,11 +219,6 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={cn(s.stats__overview__title, 'text-lg text-500')}>{content.title}</div>
           <div className={cn(s.stats__overview__title, 'text-sm text-300')}>{content.subtitle}</div>
         </div>
-        {type === 'pool' ? (
-          <Button size="small" color="green" onClick={handleOpenDeposit} className={s.stats__btn}>
-            Deposit USDC
-          </Button>
-        ) : null}
       </div>
       <div className={s.stats__box}>
         <div className="box">
@@ -236,7 +227,6 @@ const Stats: React.VFC<IStats> = ({ type }) => {
         </div>
         <div className={cn(s.stats__total, 'box')}>{total}</div>
       </div>
-      <DepositModal visible={isDepositVisible} onClose={handleCloseDeposit} />
     </div>
   );
 };

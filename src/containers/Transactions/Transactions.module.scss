@@ -1,6 +1,11 @@
 @import 'styles/mixins';
 
 .trx {
+  padding: 24px 0 32px !important;
+  margin-top: 25px;
+  &__title {
+    padding: 0 24px;
+  }
   &__box {
     margin: 30px 0;
     @include flex(row, center, flex-start, nowrap);
@@ -8,10 +13,7 @@
       margin: 20px 0;
     }
   }
-  &__export {
-    margin-left: 25px;
-    @include b('mobile') {
-      margin-left: 15px;
-    }
+  &__table {
+    margin-top: 20px;
   }
 }

@@ -6,6 +6,7 @@
   top: 0;
   background: #fff;
   @include flex(row, center, space-between);
+  z-index: 100;
   border-bottom: 1px solid $border-gray;
   @include b('mobile') {
     padding: 15px;

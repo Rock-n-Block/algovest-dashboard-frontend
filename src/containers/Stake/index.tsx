@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import BigNumber from 'bignumber.js/bignumber';
+import cn from 'classnames';
 
 import { Input, Button, EstimatedReward } from 'components';
 import { useWalletConnectorContext } from 'services';
@@ -72,7 +73,11 @@ const Stake: React.VFC = () => {
   }, [amount, staking.apr]);
 
   return (
-    <div className={s.stake}>
+    <div className={cn(s.stake, 'box')}>
+      <div className={cn(s.stake__title, 'text-lmd')}>Stake AVS</div>
+      <div className={cn(s.stake__subtitle, 'text-smd text-gray')}>
+        Enter AVS amount and earn high rewards
+      </div>
       <Input
         onChange={handleChangeAmount}
         value={amount}
@@ -120,7 +125,7 @@ const Stake: React.VFC = () => {
           color="green"
           className={s.stake__btn}
           onClick={handleStake}
-          disabled={new BigNumber(amount || 0).isGreaterThanOrEqualTo(avsBalance || 0)}
+          disabled={new BigNumber(amount || 0).isGreaterThanOrEqualTo(avsBalance || 0) || !amount}
           loading={isLoading}
         >
           Stake

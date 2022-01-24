@@ -1,7 +1,7 @@
 @import 'styles/mixins';
 
 .stats {
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   @include b('mobile') {
     margin-bottom: 30px;
     margin-top: 40px;

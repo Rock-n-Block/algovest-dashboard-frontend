@@ -5,7 +5,7 @@
     display: grid;
     align-items: center;
     padding-bottom: 12px;
-    border-bottom: 1.5px solid $border-gray-light;
+    padding: 10px 24px;
     @include b('mobile') {
       display: block;
     }
@@ -17,7 +17,7 @@
     }
   }
   &__head {
-    border-bottom: 2px solid $btn-border-gray;
+    background: #f3f4f6;
     @include b('mobile') {
       display: none;
     }
@@ -56,12 +56,12 @@
   }
   &__staking {
     &__row {
-      grid-template-columns: 150px 150px 180px 140px 1fr;
+      grid-template-columns: 195px 170px 185px 1fr;
     }
   }
   &__pool {
     &__row {
-      grid-template-columns: 110px 75px 110px 85px 120px 130px 52px 1fr;
+      grid-template-columns: 110px 75px 85px 85px 105px 100px 1fr;
     }
   }
   &__nav {

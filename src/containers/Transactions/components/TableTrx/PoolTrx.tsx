@@ -47,22 +47,16 @@ const PoolTrx: React.VFC = () => {
           <span>Coin</span>
         </div>
         <div className={s.t_table__head__item}>
-          <div className={s.t_table__head__item__controll}>
-            <span>Amount</span>
-            <img src={ArrowSort} alt="" />
-          </div>
+          <span>Amount</span>
         </div>
         <div className={s.t_table__head__item}>
           <span>Est. APR</span>
         </div>
         <div className={s.t_table__head__item}>
-          <span>Lockup period</span>
+          <span>Period</span>
         </div>
         <div className={s.t_table__head__item}>
-          <span>Cum. Interest</span>
-        </div>
-        <div className={s.t_table__head__item}>
-          <span>Status</span>
+          <span>Total Interest</span>
         </div>
         <div className="" />
       </div>
@@ -76,29 +70,10 @@ const PoolTrx: React.VFC = () => {
           <div>{WalletService.weiToEthWithDecimals(deposit.amount)}</div>
           <div className="">{deposit.pool.periodInterestRate}%</div>
           <div className="">{deposit.pool.noncesToUnlock} Weeks</div>
-          <div>
-            <div className="text-green">
-              {WalletService.weiToEthWithDecimals(deposit.pendingInterest)}
-            </div>
-            <div className="text-sm text-gray">Accrue days: 5 days </div>
-          </div>
-          <div className={cn(s.t_table__status, s.t_table__status_active)}>Active</div>
+          <div className="">{WalletService.weiToEthWithDecimals(deposit.pendingInterest)}</div>
           <div className="text-red text-smd cursor-pointer">Unstake</div>
         </div>
       ))}
-      {/* <div className={cn(s.t_table__pool__row, s.t_table__row, 'text-md')}>
-        <div>21. 09. 2021</div>
-        <div>USDC</div>
-        <div>102.50435</div>
-        <div className="">40%</div>
-        <div className="">8 Weeks</div>
-        <div>
-          <div className="text-green">0.51942</div>
-          <div className="text-sm text-gray">Accrue days: 5 days </div>
-        </div>
-        <div className={cn(s.t_table__status, s.t_table__status_done)}>Done</div>
-        <div className="text-red text-smd cursor-pointer">Unstake</div>
-      </div> */}
       <Pagination simple defaultCurrent={1} total={50} itemRender={buttonItemRender} />
     </div>
   );

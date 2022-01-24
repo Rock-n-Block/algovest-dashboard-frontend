@@ -6,6 +6,9 @@
   @include b('mobile') {
     padding: 24px 15px;
   }
+  &-0 {
+    padding: 0;
+  }
   &-green {
     background: $green-light;
     border: 1.5px solid $green;

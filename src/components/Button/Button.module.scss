@@ -30,7 +30,10 @@
     padding: 16px 37px;
   }
   &.small {
-    padding: 16px 24px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 19px;
   }
 
   &.rounded {
@@ -72,9 +75,11 @@
   &.black {
     background: $btn-bg-black;
     color: $btn-color-black;
+    border-color: $btn-bg-black;
     &:hover,
     &:active {
-      background: rgba($btn-bg-black, 0.8);
+      background: white;
+      color: $black;
     }
   }
 
@@ -91,6 +96,13 @@
 
   &.disabled {
     cursor: not-allowed;
+    background: #808080;
+    border-color: #808080;
+    color: white;
+    &:hover {
+      background: #808080;
+      color: white;
+    }
   }
   &:focus {
   }

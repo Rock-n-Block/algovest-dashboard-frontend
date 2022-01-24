@@ -16,6 +16,7 @@ export { default as LockupPeriod } from './icons/lockup-period.svg';
 export { default as ArrowSort } from './icons/arrow-sort.svg';
 export { default as ArrowNav } from './icons/arrow-nav.svg';
 export { default as Coins } from './icons/coins.svg';
+export { default as Interest } from './icons/interest.svg';
 
 // currencies
 export { default as Avs } from './icons/currency/avs.png';

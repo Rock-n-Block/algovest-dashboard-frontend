@@ -7,6 +7,7 @@ import BigNumber from 'bignumber.js';
 import { useMst } from 'store';
 import { UnstakeModal } from 'containers';
 import { useModal } from 'hooks';
+import { Button } from 'components';
 
 import { Avs } from 'assets/img';
 
@@ -60,15 +61,9 @@ const StakingTrx: React.VFC = () => {
               <img src={Avs} alt="" />
               {rewardsEarned}
             </div>
-            <div
-              className="text-red text-smd cursor-pointer"
-              onClick={handleOpenUnstakeModal}
-              role="button"
-              tabIndex={0}
-              onKeyDown={() => {}}
-            >
+            <Button onClick={handleOpenUnstakeModal} size="small" color="black">
               Unstake
-            </div>
+            </Button>
           </div>
         ) : null}
       </div>

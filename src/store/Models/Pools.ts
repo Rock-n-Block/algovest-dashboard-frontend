@@ -1,4 +1,4 @@
-import { types, SnapshotOut, cast } from 'mobx-state-tree';
+import { types, SnapshotOut, cast, Instance } from 'mobx-state-tree';
 
 const PoolItem = types.model('PoolItem', {
   id: types.identifierNumber,
@@ -11,6 +11,7 @@ const PoolItem = types.model('PoolItem', {
 export type IPoolItem = SnapshotOut<typeof PoolItem>;
 
 const BondItem = types.model('BondItem', {
+  id: types.union(types.string, types.number),
   amount: types.string,
   currentNonce: types.string,
   depositTimestamp: types.string,
@@ -20,6 +21,7 @@ const BondItem = types.model('BondItem', {
 });
 
 export type IBondItem = SnapshotOut<typeof BondItem>;
+export type TBondItem = Instance<typeof BondItem>;
 
 const Pools = types
   .model('PoolsModel', {

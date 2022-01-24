@@ -71,10 +71,11 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
       setLoading(false);
       setAmount('');
       pools.refreshData(true);
+      onClose();
     } catch (err) {
       setLoading(false);
     }
-  }, [walletService, amount, pools, selectedPool]);
+  }, [walletService, amount, pools, selectedPool, onClose]);
 
   const handleChangeAmount = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

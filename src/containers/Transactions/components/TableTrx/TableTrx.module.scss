@@ -32,6 +32,9 @@
         transition: 0.3s;
         margin-left: 12px;
       }
+      span {
+        white-space: nowrap;
+      }
       &__controll {
         cursor: pointer;
         width: fit-content;
@@ -68,7 +71,7 @@
   }
   &__pool {
     &__row {
-      grid-template-columns: 110px 75px 85px 85px 105px 100px 1fr;
+      grid-template-columns: 110px 75px 85px 85px 105px 80px 1fr;
     }
   }
   &__nav {

@@ -177,6 +177,7 @@ const GetData: React.FC = ({ children }) => {
         pools.setTotalLocked(totalLocked);
 
         const bondsForStore = boundsInfo.map((bond, index) => ({
+          id: nftIds[index],
           pool: bondPoolsIds[index],
           amount: bond.amount,
           currentNonce: bond.currentNonce,
@@ -233,11 +234,11 @@ const GetData: React.FC = ({ children }) => {
 
   React.useEffect(() => {
     getPoolData();
-    const iterval = setInterval(getPoolData, 60000);
+    // const iterval = setInterval(getPoolData, 60000);
 
-    return () => {
-      clearInterval(iterval);
-    };
+    // return () => {
+    //   clearInterval(iterval);
+    // };
   }, [getPoolData]);
 
   React.useEffect(() => {

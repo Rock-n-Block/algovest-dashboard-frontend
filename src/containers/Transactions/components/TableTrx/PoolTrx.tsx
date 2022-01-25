@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import Pagination from 'rc-pagination';
+// import Pagination from 'rc-pagination';
 import { observer } from 'mobx-react-lite';
 import { format } from 'date-fns';
 
@@ -12,7 +12,7 @@ import { TBondItem } from 'store/Models/Pools';
 import { TOptionable } from 'typings';
 import { Button } from 'components';
 
-import { ArrowSort, ArrowNav } from 'assets/img';
+import { ArrowSort } from 'assets/img';
 
 import s from './TableTrx.module.scss';
 
@@ -21,25 +21,25 @@ const PoolTrx: React.VFC = () => {
   const [isClaimModalVisible, handleOpenClaimModal, handleCloseClaimModal] = useModal(false);
   const [selectedDeposit, setDeposit] = React.useState<TOptionable<TBondItem>>();
 
-  const buttonItemRender = (_: number, type: string, element: React.ReactNode) => {
-    if (type === 'prev') {
-      return (
-        <div className={cn(s.t_table__nav, s.t_table__nav_prev)}>
-          <img src={ArrowNav} alt="" />
-          <span className="text-smd">Previous</span>
-        </div>
-      );
-    }
-    if (type === 'next') {
-      return (
-        <div className={cn(s.t_table__nav, s.t_table__nav_next)}>
-          <span className="text-smd">Next</span>
-          <img src={ArrowNav} alt="" />
-        </div>
-      );
-    }
-    return element;
-  };
+  // const buttonItemRender = (_: number, type: string, element: React.ReactNode) => {
+  //   if (type === 'prev') {
+  //     return (
+  //       <div className={cn(s.t_table__nav, s.t_table__nav_prev)}>
+  //         <img src={ArrowNav} alt="" />
+  //         <span className="text-smd">Previous</span>
+  //       </div>
+  //     );
+  //   }
+  //   if (type === 'next') {
+  //     return (
+  //       <div className={cn(s.t_table__nav, s.t_table__nav_next)}>
+  //         <span className="text-smd">Next</span>
+  //         <img src={ArrowNav} alt="" />
+  //       </div>
+  //     );
+  //   }
+  //   return element;
+  // };
 
   const handleSelectDeposit = React.useCallback(
     (deposit: TBondItem) => {
@@ -98,7 +98,7 @@ const PoolTrx: React.VFC = () => {
             )}
           </div>
         ))}
-        <Pagination simple defaultCurrent={1} total={50} itemRender={buttonItemRender} />
+        {/* <Pagination simple defaultCurrent={1} total={50} itemRender={buttonItemRender} /> */}
       </div>
       <ClaimModal
         visible={isClaimModalVisible}

@@ -5,6 +5,7 @@ import { IModalProps } from 'typings';
 import { Modal, Button } from 'components';
 import { useMst } from 'store';
 import { useWalletConnectorContext } from 'services';
+import { addressWithDots } from 'utils';
 
 import s from './DisconnectModal.module.scss';
 
@@ -23,7 +24,9 @@ const DisconnectModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
   return (
     <Modal visible={visible} onClose={onClose} className={s.dis_modal} title="Disconnect account">
       <div className={s.dis_modal__content}>
-        <div className="text-lmd text-ellipsis">{user.address}</div>
+        <div className="text-lg text-center text-ellipsis">
+          {addressWithDots(user.address || '')}
+        </div>
         <Button color="green" onClick={handleDisconnect} className={s.dis_modal__btn}>
           Disconnect
         </Button>

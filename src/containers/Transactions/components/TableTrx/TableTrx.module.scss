@@ -96,8 +96,8 @@
         }
       }
       &__value {
+        @include flex(row, center);
         @include b(mobile) {
-          @include flex(row, center);
           font-weight: 600;
         }
       }

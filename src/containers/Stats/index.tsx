@@ -199,7 +199,9 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             <div className={s.stats__total__img}>
               <img src={Coins} alt="" />
             </div>
-            <div className={cn(s.stats__total__amount, 'text-bold')}>{staking.item.amount}</div>
+            <div className={cn(s.stats__total__amount, 'text-600 text-ellipsis')}>
+              {staking.item.amount}
+            </div>
             <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Staked AVS</div>
           </div>
         </>
@@ -211,7 +213,9 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={s.stats__total__img}>
             <img src={Lock} alt="" />
           </div>
-          <div className={cn(s.stats__total__amount, 'text-bold')}>{pools.totalLocked}</div>
+          <div className={cn(s.stats__total__amount, 'text-600 text-ellipsis')}>
+            {pools.totalLocked}
+          </div>
           <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Value Locked</div>
         </div>
       </>

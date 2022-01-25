@@ -57,16 +57,30 @@ const StakingTrx: React.VFC = () => {
               'text-md',
             )}
           >
-            <div className={s.t_table__staking__item}>
-              {format(new Date(+staking.item.date * 1000), 'dd.MM.yyyy')}
+            <div className={cn(s.t_table__pool__row__data, s.t_table__staking__item)}>
+              <div className={s.t_table__pool__row__name}>Start Date</div>
+              <div className={s.t_table__pool__row__value}>
+                {format(new Date(+staking.item.date * 1000), 'dd.MM.yyyy')}
+              </div>
             </div>
-            <div className={s.t_table__staking__item}>{staking.item.amount}</div>
-            <div className={s.t_table__staking__item}>
-              <img src={Avs} alt="" />
-              {rewardsEarned}
+            <div className={cn(s.t_table__pool__row__data, s.t_table__staking__item)}>
+              <div className={s.t_table__pool__row__name}>Staked AVS</div>
+              <div className={s.t_table__pool__row__value}>{staking.item.amount}</div>
+            </div>
+            <div className={cn(s.t_table__pool__row__data, s.t_table__staking__item)}>
+              <div className={s.t_table__pool__row__name}>Rewards Earned (AVS)</div>
+              <div className={s.t_table__pool__row__value}>
+                <img src={Avs} alt="" />
+                {rewardsEarned}
+              </div>
             </div>
             <div className={s.t_table__staking__item}>
-              <Button onClick={handleOpenUnstakeModal} size="small" color="black-outlined">
+              <Button
+                onClick={handleOpenUnstakeModal}
+                size="small"
+                color="black-outlined"
+                className={s.t_table__pool__row__btn}
+              >
                 Unstake
               </Button>
             </div>

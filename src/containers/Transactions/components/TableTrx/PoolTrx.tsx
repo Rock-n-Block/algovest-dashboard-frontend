@@ -80,22 +80,52 @@ const PoolTrx: React.VFC = () => {
             key={deposit.depositTimestamp}
             className={cn(s.t_table__pool__row, s.t_table__row, 'text-md')}
           >
-            <div>{format(new Date(+deposit.depositTimestamp * 1000), 'dd.MM.yyyy')}</div>
-            <div>USDC</div>
-            <div>{WalletService.weiToEthWithDecimals(deposit.amount)}</div>
-            <div className="">{deposit.pool.periodInterestRate}%</div>
-            <div className="">{deposit.pool.noncesToUnlock} Weeks</div>
-            <div className="">{WalletService.weiToEthWithDecimals(deposit.pendingInterest)}</div>
+            <div className={s.t_table__pool__row__data}>
+              <div className={s.t_table__pool__row__name}>Date</div>
+              <div className={s.t_table__pool__row__value}>
+                {format(new Date(+deposit.depositTimestamp * 1000), 'dd.MM.yyyy')}
+              </div>
+            </div>
+            <div className={s.t_table__pool__row__data}>
+              <div className={s.t_table__pool__row__name}>Coin</div>
+              <div className={s.t_table__pool__row__value}>USDC</div>
+            </div>
+            <div className={s.t_table__pool__row__data}>
+              <div className={s.t_table__pool__row__name}>Amount</div>
+              <div className={s.t_table__pool__row__value}>
+                {WalletService.weiToEthWithDecimals(deposit.amount)}
+              </div>
+            </div>
+            <div className={s.t_table__pool__row__data}>
+              <div className={s.t_table__pool__row__name}>Est. APR</div>
+              <div className={s.t_table__pool__row__value}>{deposit.pool.periodInterestRate}%</div>
+            </div>
+            <div className={s.t_table__pool__row__data}>
+              <div className={s.t_table__pool__row__name}>Period</div>
+              <div className={s.t_table__pool__row__value}>{deposit.pool.noncesToUnlock} Weeks</div>
+            </div>
+            <div className={s.t_table__pool__row__data}>
+              <div className={s.t_table__pool__row__name}>Total Interest</div>
+              <div className={s.t_table__pool__row__value}>
+                {WalletService.weiToEthWithDecimals(deposit.pendingInterest)}
+              </div>
+            </div>
             {deposit.currentNonce < deposit.pool.noncesToUnlock ? (
               <Button
                 onClick={() => handleSelectDeposit(deposit)}
                 size="small"
                 color="black-outlined"
+                className={s.t_table__pool__row__btn}
               >
                 Claim
               </Button>
             ) : (
-              <Button disabled size="small" color="black-outlined">
+              <Button
+                disabled
+                size="small"
+                color="black-outlined"
+                className={s.t_table__pool__row__btn}
+              >
                 Claimed
               </Button>
             )}

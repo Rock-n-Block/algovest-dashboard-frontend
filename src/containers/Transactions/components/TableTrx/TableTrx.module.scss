@@ -72,6 +72,35 @@
   &__pool {
     &__row {
       grid-template-columns: 110px 75px 85px 85px 105px 80px 1fr;
+      &__btn {
+        @include b(mobile) {
+          width: 100%;
+          margin-top: 15px;
+          padding: 9px 16px !important;
+          text-align: left;
+        }
+      }
+      &__data {
+        @include b(mobile) {
+          @include flex(row, center, space-between, nowrap);
+          & + & {
+            margin-top: 10px;
+          }
+        }
+      }
+      &__name {
+        display: none;
+        @include b(mobile) {
+          color: $gray-text;
+          display: block;
+        }
+      }
+      &__value {
+        @include b(mobile) {
+          @include flex(row, center);
+          font-weight: 600;
+        }
+      }
     }
   }
   &__nav {

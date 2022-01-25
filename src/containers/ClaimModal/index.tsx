@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { format, add, differenceInMinutes } from 'date-fns';
+import { format, add, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 
 import { IModalProps } from 'typings';
@@ -49,7 +49,12 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
       const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
         minutes: (+deposit.currentNonce + 1) * 5,
       });
-      return differenceInMinutes(new Date(nextClaim), new Date());
+      const diffWeeks = differenceInMinutes(new Date(nextClaim), new Date());
+      const diffSeconds = differenceInSeconds(new Date(nextClaim), new Date());
+      if (diffSeconds > 0) {
+        return diffWeeks + 1;
+      }
+      return diffWeeks;
       // return differenceInDays(new Date(nextClaim), new Date());
     }
     return 1;

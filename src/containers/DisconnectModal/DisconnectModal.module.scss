@@ -1,0 +1,16 @@
+@import 'styles/mixins';
+
+.dis_modal {
+  &__content {
+    padding-top: 20px;
+    border-top: 1px solid $btn-border-gray;
+    margin-top: 20px;
+    @include b(mobile) {
+      max-width: 80vw;
+    }
+  }
+  &__btn {
+    margin-top: 20px;
+    width: 100%;
+  }
+}

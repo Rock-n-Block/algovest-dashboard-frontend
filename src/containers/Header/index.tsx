@@ -1,8 +1,11 @@
 import React from 'react';
 import Tooltip from 'rc-tooltip';
 import { observer } from 'mobx-react-lite';
+import cn from 'classnames';
 
 import { Button } from 'components';
+import { DisconnectModal } from 'containers';
+import { useModal } from 'hooks';
 import { useMst } from 'store';
 import { addressWithDots } from 'utils';
 
@@ -31,6 +34,8 @@ const Header: React.VFC = () => {
     user,
   } = useMst();
 
+  const [isDisconnectModalVisible, handleOpenDisconnectModal, handleCloseDisconnectModal] =
+    useModal();
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
   const handleChangeTooltipVisible = React.useCallback((visible) => {
@@ -54,46 +59,57 @@ const Header: React.VFC = () => {
   }, [handleCloseTooltipOnScroll, isTooltipVisible]);
 
   return (
-    <header className={s.header}>
-      <div className={s.header__wrapper}>
-        <div className={s.header__logo}>
-          <img src={Logo} alt="" />
+    <>
+      <header className={s.header}>
+        <div className={s.header__wrapper}>
+          <div className={s.header__logo}>
+            <img src={Logo} alt="" />
+          </div>
         </div>
-      </div>
-      <div className={s.header__wrapper}>
-        {user.address ? (
-          addressWithDots(user.address)
-        ) : (
-          <Button color="black" className={s.header__btn} onClick={walletConnect.open}>
-            Connect Wallet
-          </Button>
-        )}
-        <Tooltip
-          visible={isTooltipVisible}
-          animation="zoom"
-          overlayClassName="header-tooltip"
-          onVisibleChange={handleChangeTooltipVisible}
-          trigger="click"
-          overlay={links.map((item) => (
-            <a
-              href={item.link}
-              key={item.name}
-              className={s.header__link}
-              target="_blank"
-              rel="noreferrer"
+        <div className={s.header__wrapper}>
+          {user.address ? (
+            <div
+              className={cn(s.header__address, 'cursor-pointer')}
+              onClick={handleOpenDisconnectModal}
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => {}}
             >
-              <span className="text-md">{item.name}</span>
-              <img src={Arrow} alt="" />
-            </a>
-          ))}
-          placement="bottomRight"
-        >
-          <Button className={s.header__btn} color="gray-light" rounded>
-            <img src={Dots} alt="" />
-          </Button>
-        </Tooltip>
-      </div>
-    </header>
+              {addressWithDots(user.address)}
+            </div>
+          ) : (
+            <Button color="black" className={s.header__btn} onClick={walletConnect.open}>
+              Connect Wallet
+            </Button>
+          )}
+          <Tooltip
+            visible={isTooltipVisible}
+            animation="zoom"
+            overlayClassName="header-tooltip"
+            onVisibleChange={handleChangeTooltipVisible}
+            trigger="click"
+            overlay={links.map((item) => (
+              <a
+                href={item.link}
+                key={item.name}
+                className={s.header__link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span className="text-md">{item.name}</span>
+                <img src={Arrow} alt="" />
+              </a>
+            ))}
+            placement="bottomRight"
+          >
+            <Button className={s.header__btn} color="gray-light" rounded>
+              <img src={Dots} alt="" />
+            </Button>
+          </Tooltip>
+        </div>
+      </header>
+      <DisconnectModal visible={isDisconnectModalVisible} onClose={handleCloseDisconnectModal} />
+    </>
   );
 };
 

@@ -105,7 +105,7 @@ const Stake: React.VFC = () => {
         error={textErr}
       />
       <EstimatedReward
-        percent={6.78}
+        percent={staking.apr}
         amount={estimatedReward}
         color="gray"
         size="mini"

@@ -29,6 +29,10 @@ const StakingTrx: React.VFC = () => {
     return '0';
   }, [staking.item.amount, staking.item.date, staking.apr]);
 
+  if (!+staking.item.amount) {
+    return null;
+  }
+
   return (
     <>
       <div className={s.t_table}>

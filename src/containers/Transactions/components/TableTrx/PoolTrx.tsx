@@ -87,11 +87,15 @@ const PoolTrx: React.VFC = () => {
             <div className="">{deposit.pool.noncesToUnlock} Weeks</div>
             <div className="">{WalletService.weiToEthWithDecimals(deposit.pendingInterest)}</div>
             {deposit.currentNonce < deposit.pool.noncesToUnlock ? (
-              <Button onClick={() => handleSelectDeposit(deposit)} size="small" color="black">
+              <Button
+                onClick={() => handleSelectDeposit(deposit)}
+                size="small"
+                color="black-outlined"
+              >
                 Claim
               </Button>
             ) : (
-              <Button disabled size="small" color="black">
+              <Button disabled size="small" color="black-outlined">
                 Claimed
               </Button>
             )}

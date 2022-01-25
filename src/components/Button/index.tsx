@@ -6,7 +6,7 @@ import cn from 'classnames';
 import s from './Button.module.scss';
 
 export interface IButton {
-  color?: 'green' | 'gray' | 'disabled' | 'black' | 'gray-light';
+  color?: 'green' | 'gray' | 'disabled' | 'black' | 'gray-light' | 'black-outlined';
   padding?: 'default' | string;
   active?: boolean;
   size?: 'default' | 'medium' | 'small' | 'big';

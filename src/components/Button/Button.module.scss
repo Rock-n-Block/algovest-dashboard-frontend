@@ -81,6 +81,16 @@
       background: white;
       color: $black;
     }
+    &-outlined {
+      background: white;
+      color: $black;
+      border-color: $btn-bg-black;
+      &:hover,
+      &:active {
+        background: $btn-bg-black;
+        color: $btn-color-black;
+      }
+    }
   }
 
   &.green {

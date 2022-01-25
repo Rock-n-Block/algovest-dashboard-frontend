@@ -38,7 +38,7 @@ const StakingTrx: React.VFC = () => {
       <div className={s.t_table}>
         <div className={cn(s.t_table__head, s.t_table__staking__row, s.t_table__row)}>
           <div className={s.t_table__head__item}>
-            <span>Date</span>
+            <span>Start Date</span>
           </div>
           <div className={s.t_table__head__item}>
             <span>Staked AVS</span>
@@ -65,9 +65,11 @@ const StakingTrx: React.VFC = () => {
               <img src={Avs} alt="" />
               {rewardsEarned}
             </div>
-            <Button onClick={handleOpenUnstakeModal} size="small" color="black">
-              Unstake
-            </Button>
+            <div className={s.t_table__staking__item}>
+              <Button onClick={handleOpenUnstakeModal} size="small" color="black-outlined">
+                Unstake
+              </Button>
+            </div>
           </div>
         ) : null}
       </div>

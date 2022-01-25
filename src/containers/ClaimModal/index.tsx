@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { format, add, differenceInMinutes } from 'date-fns';
+import { format, add, differenceInMinutes, differenceInWeeks } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 
 import { IModalProps } from 'typings';
@@ -22,20 +22,6 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
   const { pools } = useMst();
   const [loading, setLoading] = React.useState(false);
 
-  const daysBeforeClaim = React.useMemo(() => {
-    if (deposit) {
-      // const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
-      //   weeks: +deposit.currentNonce + 1,
-      // });
-      const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
-        minutes: (+deposit.currentNonce + 1) * 5,
-      });
-      return differenceInMinutes(new Date(nextClaim), new Date());
-    }
-    return 0;
-  }, [deposit]);
-  console.log(daysBeforeClaim, 'daysBeforeClaim');
-
   const handleClaim = React.useCallback(async () => {
     try {
       if (deposit) {
@@ -53,6 +39,30 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
       setLoading(false);
     }
   }, [walletService, onClose, deposit, pools]);
+
+  const daysBeforeClaim = React.useMemo(() => {
+    if (deposit) {
+      // const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
+      //   weeks: +deposit.currentNonce + 1,
+      // });
+      const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
+        minutes: (+deposit.currentNonce + 1) * 5,
+      });
+      return differenceInMinutes(new Date(nextClaim), new Date());
+      // return differenceInDays(new Date(nextClaim), new Date());
+    }
+    return 0;
+  }, [deposit]);
+  console.log(daysBeforeClaim, 'daysBeforeClaim');
+
+  const pendingInterest = React.useMemo(() => {
+    if (+daysBeforeClaim <= 0 && deposit) {
+      const diff = differenceInWeeks(new Date(), new Date(+deposit.depositTimestamp * 1000));
+      console.log(diff);
+      debugger;
+    }
+    return '';
+  }, [daysBeforeClaim, deposit]);
 
   if (!deposit) {
     return null;
@@ -105,11 +115,13 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
             </div>
           </div>
         </div>
-        <div className={s.c_modal__interest}>
-          <img src={Interest} alt="" />
-          <span className="text-smd">Unclaimed Interest:</span>
-          <span className="text-600 text-smd">5,000.00</span>
-        </div>
+        {pendingInterest ? (
+          <div className={s.c_modal__interest}>
+            <img src={Interest} alt="" />
+            <span className="text-smd">Unclaimed Interest:</span>
+            <span className="text-600 text-smd">{pendingInterest}</span>
+          </div>
+        ) : null}
         {daysBeforeClaim > 0 ? (
           <>
             <Button disabled className={s.c_modal__btn}>

@@ -23,7 +23,7 @@
     border-radius: 8px;
     @include flex(row, center);
     padding: 19px 14px;
-    margin: 15px 0 30px;
+    margin-top: 15px;
     background: $green-light;
     img {
       margin-right: 10px;
@@ -34,6 +34,7 @@
   }
   &__btn {
     width: 100%;
+    margin-top: 30px;
   }
   &__info {
     @include flex(row, center, flex-start, nowrap);

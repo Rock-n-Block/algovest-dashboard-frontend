@@ -12,8 +12,6 @@ import { TBondItem } from 'store/Models/Pools';
 import { TOptionable } from 'typings';
 import { Button } from 'components';
 
-import { ArrowSort } from 'assets/img';
-
 import s from './TableTrx.module.scss';
 
 const PoolTrx: React.VFC = () => {
@@ -54,10 +52,11 @@ const PoolTrx: React.VFC = () => {
       <div className={s.t_table}>
         <div className={cn(s.t_table__head, s.t_table__pool__row, s.t_table__row)}>
           <div className={s.t_table__head__item}>
-            <div className={s.t_table__head__item__controll}>
+            {/* <div className={s.t_table__head__item__controll}>
               <span>Date</span>
               <img src={ArrowSort} alt="" />
-            </div>
+            </div> */}
+            <span>Date</span>
           </div>
           <div className={s.t_table__head__item}>
             <span>Coin</span>

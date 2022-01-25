@@ -35,6 +35,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
     user: { address },
     modals: { walletConnect },
     pools,
+    staking,
   } = useMst();
   const { walletService } = useWalletConnectorContext();
 
@@ -106,6 +107,33 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
     return '0';
   }, [amount, selectedPool]);
 
+  const availableToDeposit = React.useMemo(() => {
+    if (visible) {
+      if (amount) {
+        if (
+          new BigNumber(staking.item.amount)
+            .multipliedBy(10)
+            .isGreaterThanOrEqualTo(new BigNumber(pools.totalLocked).plus(amount))
+        ) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+    return true;
+  }, [amount, pools.totalLocked, staking.item.amount, visible]);
+
+  const textErr = React.useMemo(() => {
+    if (new BigNumber(amount).isGreaterThan(usdcBalance || 0)) {
+      return "You don't have enough balance";
+    }
+    if (!availableToDeposit) {
+      return 'Not enough AVS staked in the pool';
+    }
+    return '';
+  }, [availableToDeposit, amount, usdcBalance]);
+
   return (
     <Modal
       visible={visible}
@@ -164,11 +192,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
                 <span className="text-gray text-md">USDC</span>
               </div>
             }
-            error={
-              new BigNumber(amount).isGreaterThan(usdcBalance || 0)
-                ? "You don't have enough balance"
-                : ''
-            }
+            error={textErr}
           />
           <div className={cn(s.deposit__lockup, 'text-smd text-gray')}>
             <div className={s.deposit__lockup__box}>

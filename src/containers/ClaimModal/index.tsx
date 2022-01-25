@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { format, add, differenceInMinutes, differenceInWeeks } from 'date-fns';
+import { format, add, differenceInMinutes } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 
 import { IModalProps } from 'typings';
@@ -12,6 +12,7 @@ import { useMst } from 'store';
 import { Avs, Usdc, Interest, Info } from 'assets/img';
 
 import s from './ClaimModal.module.scss';
+import BigNumber from 'bignumber.js';
 
 interface IClaimModal extends Pick<IModalProps, 'onClose' | 'visible'> {
   deposit?: TBondItem;
@@ -51,18 +52,27 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
       return differenceInMinutes(new Date(nextClaim), new Date());
       // return differenceInDays(new Date(nextClaim), new Date());
     }
-    return 0;
-  }, [deposit]);
-  console.log(daysBeforeClaim, 'daysBeforeClaim');
+    return 1;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deposit, visible]);
 
   const pendingInterest = React.useMemo(() => {
     if (+daysBeforeClaim <= 0 && deposit) {
-      const diff = differenceInWeeks(new Date(), new Date(+deposit.depositTimestamp * 1000));
-      console.log(diff);
-      debugger;
+      let diff = differenceInMinutes(new Date(), new Date(+deposit.depositTimestamp * 1000));
+      // const diff = differenceInWeeks(new Date(), new Date(+deposit.depositTimestamp * 1000));
+      diff = Math.ceil(diff / 5);
+      if (diff > +deposit.pool.noncesToUnlock) {
+        diff = +deposit.pool.noncesToUnlock;
+      }
+      const pendingInt = WalletService.weiToEthWithDecimals(deposit.pendingInterest);
+      const interest = new BigNumber(pendingInt)
+        .div(deposit.pool.noncesToUnlock)
+        .multipliedBy(diff - +deposit.currentNonce);
+      return interest.toFixed(3, 1);
     }
     return '';
-  }, [daysBeforeClaim, deposit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [daysBeforeClaim, deposit, visible]);
 
   if (!deposit) {
     return null;

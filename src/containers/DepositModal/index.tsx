@@ -8,9 +8,9 @@ import { IModalProps } from 'typings';
 import { useSteps, useTokenBalance, useApprove } from 'hooks';
 import { useMst } from 'store';
 import { IPoolItem } from 'store/Models/Pools';
-import { contracts } from 'config';
+import { contracts, is_production } from 'config';
 import { checkValueDecimals } from 'utils';
-import { useWalletConnectorContext } from 'services';
+import { useWalletConnectorContext, WalletService } from 'services';
 
 import { LockupPeriod, Usdc } from 'assets/img';
 
@@ -128,7 +128,11 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
     if (!availableToDeposit) {
       return 'Not enough AVS staked in the pool';
     }
-    if (new BigNumber(amount).isLessThan(selectedPool.minDeposit)) {
+    if (
+      new BigNumber(amount).isLessThan(
+        WalletService.weiToEthWithDecimals(selectedPool.minDeposit, is_production ? 6 : 18),
+      )
+    ) {
       return `Minimum deposit amount is ${selectedPool.minDeposit}`;
     }
     return '';

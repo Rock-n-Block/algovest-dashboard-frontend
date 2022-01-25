@@ -77,7 +77,7 @@ const Stake: React.VFC = () => {
       return "You don't have enough balance";
     }
     if (new BigNumber(amount).isLessThan(staking.minAmount)) {
-      return `minimum staking amount is ${staking.minAmount}`;
+      return `Minimum staking amount is ${staking.minAmount}`;
     }
     return '';
   }, [amount, staking.minAmount, avsBalance]);

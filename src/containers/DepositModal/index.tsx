@@ -127,8 +127,11 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
     if (!availableToDeposit) {
       return 'Not enough AVS staked in the pool';
     }
+    if (new BigNumber(amount).isLessThan(selectedPool.minDeposit)) {
+      return `Minimum deposit amount is ${selectedPool.minDeposit}`;
+    }
     return '';
-  }, [availableToDeposit, amount, usdcBalance]);
+  }, [availableToDeposit, amount, usdcBalance, selectedPool.minDeposit]);
 
   return (
     <Modal

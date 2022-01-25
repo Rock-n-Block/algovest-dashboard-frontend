@@ -4,6 +4,7 @@
   &__row {
     display: grid;
     align-items: center;
+    grid-column-gap: 10px;
     padding-bottom: 12px;
     padding: 10px 24px;
     @include b('mobile') {
@@ -66,12 +67,12 @@
       }
     }
     &__row {
-      grid-template-columns: 175px 160px 175px 1fr;
+      grid-template-columns: 165px 150px 165px 1fr;
     }
   }
   &__pool {
     &__row {
-      grid-template-columns: 110px 75px 85px 85px 105px 70px 1fr;
+      grid-template-columns: 100px 65px 75px 75px 95px 60px 1fr;
       &__btn {
         width: 100%;
         @include b(mobile) {
@@ -96,9 +97,15 @@
         }
       }
       &__value {
-        @include flex(row, center);
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         @include b(mobile) {
           font-weight: 600;
+        }
+        &__img {
+          @include flex(row, center);
         }
       }
     }

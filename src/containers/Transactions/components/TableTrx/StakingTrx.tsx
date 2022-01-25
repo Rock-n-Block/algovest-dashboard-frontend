@@ -69,7 +69,7 @@ const StakingTrx: React.VFC = () => {
             </div>
             <div className={cn(s.t_table__pool__row__data, s.t_table__staking__item)}>
               <div className={s.t_table__pool__row__name}>Rewards Earned (AVS)</div>
-              <div className={s.t_table__pool__row__value}>
+              <div className={cn(s.t_table__pool__row__value, s.t_table__pool__row__value__img)}>
                 <img src={Avs} alt="" />
                 {rewardsEarned}
               </div>

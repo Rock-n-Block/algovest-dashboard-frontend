@@ -239,7 +239,7 @@ const GetData: React.FC = ({ children }) => {
           locked: item.locked,
           minDeposit: item.minDeposit,
           noncesToUnlock: item.noncesToUnlock,
-          periodInterestRate: item.periodInterestRate,
+          periodInterestRate: new BigNumber(item.periodInterestRate).dividedBy(10000).toString(10),
         }));
         pools.setPools(poolWithoutNumbers);
       });

@@ -66,7 +66,7 @@ const Stake: React.VFC = () => {
   const estimatedReward = React.useMemo(() => {
     if (new BigNumber(amount).isGreaterThan(0) && staking.apr) {
       return new BigNumber(amount)
-        .plus(new BigNumber(amount).multipliedBy(new BigNumber(staking.apr).dividedBy(100)))
+        .plus(new BigNumber(amount).multipliedBy(new BigNumber(staking.apr)))
         .toFixed(3, 1);
     }
     return '0';

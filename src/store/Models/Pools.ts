@@ -1,4 +1,6 @@
 import { types, SnapshotOut, cast, Instance } from 'mobx-state-tree';
+import { WalletService } from 'services';
+import BigNumber from 'bignumber.js';
 
 const PoolItem = types.model('PoolItem', {
   id: types.identifierNumber,
@@ -33,6 +35,19 @@ const Pools = types
     activeBonds: types.number,
   })
   .views((self) => ({
+    get totalInterestPayout() {
+      return self.deposits.reduce((prevAmount, deposit) => {
+        const pendingInt = WalletService.weiToEthWithDecimals(deposit.pendingInterest);
+        if (deposit.currentNonce >= deposit.pool.noncesToUnlock) {
+          return +new BigNumber(prevAmount).plus(pendingInt);
+        }
+        return +new BigNumber(prevAmount).plus(
+          new BigNumber(pendingInt)
+            .div(deposit.pool.noncesToUnlock)
+            .multipliedBy(+deposit.currentNonce),
+        );
+      }, 0);
+    },
     get getMaxMinPeriod() {
       if (self.items.length) {
         const sortedPools = self.items.slice().sort((prev, next) => {

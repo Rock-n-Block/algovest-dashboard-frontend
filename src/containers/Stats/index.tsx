@@ -127,7 +127,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={cn(s.stats__info__item__name, 'text-gray')}>Total Interest Payout:</div>
           <div className={s.stats__info__item__value}>
             <img src={Usdc} alt="" />
-            <span className="text-500">100,587.21</span>
+            <span className="text-500">{pools.totalInterestPayout}</span>
           </div>
         </div>
         <div className={s.stats__info__item}>
@@ -188,6 +188,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
     pools.getMaxMinPeriod,
     pools.getMaxMinApr,
     avsBalance,
+    pools.totalInterestPayout,
   ]);
 
   const total = React.useMemo(() => {

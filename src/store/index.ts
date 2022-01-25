@@ -23,6 +23,7 @@ export const rootStore = RootModel.create({
     totalSupply: '0',
     apr: '0',
     isRefresh: false,
+    minAmount: '0',
   },
   pools: {
     activeBonds: 0,

@@ -72,6 +72,16 @@ const Stake: React.VFC = () => {
     return '0';
   }, [amount, staking.apr]);
 
+  const textErr = React.useMemo(() => {
+    if (new BigNumber(amount).isGreaterThan(avsBalance || 0)) {
+      return "You don't have enough balance";
+    }
+    if (new BigNumber(amount).isLessThan(staking.minAmount)) {
+      return `minimum staking amount is ${staking.minAmount}`;
+    }
+    return '';
+  }, [amount, staking.minAmount, avsBalance]);
+
   return (
     <div className={cn(s.stake, 'box')}>
       <div className={cn(s.stake__title, 'text-lmd')}>Stake AVS</div>
@@ -92,11 +102,7 @@ const Stake: React.VFC = () => {
             <span className="text-lmd">AVS</span>
           </div>
         }
-        error={
-          new BigNumber(amount).isGreaterThan(avsBalance || 0)
-            ? "You don't have enough balance"
-            : ''
-        }
+        error={textErr}
       />
       <EstimatedReward
         percent={6.78}
@@ -125,7 +131,7 @@ const Stake: React.VFC = () => {
           color="green"
           className={s.stake__btn}
           onClick={handleStake}
-          disabled={new BigNumber(amount || 0).isGreaterThanOrEqualTo(avsBalance || 0) || !amount}
+          disabled={!!textErr || !amount}
           loading={isLoading}
         >
           Stake

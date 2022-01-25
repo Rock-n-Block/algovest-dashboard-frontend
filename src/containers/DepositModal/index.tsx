@@ -221,7 +221,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
               color="green"
               className={s.deposit__btn}
               onClick={handleDeposit}
-              disabled={new BigNumber(amount || 0).isGreaterThanOrEqualTo(usdcBalance || 0)}
+              disabled={!!textErr || !amount}
               loading={isLoading}
             >
               Deposit

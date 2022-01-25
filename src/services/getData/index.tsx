@@ -13,6 +13,26 @@ const GetData: React.FC = ({ children }) => {
 
   // start staking
 
+  const getMinStake = React.useCallback(async () => {
+    try {
+      const minStakeAmount = await walletService.callContractMethod({
+        contractName: 'BOUND',
+        methodName: 'stakingAmount',
+        contractAddress: contracts.params.BOND[contracts.type].address,
+        contractAbi: contracts.params.BOND[contracts.type].abi,
+      });
+
+      const amount = await walletService.weiToEth(
+        contracts.params.AVS[contracts.type].address,
+        minStakeAmount,
+      );
+
+      staking.setMinAmount(amount);
+    } catch (err) {
+      console.log('err get total staked', err);
+    }
+  }, [walletService, staking]);
+
   const getTotalStaked = React.useCallback(async () => {
     if (user.address) {
       try {
@@ -71,9 +91,10 @@ const GetData: React.FC = ({ children }) => {
 
   const getStakingData = React.useCallback(() => {
     getTotalStaked();
+    getMinStake();
     getStakingInfo();
     getApr();
-  }, [getTotalStaked, getStakingInfo, getApr]);
+  }, [getTotalStaked, getStakingInfo, getApr, getMinStake]);
 
   React.useEffect(() => {
     getStakingData();
@@ -185,7 +206,7 @@ const GetData: React.FC = ({ children }) => {
           pendingInterest: bond.pendingInterest,
           withdrawn: bond.withdrawn,
         }));
-        pools.setDeposits(bondsForStore);
+        pools.setDeposits(bondsForStore.reverse());
       } catch (err) {
         console.log('err get deposits', err);
       }

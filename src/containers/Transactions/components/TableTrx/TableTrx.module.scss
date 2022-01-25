@@ -71,10 +71,10 @@
   }
   &__pool {
     &__row {
-      grid-template-columns: 110px 75px 85px 85px 105px 80px 1fr;
+      grid-template-columns: 110px 75px 85px 85px 105px 70px 1fr;
       &__btn {
+        width: 100%;
         @include b(mobile) {
-          width: 100%;
           margin-top: 15px;
           padding: 9px 16px !important;
           text-align: left;

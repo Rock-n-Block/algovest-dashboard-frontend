@@ -20,7 +20,11 @@ const Transactions: React.VFC<ITransactions> = ({ type }) => {
     return 'Yield Pool Records';
   }, [type]);
 
-  if (!user.address || !+staking.item.amount || !pools.deposits.length) {
+  if (
+    !user.address ||
+    (type === 'staking' && !+staking.item.amount) ||
+    (type === 'pool' && !pools.deposits.length)
+  ) {
     return null;
   }
 

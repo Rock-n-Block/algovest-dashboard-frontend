@@ -12,7 +12,7 @@ interface ITransactions {
 }
 
 const Transactions: React.VFC<ITransactions> = ({ type }) => {
-  const { user } = useMst();
+  const { user, pools, staking } = useMst();
   const title = React.useMemo(() => {
     if (type === 'staking') {
       return 'Staking records';
@@ -20,7 +20,7 @@ const Transactions: React.VFC<ITransactions> = ({ type }) => {
     return 'Yield Pool Records';
   }, [type]);
 
-  if (!user.address) {
+  if (!user.address || !+staking.item.amount || !pools.deposits.length) {
     return null;
   }
 

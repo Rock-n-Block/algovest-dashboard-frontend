@@ -233,7 +233,8 @@ const GetData: React.FC = ({ children }) => {
       );
 
       Promise.all(promises).then((res) => {
-        const poolWithoutNumbers = res.map((item: IPoolItem, index) => ({
+        const activePools = res.filter((pool) => !pool.locked);
+        const poolWithoutNumbers = activePools.map((item: IPoolItem, index) => ({
           id: index,
           locked: item.locked,
           minDeposit: item.minDeposit,

@@ -51,46 +51,44 @@ class Connector extends React.Component<
   }
 
   connect = async (chainName: chainsEnum, providerName: 'MetaMask' | 'WalletConnect') => {
-    if (window.ethereum) {
-      try {
-        const isConnected = await this.state.provider.initWalletConnect(
-          chainName,
-          providerName as any,
-        );
+    try {
+      const isConnected = await this.state.provider.initWalletConnect(
+        chainName,
+        providerName as any,
+      );
 
-        if (isConnected) {
-          try {
-            const { address }: any = await this.state.provider.getAccount();
-            this.state.provider.setAccountAddress(address);
-            rootStore.user.setAddress(address);
-            localStorage.algovest_logged = true;
-            localStorage.algovest_provider = providerName;
+      if (isConnected) {
+        try {
+          const { address }: any = await this.state.provider.getAccount();
+          this.state.provider.setAccountAddress(address);
+          rootStore.user.setAddress(address);
+          localStorage.algovest_logged = true;
+          localStorage.algovest_provider = providerName;
 
-            const eventSubs = this.state.provider.connectWallet.eventSubscriber().subscribe(
-              (res: any) => {
-                if (res.name === 'accountsChanged' && rootStore.user.address !== res.address) {
-                  this.disconnect();
-                }
-              },
-              (err: any) => {
-                console.log(err);
-                eventSubs.unsubscribe();
+          const eventSubs = this.state.provider.connectWallet.eventSubscriber().subscribe(
+            (res: any) => {
+              if (res.name === 'accountsChanged' && rootStore.user.address !== res.address) {
                 this.disconnect();
-              },
-            );
-            return address;
-          } catch (err: any) {
-            console.error('getAccount wallet connect - get user account err: ', err);
-            if (!(err.code && err.code === 6)) {
+              }
+            },
+            (err: any) => {
+              console.log(err);
+              eventSubs.unsubscribe();
               this.disconnect();
-            }
+            },
+          );
+          return address;
+        } catch (err: any) {
+          console.error('getAccount wallet connect - get user account err: ', err);
+          if (!(err.code && err.code === 6)) {
+            this.disconnect();
           }
         }
-      } catch (err) {
-        console.error(err);
-        this.disconnect();
-        throw new Error();
       }
+    } catch (err) {
+      console.error(err);
+      this.disconnect();
+      throw new Error();
     }
     throw new Error();
   };

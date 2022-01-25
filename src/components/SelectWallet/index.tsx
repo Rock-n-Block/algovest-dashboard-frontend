@@ -28,18 +28,20 @@ const SelectWallet: React.VFC = () => {
 
   return (
     <div className={s.s_wallet}>
-      <div
-        className={s.s_wallet__item}
-        onClick={() => handleConnect(chainsEnum.Ethereum, 'MetaMask')}
-        onKeyDown={() => {}}
-        role="button"
-        tabIndex={0}
-      >
-        <div className={s.s_wallet__item__img}>
-          <img src={Metamask} alt="" />
+      {window.ethereum ? (
+        <div
+          className={s.s_wallet__item}
+          onClick={() => handleConnect(chainsEnum.Ethereum, 'MetaMask')}
+          onKeyDown={() => {}}
+          role="button"
+          tabIndex={0}
+        >
+          <div className={s.s_wallet__item__img}>
+            <img src={Metamask} alt="" />
+          </div>
+          <span className="text-600 text-lmd">MetaMask</span>
         </div>
-        <span className="text-600 text-lmd">MetaMask</span>
-      </div>
+      ) : null}
       <div
         className={s.s_wallet__item}
         onClick={() => handleConnect(chainsEnum.Ethereum, 'WalletConnect')}

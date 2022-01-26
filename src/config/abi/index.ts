@@ -1,2 +1,2 @@
-export { default as BondAbi } from './bond';
-export { default as ERC20Abi } from './erc20';
+export { default as BondAbi } from './bond.json';
+export { default as ERC20Abi } from './erc20.json';

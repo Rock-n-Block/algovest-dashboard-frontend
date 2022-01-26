@@ -108,7 +108,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               </div>
             </Tooltip>
             <div className={s.stats__info__item__value}>
-              <span className="text-500">{staking.apr}%</span>
+              <span className="text-500">{+staking.apr * 100}%</span>
             </div>
           </div>
         </div>

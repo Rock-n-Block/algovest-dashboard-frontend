@@ -30,7 +30,7 @@ const EstimatedReward: React.VFC<IEstimatedReward> = ({
       <img src={Magnet} alt="" />
       <div className={cn(s.e_reward__wrapper, s[orientation])}>
         <div className={cn(s.e_reward__subtitle, 'text-gray text-sm')}>
-          {percent}% (APY) Estimated Reward:
+          {percent}% (APR) Estimated Reward:
         </div>
         <div
           className={cn(s.e_reward__title, 'text-600 text-ellipsis', {

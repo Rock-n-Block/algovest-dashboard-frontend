@@ -7,6 +7,12 @@ import { connectWallet as connectWalletConfig, contracts } from 'config';
 import { ERC20Abi } from 'config/abi';
 
 import { chainsEnum } from 'typings';
+import { Erc20 } from 'typings/abis/erc20';
+// import { Bond } from 'typings/abis/bond';
+
+// enum ContractsEnum {
+//   BOND = 'BOND'
+// }
 
 export class WalletService {
   public connectWallet: ConnectWallet;
@@ -53,7 +59,7 @@ export class WalletService {
     const contract = this.connectWallet.getContract({
       address,
       abi: ERC20Abi as any[],
-    });
+    }) as any as Erc20;
 
     return contract.methods.balanceOf(this.walletAddress).call();
   }
@@ -62,7 +68,7 @@ export class WalletService {
     const contract = this.connectWallet.getContract({
       address,
       abi: ERC20Abi as any[],
-    });
+    }) as any as Erc20;
 
     return contract.methods.decimals().call();
   }
@@ -249,9 +255,9 @@ export class WalletService {
     return contracts.params[contractName][contracts.type].address;
   }
 
-  createContract(contractName: string, tokenAddress: string, abi: Array<any>) {
+  createContract(contractName: string, contractAddress: string, abi: Array<any>) {
     if (!this.contracts[contractName]) {
-      const contract = this.connectWallet.getContract({ address: tokenAddress, abi });
+      const contract = this.connectWallet.getContract({ address: contractAddress, abi });
       this.contracts = {
         ...this.contracts,
         [contractName]: contract,

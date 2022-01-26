@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 
-import { Input, Button, EstimatedReward } from 'components';
+import { Input, Button } from 'components';
 import { useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
 import { useTokenBalance, useApprove } from 'hooks';
@@ -63,14 +63,14 @@ const Stake: React.VFC = () => {
     }
   }, [walletService, amount, staking]);
 
-  const estimatedReward = React.useMemo(() => {
-    if (new BigNumber(amount).isGreaterThan(0) && staking.apr) {
-      return new BigNumber(amount)
-        .plus(new BigNumber(amount).multipliedBy(new BigNumber(staking.apr)))
-        .toFixed(3, 1);
-    }
-    return '0';
-  }, [amount, staking.apr]);
+  // const estimatedReward = React.useMemo(() => {
+  //   if (new BigNumber(amount).isGreaterThan(0) && staking.apr) {
+  //     return new BigNumber(amount)
+  //       .plus(new BigNumber(amount).multipliedBy(new BigNumber(staking.apr)))
+  //       .toFixed(3, 1);
+  //   }
+  //   return '0';
+  // }, [amount, staking.apr]);
 
   const textErr = React.useMemo(() => {
     if (new BigNumber(amount).isGreaterThan(avsBalance || 0)) {
@@ -103,13 +103,6 @@ const Stake: React.VFC = () => {
           </div>
         }
         error={textErr}
-      />
-      <EstimatedReward
-        percent={staking.apr}
-        amount={estimatedReward}
-        color="gray"
-        size="mini"
-        orientation="horizontal"
       />
       {!address ? (
         <Button color="green" className={s.stake__btn} onClick={walletConnect.open}>

@@ -12,7 +12,7 @@
     width: 48px;
   }
   &__box {
-    @include grid(1fr 160px, auto, 16px);
+    @include grid(255px 160px, auto, 16px);
   }
   &__item {
     border-radius: 8px;
@@ -32,6 +32,13 @@
       }
       &__value {
         margin-top: 8px;
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      &:only-child &__value {
+        max-width: 130px;
       }
     }
   }

@@ -14,6 +14,10 @@ import { Erc20 } from 'typings/abis/erc20';
 //   BOND = 'BOND'
 // }
 
+// const selectedContractType = {
+//   [ContractsEnum.BOND]: Bond
+// }
+
 export class WalletService {
   public connectWallet: ConnectWallet;
 

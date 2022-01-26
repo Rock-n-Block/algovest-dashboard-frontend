@@ -2,6 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import { format } from 'date-fns';
+import BigNumber from 'bignumber.js';
 
 import { IModalProps } from 'typings';
 import { Modal, Button } from 'components';
@@ -61,7 +62,9 @@ const UnstakeModal: React.VFC<IUnstakeModal> = ({
               <div className={cn(s.us_modal__item__el__title, 'text-smd text-gray')}>
                 Staked AVS
               </div>
-              <div className={cn(s.us_modal__item__el__value, 'text-md text-600')}>{staked}</div>
+              <div className={cn(s.us_modal__item__el__value, 'text-md text-600')}>
+                {new BigNumber(staked).toFixed(3, 1)}
+              </div>
             </div>
             <div className={s.us_modal__item__el}>
               <div className={cn(s.us_modal__item__el__title, 'text-smd text-gray')}>

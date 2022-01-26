@@ -31,6 +31,7 @@ export const rootStore = RootModel.create({
     totalLocked: '0',
     items: [],
     isRefresh: false,
+    totalDepositors: '0',
   },
 });
 

@@ -111,6 +111,21 @@ const GetData: React.FC = ({ children }) => {
 
   // start pool
 
+  const getPoolTotalSupply = React.useCallback(async () => {
+    try {
+      const totalSupply = await walletService.callContractMethod({
+        contractName: 'BOUND',
+        methodName: 'totalSupply',
+        contractAddress: contracts.params.BOND[contracts.type].address,
+        contractAbi: contracts.params.BOND[contracts.type].abi,
+      });
+
+      pools.setTotalDepositors(totalSupply);
+    } catch (err) {
+      console.log('get total depositors', err);
+    }
+  }, [pools, walletService]);
+
   const getActiveDeposits = React.useCallback(async () => {
     try {
       const activeDeposits = await walletService.callContractMethod({
@@ -251,8 +266,9 @@ const GetData: React.FC = ({ children }) => {
   const getPoolData = React.useCallback(() => {
     getActiveDeposits();
     getPools();
+    getPoolTotalSupply();
     getDeposits();
-  }, [getPools, getActiveDeposits, getDeposits]);
+  }, [getPools, getActiveDeposits, getDeposits, getPoolTotalSupply]);
 
   React.useEffect(() => {
     getPoolData();

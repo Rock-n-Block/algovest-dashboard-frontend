@@ -33,6 +33,7 @@ const Pools = types
     totalLocked: types.string,
     isRefresh: types.boolean,
     activeBonds: types.number,
+    totalDepositors: types.string,
   })
   .views((self) => ({
     get totalInterestPayout() {
@@ -83,6 +84,9 @@ const Pools = types
     },
   }))
   .actions((self) => ({
+    setTotalDepositors: (value: string) => {
+      self.totalDepositors = value;
+    },
     setActiveDeposits: (value: string) => {
       self.activeDeposits = value;
     },

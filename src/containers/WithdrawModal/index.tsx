@@ -131,7 +131,7 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
         {daysBeforeClaim > 0 ? (
           <>
             <Button disabled className={s.w_modal__btn}>
-              Withdrawn: {daysBeforeClaim} days left to unlock
+              Withdraw: {daysBeforeClaim} days left to unlock
             </Button>
             <div className={s.w_modal__info}>
               <img src={Info} alt="" />
@@ -153,7 +153,7 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
                 onClick={handleWithdraw}
                 loading={loading}
               >
-                Withdrawn
+                Withdraw
               </Button>
             )}
           </>

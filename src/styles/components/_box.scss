@@ -5,6 +5,9 @@
   padding: 32px 24px;
   @include b('mobile') {
     padding: 24px 15px;
+    & + & {
+      margin-top: 30px;
+    }
   }
   &-0 {
     padding: 0;

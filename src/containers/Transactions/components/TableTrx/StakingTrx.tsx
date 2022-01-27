@@ -8,6 +8,7 @@ import { useMst } from 'store';
 import { UnstakeModal } from 'containers';
 import { useModal } from 'hooks';
 import { Button } from 'components';
+import { numbWithCommas } from 'utils';
 
 import { Avs } from 'assets/img';
 
@@ -65,7 +66,9 @@ const StakingTrx: React.VFC = () => {
             </div>
             <div className={cn(s.t_table__pool__row__data, s.t_table__staking__item)}>
               <div className={s.t_table__pool__row__name}>Staked AVS</div>
-              <div className={s.t_table__pool__row__value}>{staking.item.amount}</div>
+              <div className={s.t_table__pool__row__value}>
+                {numbWithCommas(staking.item.amount)}
+              </div>
             </div>
             <div className={cn(s.t_table__pool__row__data, s.t_table__staking__item)}>
               <div className={s.t_table__pool__row__name}>Rewards Earned (AVS)</div>

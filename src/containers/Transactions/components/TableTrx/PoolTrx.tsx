@@ -12,6 +12,7 @@ import { useModal } from 'hooks';
 import { TBondItem } from 'store/Models/Pools';
 import { TOptionable } from 'typings';
 import { Button } from 'components';
+import { numbWithCommas } from 'utils';
 
 import s from './TableTrx.module.scss';
 
@@ -102,7 +103,7 @@ const PoolTrx: React.VFC = () => {
             <div className={s.t_table__pool__row__data}>
               <div className={s.t_table__pool__row__name}>Amount</div>
               <div className={s.t_table__pool__row__value}>
-                {WalletService.weiToEthWithDecimals(deposit.amount)}
+                {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.amount))}
               </div>
             </div>
             <div className={s.t_table__pool__row__data}>
@@ -116,7 +117,7 @@ const PoolTrx: React.VFC = () => {
             <div className={s.t_table__pool__row__data}>
               <div className={s.t_table__pool__row__name}>Total Interest</div>
               <div className={s.t_table__pool__row__value}>
-                {WalletService.weiToEthWithDecimals(deposit.pendingInterest)}
+                {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.pendingInterest))}
               </div>
             </div>
             <Tooltip

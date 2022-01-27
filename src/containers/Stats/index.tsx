@@ -63,8 +63,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               animation="zoom"
               overlay={
                 <span className="text-sm">
-                  {(+staking.totalSupply).toLocaleString()} is the total AVS available in the
-                  market.
+                  {numbWithCommas(staking.totalSupply)} is the total AVS available in the market.
                 </span>
               }
             >
@@ -74,7 +73,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               </div>
             </Tooltip>
             <div className={s.stats__info__item__value}>
-              <span className="text-500">{(+staking.totalSupply).toLocaleString()}</span>
+              <span className="text-500">{numbWithCommas(staking.totalSupply)}</span>
             </div>
           </div>
           <div className={s.stats__info__item}>
@@ -207,7 +206,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               <img src={Coins} alt="" />
             </div>
             <div className={cn(s.stats__total__amount, 'text-600 text-ellipsis')}>
-              {staking.item.amount}
+              {numbWithCommas(staking.item.amount)}
             </div>
             <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Staked AVS</div>
           </div>

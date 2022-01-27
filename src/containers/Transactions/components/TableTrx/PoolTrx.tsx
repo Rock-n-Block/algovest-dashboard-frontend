@@ -8,7 +8,7 @@ import Tooltip from 'rc-tooltip';
 import { useMst } from 'store';
 import { WalletService } from 'services';
 import { ClaimModal, WithdrawModal } from 'containers';
-import { useModal } from 'hooks';
+import { useModal, useWindowSize } from 'hooks';
 import { TBondItem } from 'store/Models/Pools';
 import { TOptionable } from 'typings';
 import { Button } from 'components';
@@ -24,6 +24,7 @@ const PoolTrx: React.VFC = () => {
   const [isWithdrawModalVisible, handleOpenWithdrawModal, handleCloseWithdrawModal] =
     useModal(false);
   const [selectedDeposit, setDeposit] = React.useState<TOptionable<TBondItem>>();
+  const { width } = useWindowSize();
 
   // const buttonItemRender = (_: number, type: string, element: React.ReactNode) => {
   //   if (type === 'prev') {
@@ -120,58 +121,101 @@ const PoolTrx: React.VFC = () => {
                 {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.pendingInterest))}
               </div>
             </div>
-            <Tooltip
-              animation="zoom"
-              placement="bottomLeft"
-              overlayClassName="header-tooltip"
-              trigger="click"
-              overlay={
-                <>
-                  {deposit.currentNonce < deposit.pool.noncesToUnlock ? (
-                    <Button
-                      onClick={() => handleSelectDeposit(deposit, 'claim')}
-                      size="small"
-                      color="black-outlined"
-                      className={s.t_table__pool__row__btn}
-                    >
-                      Claim
-                    </Button>
-                  ) : (
-                    <Button
-                      disabled
-                      size="small"
-                      color="black-outlined"
-                      className={s.t_table__pool__row__btn}
-                    >
-                      Claimed
-                    </Button>
-                  )}
-                  {!deposit.withdrawn ? (
-                    <Button
-                      size="small"
-                      className={s.t_table__pool__row__btn}
-                      color="black-outlined"
-                      onClick={() => handleSelectDeposit(deposit, 'withdraw')}
-                    >
-                      Withdraw
-                    </Button>
-                  ) : (
-                    <Button
-                      disabled
-                      size="small"
-                      color="black-outlined"
-                      className={s.t_table__pool__row__btn}
-                    >
-                      Withdrawed
-                    </Button>
-                  )}
-                </>
-              }
-            >
-              <Button className={s.header__btn} color="gray-light" rounded size="small">
-                <Dots />
-              </Button>
-            </Tooltip>
+            {width > 1000 ? (
+              <Tooltip
+                animation="zoom"
+                placement="bottomLeft"
+                overlayClassName="header-tooltip"
+                trigger="click"
+                overlay={
+                  <>
+                    {deposit.currentNonce < deposit.pool.noncesToUnlock ? (
+                      <Button
+                        onClick={() => handleSelectDeposit(deposit, 'claim')}
+                        size="small"
+                        color="black-outlined"
+                        className={s.t_table__pool__row__btn}
+                      >
+                        Claim
+                      </Button>
+                    ) : (
+                      <Button
+                        disabled
+                        size="small"
+                        color="black-outlined"
+                        className={s.t_table__pool__row__btn}
+                      >
+                        Claimed
+                      </Button>
+                    )}
+                    {!deposit.withdrawn ? (
+                      <Button
+                        size="small"
+                        className={s.t_table__pool__row__btn}
+                        color="black-outlined"
+                        onClick={() => handleSelectDeposit(deposit, 'withdraw')}
+                      >
+                        Withdraw
+                      </Button>
+                    ) : (
+                      <Button
+                        disabled
+                        size="small"
+                        color="black-outlined"
+                        className={s.t_table__pool__row__btn}
+                      >
+                        Withdrawed
+                      </Button>
+                    )}
+                  </>
+                }
+              >
+                <Button className={s.header__btn} color="gray-light" rounded size="small">
+                  <Dots />
+                </Button>
+              </Tooltip>
+            ) : (
+              <div className={s.t_table__pool__btns}>
+                {deposit.currentNonce < deposit.pool.noncesToUnlock ? (
+                  <Button
+                    onClick={() => handleSelectDeposit(deposit, 'claim')}
+                    size="small"
+                    color="black-outlined"
+                    className={s.t_table__pool__row__btn}
+                  >
+                    Claim
+                  </Button>
+                ) : (
+                  <Button
+                    disabled
+                    size="small"
+                    color="black-outlined"
+                    className={s.t_table__pool__row__btn}
+                  >
+                    Claimed
+                  </Button>
+                )}
+                {!deposit.withdrawn ? (
+                  <Button
+                    size="small"
+                    className={s.t_table__pool__row__btn}
+                    color="black-outlined"
+                    onClick={() => handleSelectDeposit(deposit, 'withdraw')}
+                  >
+                    Withdraw
+                  </Button>
+                ) : (
+                  <Button
+                    disabled
+                    size="small"
+                    color="black-outlined"
+                    className={s.t_table__pool__row__btn}
+                  >
+                    Withdrawed
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
         ))}
         {/* <Pagination simple defaultCurrent={1} total={50} itemRender={buttonItemRender} /> */}

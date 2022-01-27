@@ -9,3 +9,4 @@ export { default as Deposit } from './Deposit';
 export { default as UnstakeModal } from './UnstakeModal';
 export { default as ClaimModal } from './ClaimModal';
 export { default as DisconnectModal } from './DisconnectModal';
+export { default as WithdrawModal } from './WithdrawModal';

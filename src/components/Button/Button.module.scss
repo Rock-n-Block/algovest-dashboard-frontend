@@ -129,3 +129,23 @@
     margin-right: 0;
   }
 }
+
+.small.rounded {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  svg {
+    transform: scale(0.6);
+    circle {
+      transition: 0.4s;
+    }
+  }
+  &:hover,
+  &:focus {
+    background: $black;
+    circle {
+      fill: white;
+    }
+  }
+}

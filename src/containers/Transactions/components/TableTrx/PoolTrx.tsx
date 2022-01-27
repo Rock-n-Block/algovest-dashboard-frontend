@@ -3,10 +3,11 @@ import cn from 'classnames';
 // import Pagination from 'rc-pagination';
 import { observer } from 'mobx-react-lite';
 import { format } from 'date-fns';
+import Tooltip from 'rc-tooltip';
 
 import { useMst } from 'store';
 import { WalletService } from 'services';
-import { ClaimModal } from 'containers';
+import { ClaimModal, WithdrawModal } from 'containers';
 import { useModal } from 'hooks';
 import { TBondItem } from 'store/Models/Pools';
 import { TOptionable } from 'typings';
@@ -14,9 +15,13 @@ import { Button } from 'components';
 
 import s from './TableTrx.module.scss';
 
+import { ReactComponent as Dots } from 'assets/img/icons/dots.svg';
+
 const PoolTrx: React.VFC = () => {
   const { pools } = useMst();
   const [isClaimModalVisible, handleOpenClaimModal, handleCloseClaimModal] = useModal(false);
+  const [isWithdrawModalVisible, handleOpenWithdrawModal, handleCloseWithdrawModal] =
+    useModal(false);
   const [selectedDeposit, setDeposit] = React.useState<TOptionable<TBondItem>>();
 
   // const buttonItemRender = (_: number, type: string, element: React.ReactNode) => {
@@ -40,11 +45,15 @@ const PoolTrx: React.VFC = () => {
   // };
 
   const handleSelectDeposit = React.useCallback(
-    (deposit: TBondItem) => {
+    (deposit: TBondItem, type: 'claim' | 'withdraw') => {
       setDeposit(deposit);
-      handleOpenClaimModal();
+      if (type === 'claim') {
+        handleOpenClaimModal();
+      } else {
+        handleOpenWithdrawModal();
+      }
     },
-    [handleOpenClaimModal],
+    [handleOpenClaimModal, handleOpenWithdrawModal],
   );
 
   return (
@@ -110,25 +119,58 @@ const PoolTrx: React.VFC = () => {
                 {WalletService.weiToEthWithDecimals(deposit.pendingInterest)}
               </div>
             </div>
-            {deposit.currentNonce < deposit.pool.noncesToUnlock ? (
-              <Button
-                onClick={() => handleSelectDeposit(deposit)}
-                size="small"
-                color="black-outlined"
-                className={s.t_table__pool__row__btn}
-              >
-                Claim
+            <Tooltip
+              animation="zoom"
+              placement="bottomLeft"
+              overlayClassName="header-tooltip"
+              trigger="click"
+              overlay={
+                <>
+                  {deposit.currentNonce < deposit.pool.noncesToUnlock ? (
+                    <Button
+                      onClick={() => handleSelectDeposit(deposit, 'claim')}
+                      size="small"
+                      color="black-outlined"
+                      className={s.t_table__pool__row__btn}
+                    >
+                      Claim
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      size="small"
+                      color="black-outlined"
+                      className={s.t_table__pool__row__btn}
+                    >
+                      Claimed
+                    </Button>
+                  )}
+                  {!deposit.withdrawn ? (
+                    <Button
+                      size="small"
+                      className={s.t_table__pool__row__btn}
+                      color="black-outlined"
+                      onClick={() => handleSelectDeposit(deposit, 'withdraw')}
+                    >
+                      Withdraw
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      size="small"
+                      color="black-outlined"
+                      className={s.t_table__pool__row__btn}
+                    >
+                      Withdrawed
+                    </Button>
+                  )}
+                </>
+              }
+            >
+              <Button className={s.header__btn} color="gray-light" rounded size="small">
+                <Dots />
               </Button>
-            ) : (
-              <Button
-                disabled
-                size="small"
-                color="black-outlined"
-                className={s.t_table__pool__row__btn}
-              >
-                Claimed
-              </Button>
-            )}
+            </Tooltip>
           </div>
         ))}
         {/* <Pagination simple defaultCurrent={1} total={50} itemRender={buttonItemRender} /> */}
@@ -136,6 +178,11 @@ const PoolTrx: React.VFC = () => {
       <ClaimModal
         visible={isClaimModalVisible}
         onClose={handleCloseClaimModal}
+        deposit={selectedDeposit}
+      />
+      <WithdrawModal
+        visible={isWithdrawModalVisible}
+        onClose={handleCloseWithdrawModal}
         deposit={selectedDeposit}
       />
     </>

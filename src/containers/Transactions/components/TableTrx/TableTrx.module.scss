@@ -80,6 +80,9 @@
           padding: 9px 16px !important;
           text-align: left;
         }
+        & + & {
+          margin-top: 10px;
+        }
       }
       &__data {
         @include b(mobile) {

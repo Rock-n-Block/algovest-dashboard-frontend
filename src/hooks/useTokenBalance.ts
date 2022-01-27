@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useState } from 'react';
 
 import { useWalletConnectorContext } from 'services';
@@ -17,7 +18,7 @@ export default (
     const tokenBalance = await walletService.getTokenBalance(tokenAddress);
     const amount = await walletService.weiToEth(tokenAddress, tokenBalance);
 
-    setBalance(amount);
+    setBalance(new BigNumber(amount).toFixed(3, 1));
   }, [tokenAddress, walletService]);
 
   const getTokenDecimals = useCallback(async () => {

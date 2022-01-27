@@ -4,7 +4,7 @@ import Tooltip from 'rc-tooltip';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { observer } from 'mobx-react-lite';
 
-import { addressWithDots } from 'utils';
+import { addressWithDots, numbWithCommas } from 'utils';
 import { contracts } from 'config';
 import { useMst } from 'store';
 import { useTokenBalance } from 'hooks';
@@ -54,7 +54,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={s.stats__info__item}>
             <div className={cn(s.stats__info__item__name, 'text-gray')}>Your AVS Balance:</div>
             <div className={s.stats__info__item__value}>
-              <span className="text-500">{(+avsBalance).toLocaleString()}</span>
+              <span className="text-500">{numbWithCommas(avsBalance)}</span>
             </div>
           </div>
           <div className={s.stats__info__item}>

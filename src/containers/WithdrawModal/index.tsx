@@ -77,24 +77,6 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deposit, visible]);
 
-  // const pendingInterest = React.useMemo(() => {
-  //   if (+daysBeforeClaim <= 0 && deposit) {
-  //     let diff = differenceInMinutes(new Date(), new Date(+deposit.depositTimestamp * 1000));
-  //     // const diff = differenceInWeeks(new Date(), new Date(+deposit.depositTimestamp * 1000));
-  //     diff = Math.ceil(diff / 5);
-  //     if (diff > +deposit.pool.noncesToUnlock) {
-  //       diff = +deposit.pool.noncesToUnlock;
-  //     }
-  //     const pendingInt = WalletService.weiToEthWithDecimals(deposit.pendingInterest);
-  //     const interest = new BigNumber(pendingInt)
-  //       .div(deposit.pool.noncesToUnlock)
-  //       .multipliedBy(diff - +deposit.currentNonce);
-  //     return interest.toFixed(3, 1);
-  //   }
-  //   return '';
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [daysBeforeClaim, deposit, visible]);
-
   if (!deposit) {
     return null;
   }

@@ -4,7 +4,7 @@ import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 
 import { ERC20Abi, BondAbi } from './abi';
 
-export const is_production = false;
+export const is_production = true;
 
 export const chains: {
   [key: string]: {
@@ -60,7 +60,7 @@ export const contracts: IContracts = {
   params: {
     AVS: {
       mainnet: {
-        address: '',
+        address: '0x94d916873b22c9c1b53695f1c002f78537b9b3b2',
         abi: ERC20Abi,
       },
       testnet: {
@@ -70,7 +70,7 @@ export const contracts: IContracts = {
     },
     USDC: {
       mainnet: {
-        address: '',
+        address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
         abi: ERC20Abi,
       },
       testnet: {
@@ -80,7 +80,7 @@ export const contracts: IContracts = {
     },
     BOND: {
       mainnet: {
-        address: '',
+        address: '0x822480D4eFD781C696272F0aca9980395Db72cc0',
         abi: BondAbi,
       },
       testnet: {

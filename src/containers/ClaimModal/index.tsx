@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { format, add, differenceInMinutes, differenceInSeconds } from 'date-fns';
+import { format, add, differenceInDays, differenceInWeeks, differenceInSeconds } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 
 import { IModalProps } from 'typings';
@@ -45,18 +45,15 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
 
   const daysBeforeClaim = React.useMemo(() => {
     if (deposit) {
-      // const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
-      //   weeks: +deposit.currentNonce + 1,
-      // });
       const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
-        minutes: (+deposit.currentNonce + 1) * 5,
+        weeks: +deposit.currentNonce,
       });
-      const diffWeeks = differenceInMinutes(new Date(nextClaim), new Date());
+      const diffDays = differenceInDays(new Date(nextClaim), new Date());
       const diffSeconds = differenceInSeconds(new Date(nextClaim), new Date());
-      if (diffSeconds > 0) {
-        return diffWeeks + 1;
+      if (diffDays < 1 && diffSeconds > 0) {
+        return diffDays + 1;
       }
-      return diffWeeks;
+      return diffDays;
       // return differenceInDays(new Date(nextClaim), new Date());
     }
     return 1;
@@ -65,9 +62,8 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
 
   const pendingInterest = React.useMemo(() => {
     if (+daysBeforeClaim <= 0 && deposit) {
-      let diff = differenceInMinutes(new Date(), new Date(+deposit.depositTimestamp * 1000));
-      // const diff = differenceInWeeks(new Date(), new Date(+deposit.depositTimestamp * 1000));
-      diff = Math.ceil(diff / 5);
+      // let diff = differenceInMinutes(new Date(), new Date(+deposit.depositTimestamp * 1000));
+      let diff = differenceInWeeks(new Date(), new Date(+deposit.depositTimestamp * 1000));
       if (diff > +deposit.pool.noncesToUnlock) {
         diff = +deposit.pool.noncesToUnlock;
       }

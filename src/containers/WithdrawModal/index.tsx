@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { format, add, differenceInMinutes, differenceInSeconds, addMinutes } from 'date-fns';
+import { format, add, differenceInDays, differenceInSeconds, addMinutes } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 
 import { IModalProps } from 'typings';
@@ -42,18 +42,15 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
 
   const daysBeforeClaim = React.useMemo(() => {
     if (deposit) {
-      // const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
-      //   weeks: +deposit.pool.noncesToUnlock
-      // });
       const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
-        minutes: +deposit.pool.noncesToUnlock + 1 * 5,
+        weeks: +deposit.currentNonce,
       });
-      const diffWeeks = differenceInMinutes(new Date(nextClaim), new Date());
+      const diffDays = differenceInDays(new Date(nextClaim), new Date());
       const diffSeconds = differenceInSeconds(new Date(nextClaim), new Date());
-      if (diffSeconds > 0) {
-        return diffWeeks + 1;
+      if (diffDays < 1 && diffSeconds > 0) {
+        return diffDays + 1;
       }
-      return diffWeeks;
+      return diffDays;
       // return differenceInDays(new Date(nextClaim), new Date());
     }
     return 1;
@@ -62,10 +59,6 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
 
   const unlockDate = React.useMemo(() => {
     if (deposit) {
-      // const unlock = addWeeks(
-      //   new Date(+deposit.depositTimestamp * 1000),
-      //   +deposit.pool.noncesToUnlock,
-      // );
       const unlock = addMinutes(
         new Date(+deposit.depositTimestamp * 1000),
         +deposit.pool.noncesToUnlock * 5,

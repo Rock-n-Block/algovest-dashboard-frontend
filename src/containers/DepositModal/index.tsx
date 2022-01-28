@@ -96,14 +96,17 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
   );
 
   const estimatedReward = React.useMemo(() => {
-    if (new BigNumber(amount).isGreaterThan(0) && selectedPool.periodInterestRate) {
+    if (
+      new BigNumber(amount).isGreaterThan(0) &&
+      selectedPool.periodInterestRate &&
+      selectedPool.noncesToUnlock
+    ) {
       return new BigNumber(amount)
-        .plus(
-          new BigNumber(amount).multipliedBy(
-            new BigNumber(selectedPool.periodInterestRate).dividedBy(100),
-          ),
-        )
-        .toFixed(3, 1);
+        .multipliedBy(new BigNumber(selectedPool.periodInterestRate).dividedBy(100))
+        .dividedBy(365)
+        .multipliedBy(7)
+        .multipliedBy(selectedPool.noncesToUnlock)
+        .toFixed(2, 1);
     }
     return '0';
   }, [amount, selectedPool]);

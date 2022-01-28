@@ -248,15 +248,15 @@ const GetData: React.FC = ({ children }) => {
       );
 
       Promise.all(promises).then((res) => {
-        const activePools = res.filter((pool) => !pool.locked);
-        const poolWithoutNumbers = activePools.map((item: IPoolItem, index) => ({
+        const poolWithoutNumbers = res.map((item: IPoolItem, index) => ({
           id: index,
           locked: item.locked,
           minDeposit: item.minDeposit,
           noncesToUnlock: item.noncesToUnlock,
           periodInterestRate: new BigNumber(item.periodInterestRate).dividedBy(10000).toString(10),
         }));
-        pools.setPools(poolWithoutNumbers);
+        const activePools = poolWithoutNumbers.filter((pool) => !pool.locked);
+        pools.setPools(activePools);
       });
     } catch (err) {
       console.log('err get pools', err);

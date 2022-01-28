@@ -23,6 +23,8 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
   const { pools } = useMst();
   const [loading, setLoading] = React.useState(false);
 
+  console.log(deposit, 'deposit');
+
   const handleClaim = React.useCallback(async () => {
     try {
       if (deposit) {

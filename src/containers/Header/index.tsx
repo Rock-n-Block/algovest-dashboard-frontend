@@ -16,15 +16,11 @@ import s from './Header.module.scss';
 const links = [
   {
     name: 'About',
-    link: '/',
-  },
-  {
-    name: 'Docs',
-    link: '/',
+    link: 'https://algovest.fi/',
   },
   {
     name: 'Telegram',
-    link: '/',
+    link: 'https://t.me/algovest',
   },
 ];
 

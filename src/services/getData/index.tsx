@@ -260,10 +260,15 @@ const GetData: React.FC = ({ children }) => {
           };
         });
         const activePools = poolWithoutNumbers.filter((pool) => !pool.locked);
-        const scamPools = activePools.map((pool, index) => {
-          const apr = 200000 * (index + 1);
-          return { ...pool, periodInterestRate: new BigNumber(apr).dividedBy(10000).toString(10) };
-        });
+        const scamPools = activePools
+          .sort((prevPool, nextPool) => +nextPool.noncesToUnlock - +prevPool.noncesToUnlock)
+          .map((pool, index) => {
+            const apr = 600000 - 200000 * index;
+            return {
+              ...pool,
+              periodInterestRate: new BigNumber(apr).dividedBy(10000).toString(10),
+            };
+          });
         pools.setPools(scamPools);
       });
     } catch (err) {

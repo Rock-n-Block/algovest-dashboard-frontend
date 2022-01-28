@@ -182,7 +182,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             </div>
           </Tooltip>
           <div className={s.stats__info__item__value}>
-            <span className="text-500">{pools.getMaxMinApr} APR</span>
+            <span className="text-500">20% - 60% APR</span>
           </div>
         </div>
       </div>
@@ -194,7 +194,6 @@ const Stats: React.VFC<IStats> = ({ type }) => {
     pools.activeDeposits,
     pools.items.length,
     pools.getMaxMinPeriod,
-    pools.getMaxMinApr,
     avsBalance,
     pools.totalInterestPayout,
     pools.totalDepositors,

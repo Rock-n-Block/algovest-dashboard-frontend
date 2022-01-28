@@ -97,7 +97,8 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               animation="zoom"
               overlay={
                 <span className="text-sm">
-                  10,000,000 is the total AVS available in the market.
+                  Stake your AVS and earn {+staking.apr * 100}% APR staking rewards on your Staked
+                  AVS, while gaining access to yield pool.
                 </span>
               }
             >
@@ -146,7 +147,9 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             placement="left"
             animation="zoom"
             overlay={
-              <span className="text-sm">10,000,000 is the total AVS available in the market.</span>
+              <span className="text-sm">
+                Choose your lockup period from available options, 8, 16 or 24 weeks.
+              </span>
             }
           >
             <div className={cn(s.stats__info__item__name, 'text-gray')}>
@@ -170,7 +173,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             placement="left"
             animation="zoom"
             overlay={
-              <span className="text-sm">10,000,000 is the total AVS available in the market.</span>
+              <span className="text-sm">Deposit USDC to earn up to 60% APR from yield pool.</span>
             }
           >
             <div className={cn(s.stats__info__item__name, 'text-gray')}>

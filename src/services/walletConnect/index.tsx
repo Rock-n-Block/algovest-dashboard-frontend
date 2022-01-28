@@ -43,7 +43,7 @@ class Connector extends React.Component<
 
   componentDidMount() {
     this.state.provider.connectWallet.initWeb3(
-      'https://rinkeby.infura.io/v3/fc1488a3d7ef48ca9aae608015951fd2',
+      'https://mainnet.infura.io/v3/d21662b57aec47daa7b87f182cd87e0b',
     );
     if (window.ethereum && localStorage.algovest_logged && localStorage.algovest_provider) {
       this.connect(chainsEnum.Ethereum, localStorage.algovest_provider);

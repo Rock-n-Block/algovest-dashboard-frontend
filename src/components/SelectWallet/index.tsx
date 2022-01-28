@@ -1,8 +1,7 @@
 import React from 'react';
-import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { Metamask, WalletConnect, Arrow } from 'assets/img';
+import { Metamask, WalletConnect } from 'assets/img';
 import { useWalletConnectorContext } from 'services';
 import { chainsEnum } from 'typings';
 import { useMst } from 'store';
@@ -54,7 +53,7 @@ const SelectWallet: React.VFC = () => {
         </div>
         <span className="text-600 text-lmd">WalletConnect</span>
       </div>
-      <div className={cn(s.s_wallet__quest, 'text-smd text-gray')}>New to Ethereum network?</div>
+      {/* <div className={cn(s.s_wallet__quest, 'text-smd text-gray')}>New to Ethereum network?</div>
       <a
         href="/"
         target="_blank"
@@ -63,7 +62,7 @@ const SelectWallet: React.VFC = () => {
       >
         <span>Learn more about Crypto Wallet</span>
         <img src={Arrow} alt="" />
-      </a>
+      </a> */}
     </div>
   );
 };

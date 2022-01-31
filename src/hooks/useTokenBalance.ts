@@ -1,8 +1,9 @@
-import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useState } from 'react';
 
-import { useWalletConnectorContext } from 'services';
+import BigNumber from 'bignumber.js';
 import { TNullable } from 'typings';
+
+import { useWalletConnectorContext } from 'services';
 
 export default (
   userAddress: TNullable<string>,

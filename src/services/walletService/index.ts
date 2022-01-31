@@ -1,13 +1,12 @@
 import { ConnectWallet } from '@amfi/connect-wallet';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import BigNumber from 'bignumber.js/bignumber';
+import { chainsEnum } from 'typings';
+import { Erc20 } from 'typings/abis/erc20';
 import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, contracts } from 'config';
 import { ERC20Abi } from 'config/abi';
-
-import { chainsEnum } from 'typings';
-import { Erc20 } from 'typings/abis/erc20';
 // import { Bond } from 'typings/abis/bond';
 
 // enum ContractsEnum {

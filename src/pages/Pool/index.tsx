@@ -1,6 +1,6 @@
 import { VFC } from 'react';
 
-import { Stats, Transactions, Deposit } from 'containers';
+import { Deposit, Stats, Transactions } from 'containers';
 
 const Pool: VFC = () => {
   return (

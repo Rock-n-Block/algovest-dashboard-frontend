@@ -2,20 +2,26 @@
 $self: '.e_reward';
 
 .e_reward {
-  border-radius: 10px;
   padding: 12px 30px;
+
+  border-radius: 10px;
   @include flex(row, center, flex-start, nowrap);
+
   .vertical {
     @include flex(column, flex-start, space-between);
   }
+
   &__wrapper {
-    width: 100%;
     margin-left: 30px;
+
+    width: 100%;
     @include flex(row, center, space-between);
   }
+
   &__title {
     max-width: 240px;
   }
+
   &.mini {
     padding: 6px 16px;
     #{$self} {
@@ -23,6 +29,7 @@ $self: '.e_reward';
         margin-left: 11px;
       }
     }
+
     img {
       max-width: 24px;
     }

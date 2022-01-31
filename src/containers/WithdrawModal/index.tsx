@@ -1,15 +1,18 @@
 import React from 'react';
-import cn from 'classnames';
-import { format, add, differenceInDays, differenceInSeconds, addMinutes } from 'date-fns';
+
 import { observer } from 'mobx-react-lite';
-
-import { IModalProps } from 'typings';
-import { Modal, Button } from 'components';
-import { TBondItem } from 'store/Models/Pools';
-import { WalletService, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
+import { TBondItem } from 'store/Models/Pools';
 
-import { Avs, Usdc, Info } from 'assets/img';
+import cn from 'classnames';
+import { add, addMinutes, differenceInDays, differenceInSeconds, format } from 'date-fns';
+import { IModalProps } from 'typings';
+
+import { Button, Modal } from 'components';
+
+import { useWalletConnectorContext, WalletService } from 'services';
+
+import { Avs, Info, Usdc } from 'assets/img';
 
 import s from './WithdrawModal.module.scss';
 

@@ -2,131 +2,169 @@
 
 .t_table {
   &__row {
+    padding: 10px 24px;
+    padding-bottom: 12px;
+
     display: grid;
     align-items: center;
     grid-column-gap: 10px;
-    padding-bottom: 12px;
-    padding: 10px 24px;
     @include b('mobile') {
       display: block;
     }
+
     & + & {
       margin-top: 12px;
     }
+
     & > div:last-child {
       margin-left: auto;
     }
   }
+
   &__head {
     background: #f3f4f6;
     @include b('mobile') {
       display: none;
     }
+
     &__item {
       @include text-common(smd, 400);
       color: $gray-text;
+
       &:hover img {
         opacity: 1;
       }
+
       img {
-        opacity: 0.4;
-        transition: 0.3s;
         margin-left: 12px;
+
+        opacity: 0.4;
+
+        transition: 0.3s;
       }
+
       span {
         white-space: nowrap;
       }
+
       &__controll {
-        cursor: pointer;
         width: fit-content;
+
+        cursor: pointer;
         @include flex(row, center);
       }
     }
   }
+
   &__status {
+    margin: 0 auto;
     padding: 4px 8px;
+
+    width: fit-content;
+
     border-radius: $border-radius;
     @include text-common(sm);
-    width: fit-content;
-    margin: 0 auto;
+
     &_active {
       color: $orange;
       background: $orange-light;
     }
+
     &_done {
       color: $green;
       background: $green-light;
     }
   }
+
   &__staking {
     &__item {
       @include flex(row, center, flex-start, nowrap);
+
       img {
-        max-width: 24px;
         margin-right: 8px;
+
+        max-width: 24px;
       }
     }
+
     &__row {
       grid-template-columns: 165px 150px 165px 1fr;
     }
   }
+
   &__pool {
     &__btns {
       @include grid(1fr 1fr, auto, 20px);
       margin-top: 15px;
     }
+
     &__row {
       grid-template-columns: 100px 65px 75px 75px 95px 60px 1fr;
+
       &__btn {
         width: 100%;
+
         & + & {
           margin-top: 10px;
         }
         @include b(mobile) {
-          padding: 9px 16px !important;
           margin-top: 10px;
+          padding: 9px 16px !important;
+
           text-align: left;
         }
       }
+
       &__data {
         @include b(mobile) {
           @include flex(row, center, space-between, nowrap);
+
           & + & {
             margin-top: 10px;
           }
         }
       }
+
       &__name {
         display: none;
         @include b(mobile) {
-          color: $gray-text;
           display: block;
+
+          color: $gray-text;
         }
       }
+
       &__value {
-        max-width: 100%;
         overflow: hidden;
-        text-overflow: ellipsis;
+
+        max-width: 100%;
+
         white-space: nowrap;
+        text-overflow: ellipsis;
         @include b(mobile) {
           font-weight: 600;
         }
+
         &__img {
           @include flex(row, center);
         }
       }
     }
   }
+
   &__nav {
     @include flex(row, center);
+
     span {
       margin: 0 5px;
     }
+
     &_prev {
       img {
         transform: rotate(90deg);
       }
     }
+
     &_next {
       img {
         transform: rotate(-90deg);

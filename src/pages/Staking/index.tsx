@@ -1,6 +1,6 @@
 import { VFC } from 'react';
 
-import { Stats, Stake, Transactions } from 'containers';
+import { Stake, Stats, Transactions } from 'containers';
 
 const Staking: VFC = () => {
   return (

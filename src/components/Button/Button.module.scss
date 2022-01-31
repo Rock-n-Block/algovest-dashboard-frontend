@@ -1,17 +1,21 @@
 @import '../../styles/mixins';
 
 .button {
-  cursor: pointer;
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
-  text-decoration: none;
-  background-color: transparent;
-  border: 1px solid transparent;
   width: fit-content;
-  white-space: nowrap;
-  @include flex(row, center, center, nowrap);
-  border-radius: $border-radius;
+
   font-size: 18px;
   line-height: 22px;
+  white-space: nowrap;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: $border-radius;
+
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  @include flex(row, center, center, nowrap);
   @include b('mobile') {
     font-size: 14px;
     line-height: 20px;
@@ -23,39 +27,49 @@
       padding: 10px 16px;
     }
   }
+
   &.big {
     padding: 18px 39px;
   }
+
   &.medium {
     padding: 16px 37px;
   }
+
   &.small {
     padding: 4px 8px;
-    border-radius: 5px;
+
     font-size: 16px;
     line-height: 19px;
+
+    border-radius: 5px;
   }
 
   &.rounded {
-    border-radius: 50%;
     width: 51px;
-    height: 51px;
     min-width: 51px;
+    height: 51px;
     min-height: 51px;
+
+    border-radius: 50%;
+
     span {
       @include flex(row, center, center);
     }
     @include b('mobile') {
-      height: 42px;
-      width: 42px;
-      min-height: 42px;
-      min-width: 42px;
       padding: 0;
+
+      width: 42px;
+      min-width: 42px;
+      height: 42px;
+      min-height: 42px;
     }
   }
+
   &.gray {
-    background: $btn-bg-gray;
     color: $btn-color-gray;
+    background: $btn-bg-gray;
+
     &:hover,
     &:active {
       background: $btn-hover-gray;
@@ -64,39 +78,45 @@
   }
 
   &.gray-light {
-    background: $btn-bg-gray-light;
     color: $btn-color-gray;
+    background: $btn-bg-gray-light;
+
     &:hover,
     &:active {
       background: $btn-hover-gray;
       border: 1px solid $btn-border-gray;
     }
   }
+
   &.black {
-    background: $btn-bg-black;
     color: $btn-color-black;
+    background: $btn-bg-black;
     border-color: $btn-bg-black;
+
     &:hover,
     &:active {
-      background: white;
       color: $black;
+      background: white;
     }
+
     &-outlined {
-      background: white;
       color: $black;
+      background: white;
       border-color: $btn-bg-black;
+
       &:hover,
       &:active {
-        background: $btn-bg-black;
         color: $btn-color-black;
+        background: $btn-bg-black;
       }
     }
   }
 
   &.green {
-    background: $btn-bg-green;
     color: $btn-color-green;
+    background: $btn-bg-green;
     border-color: $btn-bg-green;
+
     &:hover,
     &:active {
       color: $black;
@@ -106,14 +126,17 @@
 
   &.disabled {
     cursor: not-allowed;
+
+    color: white;
     background: #808080;
     border-color: #808080;
-    color: white;
+
     &:hover {
-      background: #808080;
       color: white;
+      background: #808080;
     }
   }
+
   &:focus {
   }
 
@@ -123,8 +146,10 @@
 }
 
 .icon {
-  height: unset;
   margin-right: 12px;
+
+  height: unset;
+
   &:only-child {
     margin-right: 0;
   }
@@ -132,18 +157,22 @@
 
 .small.rounded {
   width: 32px;
-  height: 32px;
   min-width: 32px;
+  height: 32px;
   min-height: 32px;
+
   svg {
     transform: scale(0.6);
+
     circle {
       transition: 0.4s;
     }
   }
+
   &:hover,
   &:focus {
     background: $black;
+
     circle {
       fill: white;
     }

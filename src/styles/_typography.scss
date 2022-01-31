@@ -21,18 +21,22 @@ h3,
     font-size: 12px;
     line-height: 15px;
   }
+
   &-smd {
     font-size: 14px;
     line-height: 17px;
   }
+
   &-md {
     font-size: 16px;
     line-height: 19px;
   }
+
   &-lmd {
     font-size: 18px;
     line-height: 22px;
   }
+
   &-lg {
     font-size: 24px;
     line-height: 29px;
@@ -41,33 +45,44 @@ h3,
   &-bold {
     font-weight: 700;
   }
+
   &-600 {
     font-weight: 600;
   }
+
   &-400 {
     font-weight: 400;
   }
+
   &-500 {
     font-weight: 500;
   }
+
   &-300 {
     font-weight: 300;
   }
+
   &-upper {
     text-transform: uppercase;
   }
+
   &-capitalize {
     text-transform: capitalize;
   }
+
   &-white {
     color: #fff;
   }
+
   &-ellipsis {
-    max-width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis;
+
+    max-width: 100%;
+
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
+
   &-italic {
     font-style: italic;
   }
@@ -75,15 +90,19 @@ h3,
   &-green {
     color: $green;
   }
+
   &-gray {
     color: $gray-text;
   }
+
   &-black {
     color: $black;
   }
+
   &-red {
     color: $red;
   }
+
   &-center {
     text-align: center;
   }

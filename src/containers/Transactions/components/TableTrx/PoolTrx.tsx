@@ -1,22 +1,25 @@
 import React from 'react';
-import cn from 'classnames';
+
 // import Pagination from 'rc-pagination';
 import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+import { TBondItem } from 'store/Models/Pools';
+
+import cn from 'classnames';
+import { ClaimModal, WithdrawModal } from 'containers';
 import { format } from 'date-fns';
 import Tooltip from 'rc-tooltip';
-
-import { useMst } from 'store';
-import { WalletService } from 'services';
-import { ClaimModal, WithdrawModal } from 'containers';
-import { useModal, useWindowSize } from 'hooks';
-import { TBondItem } from 'store/Models/Pools';
 import { TOptionable } from 'typings';
+
 import { Button } from 'components';
 import { numbWithCommas } from 'utils';
 
-import s from './TableTrx.module.scss';
+import { useModal, useWindowSize } from 'hooks';
+import { WalletService } from 'services';
 
 import { ReactComponent as Dots } from 'assets/img/icons/dots.svg';
+
+import s from './TableTrx.module.scss';
 
 const PoolTrx: React.VFC = () => {
   const { pools } = useMst();

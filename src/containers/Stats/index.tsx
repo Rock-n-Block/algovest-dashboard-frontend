@@ -1,17 +1,20 @@
 import React from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+
 import cn from 'classnames';
 import Tooltip from 'rc-tooltip';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { observer } from 'mobx-react-lite';
 
-import { addressWithDots, numbWithCommas } from 'utils';
 import { contracts } from 'config';
-import { useMst } from 'store';
+import { addressWithDots, numbWithCommas } from 'utils';
+
 import { useTokenBalance } from 'hooks';
 
-import s from './Stats.module.scss';
+import { Avs, Coins, Copy, Eth, Info, Lock, Usdc } from 'assets/img';
 
-import { Avs, Info, Eth, Copy, Usdc, Lock, Coins } from 'assets/img';
+import s from './Stats.module.scss';
 
 interface IStats {
   type: 'staking' | 'pool';

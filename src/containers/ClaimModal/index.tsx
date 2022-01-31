@@ -1,18 +1,21 @@
 import React from 'react';
-import cn from 'classnames';
-import { format, add, differenceInDays, differenceInWeeks, differenceInSeconds } from 'date-fns';
+
 import { observer } from 'mobx-react-lite';
-
-import { IModalProps } from 'typings';
-import { Modal, Button } from 'components';
-import { TBondItem } from 'store/Models/Pools';
-import { WalletService, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
+import { TBondItem } from 'store/Models/Pools';
 
-import { Avs, Usdc, Interest, Info } from 'assets/img';
+import BigNumber from 'bignumber.js';
+import cn from 'classnames';
+import { add, differenceInDays, differenceInSeconds, differenceInWeeks, format } from 'date-fns';
+import { IModalProps } from 'typings';
+
+import { Button, Modal } from 'components';
+
+import { useWalletConnectorContext, WalletService } from 'services';
+
+import { Avs, Info, Interest, Usdc } from 'assets/img';
 
 import s from './ClaimModal.module.scss';
-import BigNumber from 'bignumber.js';
 
 interface IClaimModal extends Pick<IModalProps, 'onClose' | 'visible'> {
   deposit?: TBondItem;
@@ -23,6 +26,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
   const { pools } = useMst();
   const [loading, setLoading] = React.useState(false);
 
+  // eslint-disable-next-line no-console
   console.log(deposit, 'deposit');
 
   const handleClaim = React.useCallback(async () => {

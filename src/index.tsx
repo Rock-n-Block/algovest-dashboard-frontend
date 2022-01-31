@@ -1,10 +1,12 @@
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { App } from './App';
 import { Provider, rootStore } from 'store';
-import Connector from 'services/walletConnect';
+
 import { GetData } from 'services';
+import Connector from 'services/walletConnect';
+
+import { App } from './App';
 
 import 'styles/index.scss';
 

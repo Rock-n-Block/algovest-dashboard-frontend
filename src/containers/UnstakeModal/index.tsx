@@ -1,15 +1,18 @@
 import React from 'react';
-import cn from 'classnames';
-import { observer } from 'mobx-react-lite';
-import { format } from 'date-fns';
-import BigNumber from 'bignumber.js';
 
-import { IModalProps } from 'typings';
-import { Modal, Button } from 'components';
-import { useWalletConnectorContext } from 'services';
+import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
 
-import { Avs, Info, Error } from 'assets/img';
+import BigNumber from 'bignumber.js';
+import cn from 'classnames';
+import { format } from 'date-fns';
+import { IModalProps } from 'typings';
+
+import { Button, Modal } from 'components';
+
+import { useWalletConnectorContext } from 'services';
+
+import { Avs, Error, Info } from 'assets/img';
 
 import s from './UnstakeModal.module.scss';
 

@@ -1,27 +1,34 @@
 .box {
-  background: #ffffff;
+  padding: 32px 24px;
+
+  background: #fff;
   border: 1.5px solid #e5eaf3;
   border-radius: 8px;
-  padding: 32px 24px;
   @include b('mobile') {
     padding: 24px 15px;
+
     & + & {
       margin-top: 30px;
     }
   }
+
   &-0 {
     padding: 0;
   }
+
   &-green {
     background: $green-light;
     border: 1.5px solid $green;
+
     &-border {
       border: 1.5px solid $green;
     }
   }
+
   &-gray {
     background: rgba(242, 242, 242, 0.8);
   }
+
   &-sm {
     padding: 12px 26px 16px;
   }

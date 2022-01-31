@@ -1,24 +1,33 @@
 .rc-pagination {
-  width: fit-content;
   margin: 24px auto 0;
+
+  width: fit-content;
+
   &-simple &-simple-pager input {
     padding: 0;
   }
+
   &-simple &-prev,
   &-simple &-next {
     height: auto;
   }
+
   &-simple {
     @include flex(row, center);
   }
+
   &-disabled {
     opacity: 0.7;
   }
+
   &-slash {
-    color: #fff;
     margin: 0;
+
+    color: #fff;
+
     &::before {
       content: 'out of';
+
       color: $gray-text;
     }
   }

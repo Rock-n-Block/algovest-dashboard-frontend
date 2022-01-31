@@ -2,6 +2,7 @@
 
 :global(.rc-dialog) {
   z-index: 100;
+
   max-width: 480px;
 
   &-body {
@@ -13,50 +14,56 @@
 
   &-mask {
     position: fixed;
+    z-index: 1080 !important;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-    z-index: 1080 !important;
 
     height: 100%;
 
     background-color: #00000073;
   }
+
   &-content {
     border-radius: 8px;
   }
 
   &-wrap {
     position: fixed;
+    z-index: 1080 !important;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-    @include flex(row, center, center);
-    width: 100%;
-    z-index: 1080 !important;
+
     padding: 50px 0;
 
     overflow: auto;
 
+    width: 100%;
+
     outline: 0;
+    @include flex(row, center, center);
   }
+
   &-close {
     top: unset;
-    bottom: calc(100% + 18px);
     left: calc(100% + 52px);
+    bottom: calc(100% + 18px);
     @include b('mobile') {
-      left: unset;
       right: 0;
+      left: unset;
     }
   }
 }
+
 .modal {
   &__wrapper {
     position: relative;
-    border-radius: 16px;
+
     background: #2222;
+    border-radius: 16px;
   }
 
   &__subtitle {

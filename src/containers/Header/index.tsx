@@ -1,15 +1,18 @@
 import React from 'react';
-import Tooltip from 'rc-tooltip';
+
 import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+
 import cn from 'classnames';
+import { DisconnectModal } from 'containers';
+import Tooltip from 'rc-tooltip';
 
 import { Button } from 'components';
-import { DisconnectModal } from 'containers';
-import { useModal } from 'hooks';
-import { useMst } from 'store';
 import { addressWithDots } from 'utils';
 
-import { Logo, Dots, Arrow } from 'assets/img';
+import { useModal } from 'hooks';
+
+import { Arrow, Dots, Logo } from 'assets/img';
 
 import s from './Header.module.scss';
 

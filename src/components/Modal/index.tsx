@@ -2,8 +2,8 @@ import { FC, PropsWithChildren } from 'react';
 
 import cn from 'classnames';
 import Dialog from 'rc-dialog';
-
 import { IModalProps } from 'typings';
+
 import { Close } from 'assets/img';
 
 import 'rc-dialog/assets/index.css';

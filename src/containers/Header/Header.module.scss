@@ -1,18 +1,22 @@
 @import 'styles/mixins';
 
 .header {
-  padding: 24px 5.556vw;
   position: sticky;
-  top: 0;
-  background: #fff;
-  @include flex(row, center, space-between);
   z-index: 100;
+  top: 0;
+
+  padding: 24px 5.556vw;
+
+  background: #fff;
   border-bottom: 1px solid $border-gray;
+  @include flex(row, center, space-between);
   @include b('mobile') {
     padding: 15px;
   }
+
   &__logo {
     max-width: 170px;
+
     img {
       max-width: 100%;
     }
@@ -20,28 +24,36 @@
       max-width: 110px;
     }
   }
+
   &__wrapper {
     @include flex(row, center);
   }
+
   &__navbar {
     margin-left: 34px;
     padding-left: 34px;
+
     border-left: 1px solid $border-gray-light;
     @include flex(row, center);
     @include b('mobile') {
       display: none;
     }
+
     &__item {
-      display: block;
       padding: 16px 37px;
-      border-radius: $border-radius;
-      border: 1px solid transparent;
+
+      display: block;
+
       color: $btn-color-gray;
+      border: 1px solid transparent;
+      border-radius: $border-radius;
+
       &_active {
         background: $btn-bg-gray-light;
       }
     }
   }
+
   &__btn {
     &:last-of-type {
       margin-left: 25px;
@@ -49,24 +61,30 @@
         margin-left: 16px;
       }
     }
+
     img {
       @include b('mobile') {
         transform: scale(0.7);
       }
     }
   }
+
   &__link {
     min-width: 135px;
-    @include flex(row, center, space-between);
+
     color: $black;
-    transition: 0.3s;
     opacity: 0.6;
+
+    transition: 0.3s;
+    @include flex(row, center, space-between);
+
     & + & {
       margin-top: 20px;
       @include b('mobile') {
         margin-top: 15px;
       }
     }
+
     &:hover {
       opacity: 1;
     }

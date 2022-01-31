@@ -269,7 +269,7 @@ const GetData: React.FC = ({ children }) => {
               periodInterestRate: new BigNumber(apr).dividedBy(10000).toString(10),
             };
           });
-        pools.setPools(scamPools);
+        pools.setPools(scamPools.reverse());
       });
     } catch (err) {
       console.log('err get pools', err);

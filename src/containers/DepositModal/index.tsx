@@ -161,7 +161,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
             <div
               key={`${pool.noncesToUnlock}-${pool.periodInterestRate}-${pool.minDeposit}`}
               className={cn(s.deposit__pools__item, 'box box-sm', {
-                ' box-green': index === 0,
+                'box-green-border': index === 2,
               })}
               onClick={() => handleSelectPool(pool)}
               onKeyDown={() => {}}
@@ -170,7 +170,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
             >
               <div className={cn(s.deposit__pools__item__title, 'text-green text-600')}>
                 <span>{pool.periodInterestRate}% APR</span>
-                {index === 0 ? (
+                {index === 2 ? (
                   <div className={cn(s.deposit__pools__item__recom, 'text-sm text-400')}>
                     Recommended
                   </div>

@@ -14,7 +14,7 @@
     "lint-fix:scss": "stylelint \"src/**/*.scss\" --fix"
   },
   "engines": {
-    "node": "14.17.0"
+    "node": ">=14.17.0"
   },
   "dependencies": {
     "@amfi/connect-wallet": "^1.1.20",

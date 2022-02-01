@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "react-template",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "build": "react-scripts build",
     "format": "prettier --write \"{src,types,scripts}/**/*.{json,{j,t}s{,x},scss,}\"",
@@ -65,7 +65,7 @@
     "eslint-plugin-simple-import-sort": "^5.0.2"
   },
   "engines": {
-    "node": "14.17.0"
+    "node": ">=14.17.0"
   },
   "browserslist": {
     "production": [

@@ -1,8 +1,11 @@
+/* eslint-disable no-console */
 import React from 'react';
 
-import { useWalletConnectorContext } from 'services';
-import { contracts } from 'config';
 import { TNullable } from 'typings';
+
+import { contracts } from 'config';
+
+import { useWalletConnectorContext } from 'services';
 
 const useApprove = ({
   tokenName,

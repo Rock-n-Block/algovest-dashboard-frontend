@@ -1,42 +1,52 @@
 .header-tooltip {
   opacity: 1;
+
   .rc-tooltip {
     &-inner {
-      background: #ffffff;
-      box-shadow: 0px 4px 20px rgba(34, 34, 34, 0.08);
-      border-radius: 8px;
       padding: 25px 15px;
+
+      background: #fff;
       border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(34, 34, 34, 0.08);
       @include b('mobile') {
         padding: 10px;
       }
     }
+
     &-arrow {
       display: none;
     }
   }
 }
+
 .rc-tooltip {
   opacity: 1;
+
   &-inner {
-    background: #ffffff;
+    padding: 11px 12px 9px 8px;
+
+    max-width: 177px;
+
+    color: $black;
+    background: #fff;
     border: 1px solid #e5e5e5;
     border-radius: 4px;
-    padding: 11px 12px 9px 8px;
     box-shadow: none;
-    max-width: 177px;
-    color: $black;
   }
+
   &-arrow {
     width: 10px;
     height: 10px;
-    border: none;
-    border-right: 1px solid #e5e5e5;
-    border-top: 1px solid #e5e5e5;
-    border-radius: 1px;
-    transform: rotate(45deg);
+
     background: #fff;
+    border: none;
     border-width: 1.5px !important;
+    border-top: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    border-radius: 1px;
+
+    transform: rotate(45deg);
     @include b('mobile') {
       border: none;
       border-left: 1px solid #e5e5e5;

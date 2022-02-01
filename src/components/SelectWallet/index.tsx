@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+
+import { chainsEnum } from 'typings';
+
+import { useWalletConnectorContext } from 'services';
 
 import { Metamask, WalletConnect } from 'assets/img';
-import { useWalletConnectorContext } from 'services';
-import { chainsEnum } from 'typings';
-import { useMst } from 'store';
 
 import s from './SelectWallet.module.scss';
 

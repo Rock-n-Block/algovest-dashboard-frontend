@@ -1,4 +1,4 @@
-import { types, SnapshotOut } from 'mobx-state-tree';
+import { SnapshotOut, types } from 'mobx-state-tree';
 
 const StakingItem = types.model('StakingItem', {
   amount: types.string,

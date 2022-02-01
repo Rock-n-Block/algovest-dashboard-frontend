@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { StakingPage, PoolPage } from 'pages/index';
-import { Header, SelectWalletModal, Navbar } from 'containers';
+import { Header, Navbar, SelectWalletModal } from 'containers';
+
+import { PoolPage, StakingPage } from 'pages/index';
 
 export const App: FC = () => {
   return (

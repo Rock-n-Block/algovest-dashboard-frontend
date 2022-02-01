@@ -1,8 +1,7 @@
 import { INetwork } from '@amfi/connect-wallet/dist/interface';
-
 import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 
-import { ERC20Abi, BondAbi } from './abi';
+import { BondAbi, ERC20Abi } from './abi';
 
 export const is_production = true;
 

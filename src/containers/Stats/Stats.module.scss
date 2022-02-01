@@ -3,12 +3,14 @@
 .stats {
   margin-bottom: 25px;
   @include b('mobile') {
-    margin-bottom: 30px;
     margin-top: 40px;
+    margin-bottom: 30px;
   }
+
   &__overview {
     margin-bottom: 30px;
     @include flex(row, flex-end, space-between);
+
     &__title {
       margin-bottom: 4px;
       @include b('mobile') {
@@ -16,12 +18,15 @@
       }
     }
   }
+
   &__btn {
     @include b('mobile') {
       margin-top: 15px;
+
       width: 100%;
     }
   }
+
   &__box {
     @include grid(1fr 228px, 1fr, 14px);
     width: 100%;
@@ -29,58 +34,75 @@
       display: block;
     }
   }
+
   &__total {
     &__img {
       width: 48px;
       height: 48px;
-      border-radius: 10px;
+
       background: $green-light;
+      border-radius: 10px;
       @include flex(row, center, center);
+
       img {
         max-width: 26px;
       }
     }
+
     &__amount {
+      margin-top: 15px;
+
       font-size: 24px;
       line-height: 29px;
-      margin-top: 15px;
       @include b('mobile') {
         margin: 10px 0 5px;
       }
     }
   }
+
   &__info {
     @include b('mobile') {
       width: 100%;
     }
+
     &__title {
       margin-bottom: 30px;
     }
+
     &__item {
       @include flex(row, center, space-between, nowrap);
+
       & + & {
         margin-top: 20px;
       }
+
       &__name {
         @include flex(row, center, center, nowrap);
+
         img {
           margin-left: 8px;
         }
       }
+
       &__value {
         @include flex(row, center, center, nowrap);
+
         span {
           @include flex(row, cetner);
         }
+
         img {
           max-width: 18px;
         }
+
         div {
           margin: 0 5px;
         }
+
         img + span {
           margin-left: 8px;
         }
+
         span + img {
           margin-left: 8px;
         }

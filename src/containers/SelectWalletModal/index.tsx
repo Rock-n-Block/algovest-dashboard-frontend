@@ -1,8 +1,9 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
-import { SelectWallet, Modal } from 'components';
+import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
+
+import { Modal, SelectWallet } from 'components';
 
 import s from './SelectWalletModal.module.scss';
 

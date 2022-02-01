@@ -3,8 +3,9 @@ import React, { createContext, useContext } from 'react';
 import { observer } from 'mobx-react';
 import { rootStore } from 'store';
 
-import { WalletService } from 'services/walletService';
 import { chainsEnum } from 'typings';
+
+import { WalletService } from 'services/walletService';
 
 declare global {
   interface Window {
@@ -72,6 +73,7 @@ class Connector extends React.Component<
               }
             },
             (err: any) => {
+              // eslint-disable-next-line no-console
               console.log(err);
               eventSubs.unsubscribe();
               this.disconnect();

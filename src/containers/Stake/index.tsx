@@ -1,14 +1,17 @@
 import React from 'react';
+
 import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 
-import { Input, Button } from 'components';
-import { useWalletConnectorContext } from 'services';
-import { useMst } from 'store';
-import { useTokenBalance, useApprove } from 'hooks';
+import { Button, Input } from 'components';
 import { contracts } from 'config';
 import { checkValueDecimals } from 'utils';
+
+import { useApprove, useTokenBalance } from 'hooks';
+import { useWalletConnectorContext } from 'services';
 
 import { Avs } from 'assets/img';
 

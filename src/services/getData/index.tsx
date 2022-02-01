@@ -1,11 +1,15 @@
+/* eslint-disable no-console */
 import React from 'react';
-import BigNumber from 'bignumber.js';
+
 import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+import { IBondItem, IPoolItem } from 'store/Models/Pools';
+
+import BigNumber from 'bignumber.js';
+
+import { contracts } from 'config';
 
 import { useWalletConnectorContext } from 'services';
-import { contracts } from 'config';
-import { useMst } from 'store';
-import { IPoolItem, IBondItem } from 'store/Models/Pools';
 
 const GetData: React.FC = ({ children }) => {
   const { walletService } = useWalletConnectorContext();

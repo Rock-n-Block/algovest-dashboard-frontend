@@ -1,14 +1,17 @@
 import React from 'react';
-import cn from 'classnames';
-import { observer } from 'mobx-react-lite';
-import { format, differenceInSeconds } from 'date-fns';
-import BigNumber from 'bignumber.js';
 
+import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
+
+import BigNumber from 'bignumber.js';
+import cn from 'classnames';
 import { UnstakeModal } from 'containers';
-import { useModal } from 'hooks';
+import { differenceInSeconds, format } from 'date-fns';
+
 import { Button } from 'components';
 import { numbWithCommas } from 'utils';
+
+import { useModal } from 'hooks';
 
 import { Avs } from 'assets/img';
 

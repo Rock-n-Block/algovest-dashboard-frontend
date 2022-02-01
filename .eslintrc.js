@@ -1,4 +1,4 @@
-const prettierConfig = require('./.prettierrc.js');
+const prettierConfig = require('./.prettierrc');
 
 module.exports = {
   env: {
@@ -67,6 +67,7 @@ module.exports = {
     'quote-props': ['error', 'consistent-as-needed'],
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/require-default-props': 'off',
     'react/prop-types': 'off',
     'react/destructuring-assignment': 'off',

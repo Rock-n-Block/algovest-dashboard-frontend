@@ -54,7 +54,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
           <div className={s.stats__info__item}>
             <div className={cn(s.stats__info__item__name, 'text-gray')}>Your AVS Balance:</div>
             <div className={s.stats__info__item__value}>
-              <span className="text-500">{numbWithCommas(avsBalance)}</span>
+              <span className="text-500">{numbWithCommas(avsBalance || '0')}</span>
             </div>
           </div>
           <div className={s.stats__info__item}>
@@ -208,7 +208,7 @@ const Stats: React.VFC<IStats> = ({ type }) => {
               <img src={Coins} alt="" />
             </div>
             <div className={cn(s.stats__total__amount, 'text-600 text-ellipsis')}>
-              {numbWithCommas(staking.item.amount)}
+              {numbWithCommas(staking.total)}
             </div>
             <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Staked AVS</div>
           </div>
@@ -222,13 +222,13 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             <img src={Lock} alt="" />
           </div>
           <div className={cn(s.stats__total__amount, 'text-600 text-ellipsis')}>
-            {pools.totalLocked}
+            {numbWithCommas(pools.totalLocked)}
           </div>
           <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Value Locked</div>
         </div>
       </>
     );
-  }, [type, staking.item.amount, pools.totalLocked]);
+  }, [type, staking.total, pools.totalLocked]);
 
   return (
     <div className={s.stats}>

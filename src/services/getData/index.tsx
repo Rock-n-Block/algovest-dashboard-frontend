@@ -34,6 +34,27 @@ const GetData: React.FC = ({ children }) => {
   }, [walletService, staking]);
 
   const getTotalStaked = React.useCallback(async () => {
+    try {
+      const stakeInfo = await walletService.callContractMethod({
+        contractName: 'AVS',
+        methodName: 'balanceOf',
+        contractAddress: contracts.params.AVS[contracts.type].address,
+        contractAbi: contracts.params.AVS[contracts.type].abi,
+        data: [contracts.params.BOND[contracts.type].address],
+      });
+
+      const amount = await walletService.weiToEth(
+        contracts.params.AVS[contracts.type].address,
+        stakeInfo,
+      );
+
+      staking.setTotal(amount);
+    } catch (err) {
+      console.log('err get total staked', err);
+    }
+  }, [walletService, staking]);
+
+  const getUserStake = React.useCallback(async () => {
     if (user.address) {
       try {
         const stakeInfo = await walletService.callContractMethod({
@@ -91,10 +112,11 @@ const GetData: React.FC = ({ children }) => {
 
   const getStakingData = React.useCallback(() => {
     getTotalStaked();
+    getUserStake();
     getMinStake();
     getStakingInfo();
     getApr();
-  }, [getTotalStaked, getStakingInfo, getApr, getMinStake]);
+  }, [getUserStake, getStakingInfo, getApr, getMinStake, getTotalStaked]);
 
   React.useEffect(() => {
     getStakingData();
@@ -110,6 +132,27 @@ const GetData: React.FC = ({ children }) => {
   // end staking
 
   // start pool
+
+  const getTotalDeposited = React.useCallback(async () => {
+    try {
+      const stakeInfo = await walletService.callContractMethod({
+        contractName: 'USDC',
+        methodName: 'balanceOf',
+        contractAddress: contracts.params.USDC[contracts.type].address,
+        contractAbi: contracts.params.USDC[contracts.type].abi,
+        data: [contracts.params.BOND[contracts.type].address],
+      });
+
+      const amount = await walletService.weiToEth(
+        contracts.params.USDC[contracts.type].address,
+        stakeInfo,
+      );
+
+      pools.setTotalLocked(amount);
+    } catch (err) {
+      console.log('err get total deposited', err);
+    }
+  }, [walletService, pools]);
 
   const getPoolTotalSupply = React.useCallback(async () => {
     try {
@@ -198,20 +241,6 @@ const GetData: React.FC = ({ children }) => {
 
         const boundsInfo = await Promise.all(boundsInfoPromises);
 
-        const amount = boundsInfo.reduce((prevAmount, bond) => {
-          if (!bond.withdrawn) {
-            return +new BigNumber(prevAmount).plus(bond.amount);
-          }
-          return prevAmount;
-        }, 0);
-
-        const totalLocked = await walletService.weiToEth(
-          contracts.params.USDC[contracts.type].address,
-          amount,
-        );
-
-        pools.setTotalLocked(totalLocked);
-
         const bondsForStore = boundsInfo.map((bond, index) => ({
           id: nftIds[index],
           pool: bondPoolsIds[index],
@@ -277,11 +306,12 @@ const GetData: React.FC = ({ children }) => {
   }, [walletService, pools]);
 
   const getPoolData = React.useCallback(() => {
+    getTotalDeposited();
     getActiveDeposits();
     getPools();
     getPoolTotalSupply();
     getDeposits();
-  }, [getPools, getActiveDeposits, getDeposits, getPoolTotalSupply]);
+  }, [getPools, getActiveDeposits, getDeposits, getPoolTotalSupply, getTotalDeposited]);
 
   React.useEffect(() => {
     getPoolData();

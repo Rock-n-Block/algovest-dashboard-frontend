@@ -14,8 +14,12 @@ const Staking = types
     apr: types.string,
     isRefresh: types.boolean,
     minAmount: types.string,
+    total: types.string,
   })
   .actions((self) => ({
+    setTotal: (amount: string) => {
+      self.total = amount;
+    },
     setMinAmount: (amount: string) => {
       self.minAmount = amount;
     },

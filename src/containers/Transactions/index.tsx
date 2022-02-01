@@ -1,9 +1,11 @@
 import React from 'react';
-import cn from 'classnames';
+
 import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
+
+import cn from 'classnames';
 
 import { PoolTrxTrable, StakingTrxTrable } from './components';
-import { useMst } from 'store';
 
 import s from './Transactions.module.scss';
 

@@ -1,6 +1,8 @@
-import { types, SnapshotOut, cast, Instance } from 'mobx-state-tree';
-import { WalletService } from 'services';
+import { cast, Instance, SnapshotOut, types } from 'mobx-state-tree';
+
 import BigNumber from 'bignumber.js';
+
+import { WalletService } from 'services';
 
 const PoolItem = types.model('PoolItem', {
   id: types.identifierNumber,

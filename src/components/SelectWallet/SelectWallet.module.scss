@@ -3,32 +3,43 @@
 .s_wallet {
   &__item {
     @include flex(row, center);
-    border-radius: $border-radius;
     padding: 16px 23px;
-    transition: 0.3s;
+
     cursor: pointer;
+
     border: 1.8px solid #e5e7eb;
+    border-radius: $border-radius;
+
+    transition: 0.3s;
+
     &:hover {
       background: $btn-hover-green;
       border-color: $btn-bg-green;
     }
+
     & + & {
       margin-top: 10px;
     }
+
     &__img {
+      margin-right: 16px;
+
       min-width: 47px;
       min-height: 38px;
       @include flex(row, center, center);
-      margin-right: 16px;
     }
   }
+
   &__quest {
     margin-top: 88px;
   }
+
   &__link {
     margin-top: 8px;
+
     width: fit-content;
     @include flex(row, center);
+
     img {
       margin-left: 10px;
     }

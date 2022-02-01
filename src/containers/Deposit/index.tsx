@@ -1,8 +1,10 @@
 import React from 'react';
+
 import cn from 'classnames';
+import { DepositModal } from 'containers';
 
 import { Button } from 'components';
-import { DepositModal } from 'containers';
+
 import { useModal } from 'hooks';
 
 import s from './Deposit.module.scss';

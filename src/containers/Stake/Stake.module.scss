@@ -4,24 +4,32 @@
   &__subtitle {
     margin: 4px 0 20px;
   }
+
   &__postfix {
     @include flex(row, center, center, nowrap);
+
     img {
-      max-width: 24px;
       margin-right: 4px;
+
+      max-width: 24px;
     }
   }
+
   &__error {
     @include flex(row, center, center, nowrap);
+
     img {
       margin-right: 8px;
     }
   }
+
   &__input {
     margin-bottom: 40px;
   }
+
   &__btn {
-    margin: 30px auto 0px;
+    margin: 30px auto 0;
+
     width: 100%;
   }
 }

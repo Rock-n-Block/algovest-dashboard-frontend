@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react';
-import { Instance, onSnapshot, types } from 'mobx-state-tree';
-import makeInspectable from 'mobx-devtools-mst';
 
-import { Modals, UserModel, Staking, Pools } from './Models';
+import makeInspectable from 'mobx-devtools-mst';
+import { Instance, onSnapshot, types } from 'mobx-state-tree';
+
+import { Modals, Pools, Staking, UserModel } from './Models';
 
 const RootModel = types.model('RootModel', {
   user: UserModel,
@@ -45,6 +46,7 @@ const RootStoreContext = createContext<RootInstance | null>(null);
 export const { Provider } = RootStoreContext;
 
 onSnapshot(rootStore, (snapshot) => {
+  // eslint-disable-next-line no-console
   console.log(snapshot);
 });
 

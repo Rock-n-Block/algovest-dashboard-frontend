@@ -1,15 +1,18 @@
 import React from 'react';
-import cn from 'classnames';
-import { observer } from 'mobx-react-lite';
-import BigNumber from 'bignumber.js';
 
-import { Modal, Steps, EstimatedReward, Input, Button } from 'components';
-import { IModalProps } from 'typings';
-import { useSteps, useTokenBalance, useApprove } from 'hooks';
+import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
 import { IPoolItem } from 'store/Models/Pools';
+
+import BigNumber from 'bignumber.js';
+import cn from 'classnames';
+import { IModalProps } from 'typings';
+
+import { Button, EstimatedReward, Input, Modal, Steps } from 'components';
 import { contracts, is_production } from 'config';
 import { checkValueDecimals } from 'utils';
+
+import { useApprove, useSteps, useTokenBalance } from 'hooks';
 import { useWalletConnectorContext, WalletService } from 'services';
 
 import { LockupPeriod, Usdc } from 'assets/img';

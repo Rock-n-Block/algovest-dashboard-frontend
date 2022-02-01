@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { observer } from 'mobx-react-lite';
+import { useMst } from 'store';
 
 import { IModalProps } from 'typings';
-import { Modal, Button } from 'components';
-import { useMst } from 'store';
-import { useWalletConnectorContext } from 'services';
+
+import { Button, Modal } from 'components';
 import { addressWithDots } from 'utils';
+
+import { useWalletConnectorContext } from 'services';
 
 import s from './DisconnectModal.module.scss';
 

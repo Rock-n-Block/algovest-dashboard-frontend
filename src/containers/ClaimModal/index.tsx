@@ -1,18 +1,21 @@
 import React from 'react';
-import cn from 'classnames';
-import { format, add, differenceInDays, differenceInWeeks, differenceInSeconds } from 'date-fns';
+
 import { observer } from 'mobx-react-lite';
-
-import { IModalProps } from 'typings';
-import { Modal, Button } from 'components';
-import { TBondItem } from 'store/Models/Pools';
-import { WalletService, useWalletConnectorContext } from 'services';
 import { useMst } from 'store';
+import { TBondItem } from 'store/Models/Pools';
 
-import { Avs, Usdc, Interest, Info } from 'assets/img';
+import BigNumber from 'bignumber.js';
+import cn from 'classnames';
+import { add, differenceInDays, differenceInSeconds, differenceInWeeks, format } from 'date-fns';
+import { IModalProps } from 'typings';
+
+import { Button, Modal } from 'components';
+
+import { useWalletConnectorContext, WalletService } from 'services';
+
+import { Avs, Info, Interest, Usdc } from 'assets/img';
 
 import s from './ClaimModal.module.scss';
-import BigNumber from 'bignumber.js';
 
 interface IClaimModal extends Pick<IModalProps, 'onClose' | 'visible'> {
   deposit?: TBondItem;
@@ -23,6 +26,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
   const { pools } = useMst();
   const [loading, setLoading] = React.useState(false);
 
+  // eslint-disable-next-line no-console
   console.log(deposit, 'deposit');
 
   const handleClaim = React.useCallback(async () => {
@@ -67,7 +71,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
       if (diff > +deposit.pool.noncesToUnlock) {
         diff = +deposit.pool.noncesToUnlock;
       }
-      const pendingInt = WalletService.weiToEthWithDecimals(deposit.pendingInterest);
+      const pendingInt = WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6);
       const interest = new BigNumber(pendingInt)
         .div(deposit.pool.noncesToUnlock)
         .multipliedBy(diff - +deposit.currentNonce);
@@ -102,7 +106,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
           <div className={s.c_modal__item}>
             <div className={cn(s.c_modal__item__title, 'text-smd')}>Amount:</div>
             <div className={cn(s.c_modal__item__value, 'text-smd text-600')}>
-              {WalletService.weiToEthWithDecimals(deposit.amount)}
+              {WalletService.weiToEthWithDecimals(deposit.amount, 6)}
             </div>
           </div>
           <div className={s.c_modal__item}>
@@ -124,7 +128,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
           <div className={s.c_modal__item}>
             <div className={cn(s.c_modal__item__title, 'text-smd')}>Total Interest:</div>
             <div className={cn(s.c_modal__item__value, 'text-smd text-600')}>
-              {WalletService.weiToEthWithDecimals(deposit.pendingInterest)}
+              {WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6)}
             </div>
           </div>
         </div>

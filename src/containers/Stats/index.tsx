@@ -1,5 +1,6 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import BigNumber from 'bignumber.js';
 
 import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
@@ -225,13 +226,15 @@ const Stats: React.VFC<IStats> = ({ type }) => {
             <img src={Lock} alt="" />
           </div>
           <div className={cn(s.stats__total__amount, 'text-600 text-ellipsis')}>
-            {numbWithCommas(pools.totalLocked)}
+            {numbWithCommas(
+              new BigNumber(pools.totalLocked).plus(pools.activeDeposits).toFixed(0, 1),
+            )}
           </div>
           <div className={cn(s.stats__total__text, 'text-gray text-md')}>Total Value Locked</div>
         </div>
       </>
     );
-  }, [type, staking.total, pools.totalLocked]);
+  }, [type, staking.total, pools.totalLocked, pools.activeDeposits]);
 
   return (
     <div className={s.stats}>

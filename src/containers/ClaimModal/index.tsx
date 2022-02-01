@@ -67,7 +67,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
       if (diff > +deposit.pool.noncesToUnlock) {
         diff = +deposit.pool.noncesToUnlock;
       }
-      const pendingInt = WalletService.weiToEthWithDecimals(deposit.pendingInterest);
+      const pendingInt = WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6);
       const interest = new BigNumber(pendingInt)
         .div(deposit.pool.noncesToUnlock)
         .multipliedBy(diff - +deposit.currentNonce);
@@ -102,7 +102,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
           <div className={s.c_modal__item}>
             <div className={cn(s.c_modal__item__title, 'text-smd')}>Amount:</div>
             <div className={cn(s.c_modal__item__value, 'text-smd text-600')}>
-              {WalletService.weiToEthWithDecimals(deposit.amount)}
+              {WalletService.weiToEthWithDecimals(deposit.amount, 6)}
             </div>
           </div>
           <div className={s.c_modal__item}>
@@ -124,7 +124,7 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
           <div className={s.c_modal__item}>
             <div className={cn(s.c_modal__item__title, 'text-smd')}>Total Interest:</div>
             <div className={cn(s.c_modal__item__value, 'text-smd text-600')}>
-              {WalletService.weiToEthWithDecimals(deposit.pendingInterest)}
+              {WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6)}
             </div>
           </div>
         </div>

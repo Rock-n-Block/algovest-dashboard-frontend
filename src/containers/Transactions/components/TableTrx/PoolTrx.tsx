@@ -104,7 +104,7 @@ const PoolTrx: React.VFC = () => {
             <div className={s.t_table__pool__row__data}>
               <div className={s.t_table__pool__row__name}>Amount</div>
               <div className={s.t_table__pool__row__value}>
-                {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.amount))}
+                {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.amount, 6))}
               </div>
             </div>
             <div className={s.t_table__pool__row__data}>
@@ -118,7 +118,7 @@ const PoolTrx: React.VFC = () => {
             <div className={s.t_table__pool__row__data}>
               <div className={s.t_table__pool__row__name}>Total Interest</div>
               <div className={s.t_table__pool__row__value}>
-                {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.pendingInterest))}
+                {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6))}
               </div>
             </div>
             {width > 1000 ? (

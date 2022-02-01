@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { format, add, differenceInDays, differenceInSeconds, addMinutes } from 'date-fns';
+import { format, add, differenceInDays, differenceInSeconds, addWeeks } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 
 import { IModalProps } from 'typings';
@@ -59,9 +59,9 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
 
   const unlockDate = React.useMemo(() => {
     if (deposit) {
-      const unlock = addMinutes(
+      const unlock = addWeeks(
         new Date(+deposit.depositTimestamp * 1000),
-        +deposit.pool.noncesToUnlock * 5,
+        +deposit.pool.noncesToUnlock,
       );
 
       return format(unlock, 'dd.MM.yyyy');
@@ -95,7 +95,7 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
           <div className={s.w_modal__item}>
             <div className={cn(s.w_modal__item__title, 'text-smd')}>Total USDC: </div>
             <div className={cn(s.w_modal__item__value, 'text-smd text-600')}>
-              {WalletService.weiToEthWithDecimals(deposit.amount)}
+              {WalletService.weiToEthWithDecimals(deposit.amount, 6)}
             </div>
           </div>
           <div className={s.w_modal__item}>

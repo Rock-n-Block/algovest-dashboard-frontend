@@ -43,6 +43,8 @@ class Connector extends React.Component<
   }
 
   componentDidMount() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.state.provider.connectWallet.initWeb3(
       'https://mainnet.infura.io/v3/d21662b57aec47daa7b87f182cd87e0b',
     );

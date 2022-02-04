@@ -1,10 +1,10 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import BigNumber from 'bignumber.js';
 
 import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
 
+import BigNumber from 'bignumber.js';
 import cn from 'classnames';
 import Tooltip from 'rc-tooltip';
 

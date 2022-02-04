@@ -1,10 +1,11 @@
 import React from 'react';
-import { format, add, differenceInDays, differenceInSeconds, addWeeks } from 'date-fns';
+
 import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
 import { TBondItem } from 'store/Models/Pools';
 
 import cn from 'classnames';
+import { add, addWeeks, differenceInDays, differenceInSeconds, format } from 'date-fns';
 import { IModalProps } from 'typings';
 
 import { Button, Modal } from 'components';

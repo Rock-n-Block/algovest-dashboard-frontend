@@ -64,9 +64,6 @@
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-simple-import-sort": "^5.0.2"
   },
-  "engines": {
-    "node": ">=16.13.2"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

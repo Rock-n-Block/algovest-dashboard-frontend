@@ -3,7 +3,7 @@ import { chainsEnum, IConnectWallet, IContracts } from 'typings';
 
 import { BondAbi, ERC20Abi } from './abi';
 
-export const is_production = true;
+export const is_production = false;
 
 export const chains: {
   [key: string]: {

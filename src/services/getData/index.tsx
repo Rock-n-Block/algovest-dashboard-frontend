@@ -245,15 +245,34 @@ const GetData: React.FC = ({ children }) => {
 
         const boundsInfo = await Promise.all(boundsInfoPromises);
 
-        const bondsForStore = boundsInfo.map((bond, index) => ({
-          id: nftIds[index],
-          pool: bondPoolsIds[index],
-          amount: bond.amount,
-          currentNonce: bond.currentNonce,
-          depositTimestamp: bond.depositTimestamp,
-          pendingInterest: bond.pendingInterest,
-          withdrawn: bond.withdrawn,
-        }));
+        const bondsForStore = boundsInfo.map((bond, index) => {
+          const newPendingInterest = new BigNumber(bond.amount)
+            .multipliedBy(new BigNumber(pools.items[index].periodInterestRate).dividedBy(100))
+            .dividedBy(365)
+            .multipliedBy(7)
+            .multipliedBy(bond.currentNonce)
+            .toFixed(2, 1);
+
+          return {
+            id: nftIds[index],
+            pool: bondPoolsIds[index],
+            amount: bond.amount,
+            currentNonce: bond.currentNonce,
+            depositTimestamp: bond.depositTimestamp,
+            pendingInterest: newPendingInterest,
+            withdrawn: bond.withdrawn,
+          };
+        });
+
+        // const bondsForStore = boundsInfo.map((bond, index) => ({
+        //   id: nftIds[index],
+        //   pool: bondPoolsIds[index],
+        //   amount: bond.amount,
+        //   currentNonce: bond.currentNonce,
+        //   depositTimestamp: bond.depositTimestamp,
+        //   pendingInterest: bond.pendingInterest,
+        //   withdrawn: bond.withdrawn,
+        // }));
         pools.setDeposits(bondsForStore.reverse());
       } catch (err) {
         console.log('err get deposits', err);

@@ -14,7 +14,7 @@ const Deposit: React.VFC = () => {
   return (
     <>
       <div className={cn(s.deposit, 'box')}>
-        <div className={cn(s.deposit__title, 'text-lmd')}>Deposit and WIN</div>
+        <div className={cn(s.deposit__title, 'text-lmd')}>Deposit and EARN</div>
         <div className={cn(s.deposit__subtitle, 'text-smd text-gray')}>
           Don’t wait, start earning passive income
         </div>

@@ -231,7 +231,6 @@ const GetData: React.FC = ({ children }) => {
         );
 
         const bondPoolsIds = await Promise.all(bondPoolsIdsPromises);
-
         const boundsInfoPromises: Array<Promise<IBondItem>> = bondPoolsIds.map(
           (boundPoolId, index) =>
             walletService.callContractMethod({
@@ -245,34 +244,44 @@ const GetData: React.FC = ({ children }) => {
 
         const boundsInfo = await Promise.all(boundsInfoPromises);
 
-        const bondsForStore = boundsInfo.map((bond, index) => {
-          const newPendingInterest = new BigNumber(bond.amount)
-            .multipliedBy(new BigNumber(pools.items[index].periodInterestRate).dividedBy(100))
-            .dividedBy(365)
-            .multipliedBy(7)
-            .multipliedBy(bond.currentNonce)
-            .toFixed(2, 1);
+        // const bondsForStore = boundsInfo.map((bond, index) => {
+        //   // const depositAmount = numbWithCommas(WalletService.weiToEthWithDecimals(bond.amount, 6));
+        //   // console.log(depositAmount);
 
-          return {
-            id: nftIds[index],
-            pool: bondPoolsIds[index],
-            amount: bond.amount,
-            currentNonce: bond.currentNonce,
-            depositTimestamp: bond.depositTimestamp,
-            pendingInterest: newPendingInterest,
-            withdrawn: bond.withdrawn,
-          };
-        });
+        //   // const bondWithDecimals = new BigNumber(bond.amount)
+        //   //   .dividedBy(new BigNumber(10).pow(18))
+        //   //   .toString(10);
 
-        // const bondsForStore = boundsInfo.map((bond, index) => ({
-        //   id: nftIds[index],
-        //   pool: bondPoolsIds[index],
-        //   amount: bond.amount,
-        //   currentNonce: bond.currentNonce,
-        //   depositTimestamp: bond.depositTimestamp,
-        //   pendingInterest: bond.pendingInterest,
-        //   withdrawn: bond.withdrawn,
-        // }));
+        //   // const newPendingInterest = new BigNumber(bondWithDecimals)
+        //   //   .multipliedBy(
+        //   //     new BigNumber(pools.items[+bondPoolsIds[index]].periodInterestRate).dividedBy(100),
+        //   //   )
+        //   //   .dividedBy(365)
+        //   //   .multipliedBy(7)
+        //   //   .multipliedBy(pools.items[+bondPoolsIds[index]].noncesToUnlock)
+        //   //   .toFixed(2, 1);
+        //   // console.log(bondPoolsIds[index]);
+
+        //   return {
+        //     id: nftIds[index],
+        //     pool: bondPoolsIds[index],
+        //     amount: bond.amount,
+        //     currentNonce: bond.currentNonce,
+        //     depositTimestamp: bond.depositTimestamp,
+        //     pendingInterest: bond.pendingInterest,
+        //     withdrawn: bond.withdrawn,
+        //   };
+        // });
+
+        const bondsForStore = boundsInfo.map((bond, index) => ({
+          id: nftIds[index],
+          pool: bondPoolsIds[index],
+          amount: bond.amount,
+          currentNonce: bond.currentNonce,
+          depositTimestamp: bond.depositTimestamp,
+          pendingInterest: bond.pendingInterest,
+          withdrawn: bond.withdrawn,
+        }));
         pools.setDeposits(bondsForStore.reverse());
       } catch (err) {
         console.log('err get deposits', err);

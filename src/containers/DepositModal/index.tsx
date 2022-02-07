@@ -111,6 +111,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
         .multipliedBy(selectedPool.noncesToUnlock)
         .toFixed(2, 1);
     }
+
     return '0';
   }, [amount, selectedPool]);
 

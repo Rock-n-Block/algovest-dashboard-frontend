@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useMst } from 'store';
 import { TBondItem } from 'store/Models/Pools';
 
+import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
 import { ClaimModal, WithdrawModal } from 'containers';
 import { format } from 'date-fns';
@@ -121,6 +122,12 @@ const PoolTrx: React.VFC = () => {
             <div className={s.t_table__pool__row__data}>
               <div className={s.t_table__pool__row__name}>Total Interest</div>
               <div className={s.t_table__pool__row__value}>
+                {new BigNumber(WalletService.weiToEthWithDecimals(deposit.amount, 6))
+                  .multipliedBy(new BigNumber(deposit.pool.periodInterestRate).dividedBy(100))
+                  .dividedBy(365)
+                  .multipliedBy(7)
+                  .multipliedBy(deposit.pool.noncesToUnlock)
+                  .toFixed(2, 1)}
                 {deposit.pendingInterest}
                 {/* {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6))} */}
               </div>

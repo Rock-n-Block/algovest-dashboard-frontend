@@ -121,7 +121,10 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
         if (
           new BigNumber(staking.item.amount)
             .multipliedBy(10)
-            .isGreaterThanOrEqualTo(new BigNumber(pools.totalLocked).plus(amount))
+            .isGreaterThanOrEqualTo(new BigNumber(amount))
+          // new BigNumber(staking.item.amount)
+          //   .multipliedBy(10)
+          //   .isGreaterThanOrEqualTo(new BigNumber(pools.totalLocked).plus(amount))
         ) {
           return true;
         }
@@ -130,7 +133,7 @@ const DepositModal: React.VFC<Pick<IModalProps, 'onClose' | 'visible'>> = ({
       return true;
     }
     return true;
-  }, [amount, pools.totalLocked, staking.item.amount, visible]);
+  }, [amount, staking.item.amount, visible]);
 
   const textErr = React.useMemo(() => {
     if (new BigNumber(amount).isGreaterThan(usdcBalance || 0)) {

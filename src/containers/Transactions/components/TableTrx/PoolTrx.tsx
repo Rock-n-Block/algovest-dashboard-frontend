@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 // import Pagination from 'rc-pagination';
 import { observer } from 'mobx-react-lite';
@@ -16,7 +16,7 @@ import { Button } from 'components';
 import { numbWithCommas } from 'utils';
 
 import { useModal, useWindowSize } from 'hooks';
-import { WalletService } from 'services';
+import { useWalletConnectorContext, WalletService } from 'services';
 
 import { ReactComponent as Dots } from 'assets/img/icons/dots.svg';
 
@@ -24,6 +24,7 @@ import s from './TableTrx.module.scss';
 
 const PoolTrx: React.VFC = () => {
   const { pools } = useMst();
+  const { walletService } = useWalletConnectorContext();
   const [isClaimModalVisible, handleOpenClaimModal, handleCloseClaimModal] = useModal(false);
   const [isWithdrawModalVisible, handleOpenWithdrawModal, handleCloseWithdrawModal] =
     useModal(false);
@@ -61,6 +62,26 @@ const PoolTrx: React.VFC = () => {
     },
     [handleOpenClaimModal, handleOpenWithdrawModal],
   );
+
+  const handleGetClaimValue = useCallback(
+    async (depositId: number) => {
+      try {
+        const claimInterest = await walletService.createTransaction({
+          method: 'claimInterest',
+          data: [depositId],
+          contract: 'BOND',
+        });
+        return claimInterest;
+      } catch (error) {
+        return '';
+      }
+    },
+    [walletService],
+  );
+
+  useEffect(() => {
+    handleGetClaimValue(1);
+  }, [handleGetClaimValue]);
 
   return (
     <>
@@ -128,7 +149,7 @@ const PoolTrx: React.VFC = () => {
                   .multipliedBy(7)
                   .multipliedBy(deposit.pool.noncesToUnlock)
                   .toFixed(2, 1)}
-                {deposit.pendingInterest}
+                {/* {deposit.pendingInterest} */}
                 {/* {numbWithCommas(WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6))} */}
               </div>
             </div>

@@ -128,7 +128,13 @@ const ClaimModal: React.VFC<IClaimModal> = ({ visible, onClose, deposit }) => {
           <div className={s.c_modal__item}>
             <div className={cn(s.c_modal__item__title, 'text-smd')}>Total Interest:</div>
             <div className={cn(s.c_modal__item__value, 'text-smd text-600')}>
-              {WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6)}
+              {/* {WalletService.weiToEthWithDecimals(deposit.pendingInterest, 6)} */}
+              {new BigNumber(WalletService.weiToEthWithDecimals(deposit.amount, 6))
+                .multipliedBy(new BigNumber(deposit.pool.periodInterestRate).dividedBy(100))
+                .dividedBy(365)
+                .multipliedBy(7)
+                .multipliedBy(deposit.pool.noncesToUnlock)
+                .toFixed(2, 1)}
             </div>
           </div>
         </div>

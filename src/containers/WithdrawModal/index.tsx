@@ -46,7 +46,7 @@ const WithdrawModal: React.VFC<IWithdrawModal> = ({ visible, onClose, deposit })
   const daysBeforeClaim = React.useMemo(() => {
     if (deposit) {
       const nextClaim = add(new Date(+deposit.depositTimestamp * 1000), {
-        weeks: +deposit.currentNonce + 1,
+        weeks: +deposit.currentNonce,
       });
       const diffDays = differenceInDays(new Date(nextClaim), new Date());
       const diffSeconds = differenceInSeconds(new Date(nextClaim), new Date());
